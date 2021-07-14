@@ -5,4 +5,4 @@ Our goal was to create a class that could easily be imported into projects to gi
 - Bootstrap Container (Courtesy of [Rush Frisby](https://rushfrisby.com/using-bootstrap-in-wordpress-admin-panel))
 - Font-Awesome Field Info Buttons and Bootstrap Toasts
 - jQuery Dynamic Navigation
-- Settings Saved as Multi-Dimensional Arrays
+- Settings Grouped Under One Option in Database (Saved as Multi-Dimensional Array)
