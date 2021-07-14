@@ -6,6 +6,7 @@ Our goal was to create a class that could easily be imported into projects to gi
 - Font-Awesome Field Info Buttons and Bootstrap Toasts
 - jQuery Dynamic Navigation
 - Settings Grouped Under One Option in Database (Saved as Multi-Dimensional Array)
+- Bootstrap Spinner Preloader (Prevents Layout Shifting on Load)
 
 
 **To-Do**
