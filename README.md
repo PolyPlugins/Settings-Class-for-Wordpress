@@ -1,4 +1,5 @@
 # WordPress Settings Class
+![image](https://user-images.githubusercontent.com/85666508/125552415-76589585-3ad4-4f3d-98d6-4c8270bdbdc6.png)
 Our goal was to create a class that could easily be imported into projects to give easy methods to handle adding a settings to the backend of WordPress.
 
 **Features**
@@ -14,6 +15,5 @@ Our goal was to create a class that could easily be imported into projects to gi
 - Menu Location Parameters
 
 
-**Consider Contributing**
-
+**Consider Contributing**  
 We know this class will be useful to many in cutting down development times, but we would love help from the community. We are actively using this class for our software and will continue to build off of it, but we know it can become something greater, faster, with the help of the community. Feel free to submit a PR or submit any issues you have as we will be actively maintaining this.
