@@ -1,0 +1,103 @@
+/* Global Begin */
+*:focus {
+  outline: none!important;
+  box-shadow: none!important;
+}
+/* Global End */
+
+/* Bootstrap Begin */
+input, select {
+  border-radius: 5px!important;
+}
+
+.input-group:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+.bootstrap-wrapper {
+  margin: 0 15px 0 15px;
+  /* background-color: #fff; */
+  /* border-radius: 25px; */
+}
+
+.top-bar {
+  color: #fff;
+  background-color: #333;
+  font-size: 16pt;
+  padding: 5px 0 5px 10px;
+  text-transform: uppercase;
+}
+
+.tabs {
+  background-color: #fff;
+  padding: 0px!important;
+}
+
+.tabs a.nav-link {
+  font-size: 16pt;
+  text-align: center;
+  text-transform: uppercase;
+  color: #333;
+  background-color: #fff;
+  border-left: 2px solid #333;
+  border-right: 2px solid #333;
+}
+
+.tabs a.nav-link:last-child {
+  border-bottom: 2px solid #333;
+}
+
+.tabs a.nav-link.previous {
+  color: #fff;
+  background-color: #333;
+}
+
+.tabs a.nav-link.active {
+  color: #48BEA4;
+  background-color: #333;
+  /* padding-bottom: 20px; */
+}
+
+.tabs a.nav-link.active:hover {
+  color: #48BEA4;
+  background-color: #333;
+}
+
+.tabs a.nav-link:hover {
+  color: #fff;
+  background-color: #48BEA4;
+}
+
+.options {
+  /* margin: 20px 20px 0 0; */
+  background-color: #fff;
+  padding: 20px;
+}
+/* Bootstrap End */
+
+/* Font-Awesome Begin */
+.info {
+  padding-left: 10px;
+}
+
+a.info {
+  text-decoration: none!important;
+  outline: none!important;
+}
+
+.info .fa {
+  color: #333;
+  font-size: 15pt;
+}
+
+.info .fa:hover {
+  color: #48BEA4;
+  font-size: 15pt;
+}
+/* Font-Awesome End */
+
+/* Toast Begin */
+.bootstrap-wrapper .toast {
+  background-color: #fff!important;
+}
+/* Toast End */
