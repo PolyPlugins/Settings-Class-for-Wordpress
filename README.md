@@ -1,0 +1,1 @@
+# WordPress-Settings-Class
