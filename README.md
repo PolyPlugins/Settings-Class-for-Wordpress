@@ -1,4 +1,4 @@
-# WordPress Settings Class
+# Settings Class for WordPress
 ![image](https://user-images.githubusercontent.com/85666508/125552415-76589585-3ad4-4f3d-98d6-4c8270bdbdc6.png)
 Our goal was to create a class that could easily be imported into projects to give easy methods to handle adding a settings to the backend of WordPress.
 
