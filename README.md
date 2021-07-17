@@ -9,7 +9,7 @@ Our goal was to create a class that could easily be imported into projects to gi
 - Settings Grouped Under One Option in Database (Saved as Multi-Dimensional Array)
 - Bootstrap Spinner Preloader (Prevents Layout Shifting on Load)
 
-**Usage**
+**Usage**  
 We built and used this in our [fork](https://github.com/PolyPlugins/PSR4-WordPress-Plugin-Boilerplate) of Devin Vinson [WordPress Plugin Boilerplate](https://github.com/DevinVinson/WordPress-Plugin-Boilerplate) however you can adapt this to suit the structure of your plugin. Our PSR4 version of Devin's plugin uses Namespacing and Autoloading, which is perfect for this class. So if you aren't familiar with those, now is a wonderful time to learn, because we'll be referencing our fork moving forward.
 
 In your constructor for your backend loader, you'll want to define the settings property referencing the class.  
