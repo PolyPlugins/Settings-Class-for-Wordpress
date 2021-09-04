@@ -161,7 +161,7 @@ class Settings
         
         <!-- Fields -->
         <?php foreach($get_fields as $section => $fields) : ?>
-          <div class="col-lg-9 col-md-12 options"<?php echo ($sections[0] != $section) ? ' style="display: none;"' : ''; ?> section="<?php echo $section ?>">
+          <div class="<?php echo (count($sections) != 1) ? 'col-lg-9' : 'col-lg-12'; ?> col-md-12 options"<?php echo ($sections[0] != $section) ? ' style="display: none;"' : ''; ?> section="<?php echo $section ?>">
             <?php foreach($fields as $field) : ?>
               <?php $field['section'] = $section; ?>
               <?php $this->add_field($field); ?>
@@ -170,13 +170,15 @@ class Settings
         <?php endforeach; ?>
 
         <!-- Navigation -->
-        <div class="col-lg-3 col-md-12 tabs">
-          <nav class="nav flex-column">
-            <?php foreach ($sections as $section) : ?>
-              <a class="nav-link<?php echo ($sections[0] == $section) ? ' active' : ''; ?>" href="javascript:void(0)" selected-section="<?php echo $section; ?>"><?php echo str_replace('-', ' ', $section); ?></a>
-            <?php endforeach; ?>
-          </nav>
-        </div>
+        <?php if (count($sections) != 1) : ?>
+          <div class="col-lg-3 col-md-12 tabs">
+            <nav class="nav flex-column">
+              <?php foreach ($sections as $section) : ?>
+                <a class="nav-link<?php echo ($sections[0] == $section) ? ' active' : ''; ?>" href="javascript:void(0)" selected-section="<?php echo $section; ?>"><?php echo str_replace('-', ' ', $section); ?></a>
+              <?php endforeach; ?>
+            </nav>
+          </div>
+        <?php endif; ?>
 
       </div>
     </div>
@@ -235,12 +237,12 @@ class Settings
   public function sanitize($type, $value) {
     // Need to get previous settings and pass them back
 
-    if ($type == 'text') {
+    if ($type == 'text' || $type == 'switch' || $type == 'password') {
       $sanitized_value = sanitize_text_field($value);
     }
 
-    if ($type == 'switch') {
-      $sanitized_value = sanitize_text_field($value);
+    if ($type == 'number' && is_numeric($value)) {
+      $sanitized_value = (int) $value;
     }
 
     // Return false if it didn't detect any type
@@ -282,6 +284,30 @@ class Settings
   }
 
   /**
+   * A custom callback built to handle displaying of number fields
+   *
+   * @param  array $field
+   * @return void
+   */
+  public function callback_number($field) {
+    $options = $this->options;
+    $section = $field['section'];
+    $name    = sanitize_title($field['name']);
+    $label   = $field['name'];
+    $id      = $section . '-' . $name;
+    $type    = $field['type'];
+    $value   = (!empty($options[$section][$name]['value'])) ? $options[$section][$name]['value'] : '';
+    ?>
+    <div class="input-group">
+      <input type="number" class="form-control" name="<?php echo $this->options_name . '[' . $section . '][' . $name . '][' . $type . ']' ; ?>" id="<?php echo $id; ?>" placeholder="<?php echo $label; ?>" value="<?php echo $value; ?>">
+      
+      <!-- Display a info button which displays a toast when clicked -->
+      <?php $this->toast($field['help'], $field['timeout']); ?>
+    </div>
+    <?php
+  }
+
+  /**
    * A custom callback built to handle displaying of text fields
    *
    * @param  array $field
@@ -298,6 +324,30 @@ class Settings
     ?>
     <div class="input-group">
       <input type="text" class="form-control" name="<?php echo $this->options_name . '[' . $section . '][' . $name . '][' . $type . ']' ; ?>" id="<?php echo $id; ?>" placeholder="<?php echo $label; ?>" value="<?php echo $value; ?>">
+      
+      <!-- Display a info button which displays a toast when clicked -->
+      <?php $this->toast($field['help'], $field['timeout']); ?>
+    </div>
+    <?php
+  }
+
+  /**
+   * A custom callback built to handle displaying of password fields
+   *
+   * @param  array $field
+   * @return void
+   */
+  public function callback_password($field) {
+    $options = $this->options;
+    $section = $field['section'];
+    $name    = sanitize_title($field['name']);
+    $label   = $field['name'];
+    $id      = $section . '-' . $name;
+    $type    = $field['type'];
+    $value   = (!empty($options[$section][$name]['value'])) ? $options[$section][$name]['value'] : '';
+    ?>
+    <div class="input-group">
+      <input type="password" class="form-control" name="<?php echo $this->options_name . '[' . $section . '][' . $name . '][' . $type . ']' ; ?>" id="<?php echo $id; ?>" placeholder="<?php echo $label; ?>" value="<?php echo $value; ?>">
       
       <!-- Display a info button which displays a toast when clicked -->
       <?php $this->toast($field['help'], $field['timeout']); ?>
