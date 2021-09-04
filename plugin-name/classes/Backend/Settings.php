@@ -219,7 +219,7 @@ class Settings
         if (!$validated) break;
       }
     }
-    
+
     // Only save settings if sanitizing was successful
     return ($validated) ? $settings : $old_settings;
   }
@@ -327,7 +327,7 @@ class Settings
     <div class="position-fixed bottom-0 right-0 p-3" style="z-index: 5; right: 0; bottom: 0;">
       <div class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="<?php echo $timeout; ?>">
         <div class="toast-header">
-          <img src="<?php echo plugins_url('/img/icon.png', $this->plugin); ?>" class="rounded mr-2" alt="Poly Plugins Icon">
+          <img src="<?php echo plugins_url('/img/backend/icon.png', $this->plugin); ?>" class="rounded mr-2" alt="Poly Plugins Icon">
           <strong class="mr-auto">Information</strong>
           <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
             <span aria-hidden="true">&times;</span>
