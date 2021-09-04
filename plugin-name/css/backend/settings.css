@@ -5,6 +5,16 @@
 }
 /* Global End */
 
+/* Form Begin */
+table.form-table th {
+  display: none;
+}
+
+table.form-table td {
+  padding: 0;
+}
+/* Form End */
+
 /* Bootstrap Begin */
 input, select {
   border-radius: 5px!important;
