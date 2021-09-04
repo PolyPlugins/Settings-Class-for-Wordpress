@@ -91,6 +91,10 @@ class Settings
    */
   public function init()
   {
+    if (!get_option( $this->options_name )) {
+      add_option( $this->options_name );
+    }
+
     register_setting(
       $this->plugin_slug_id . '_option_group', // option_group
       $this->options_name, // option_name
