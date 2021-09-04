@@ -268,9 +268,9 @@ class Settings
   public function callback_switch($field) {
     $options = $this->options;
     $section = $field['section'];
-    $name    = sanitize_title($field['name']);
+    $name    = str_replace('-', '_', sanitize_title($field['name']));
     $label   = $field['name'];
-    $id      = $section . '-' . $name;
+    $id      = $section . '_' . $name;
     $type    = $field['type'];
     $checked = (!empty($options[$section][$name]['value'])) ? ' checked' : '';
     ?>
@@ -292,9 +292,9 @@ class Settings
   public function callback_number($field) {
     $options = $this->options;
     $section = $field['section'];
-    $name    = sanitize_title($field['name']);
+    $name    = str_replace('-', '_', sanitize_title($field['name']));
     $label   = $field['name'];
-    $id      = $section . '-' . $name;
+    $id      = $section . '_' . $name;
     $type    = $field['type'];
     $value   = (!empty($options[$section][$name]['value'])) ? $options[$section][$name]['value'] : '';
     ?>
@@ -316,9 +316,9 @@ class Settings
   public function callback_text($field) {
     $options = $this->options;
     $section = $field['section'];
-    $name    = sanitize_title($field['name']);
+    $name    = str_replace('-', '_', sanitize_title($field['name']));
     $label   = $field['name'];
-    $id      = $section . '-' . $name;
+    $id      = $section . '_' . $name;
     $type    = $field['type'];
     $value   = (!empty($options[$section][$name]['value'])) ? $options[$section][$name]['value'] : '';
     ?>
@@ -340,9 +340,9 @@ class Settings
   public function callback_password($field) {
     $options = $this->options;
     $section = $field['section'];
-    $name    = sanitize_title($field['name']);
+    $name    = str_replace('-', '_', sanitize_title($field['name']));
     $label   = $field['name'];
-    $id      = $section . '-' . $name;
+    $id      = $section . '_' . $name;
     $type    = $field['type'];
     $value   = (!empty($options[$section][$name]['value'])) ? $options[$section][$name]['value'] : '';
     ?>
@@ -390,6 +390,19 @@ class Settings
       </div>
     </div>
     <?php
+  }
+  
+  /**
+   * Get option from options array
+   *
+   * @param  mixed $section      Section of setting
+   * @param  mixed $option       Get option of the previously specified section
+   * @return mixed $option_value Returns the value of the option
+   */
+  public function get_option($section, $option) {
+    $option_value = $this->options[$section][$option]['value'];
+
+    return $option_value;
   }
 
 }
