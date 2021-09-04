@@ -124,6 +124,7 @@ class Settings
     // Styles
     wp_enqueue_style('font-awesome', plugins_url('/css/backend/font-awesome.min.css', $this->plugin), array(), filemtime(plugin_dir_path(dirname($this->plugin)) . dirname(plugin_basename($this->plugin)) . '/css/backend/font-awesome.min.css'));
     wp_enqueue_style($this->plugin_slug . '-settings', plugins_url('/css/backend/settings.css', $this->plugin), array(), filemtime(plugin_dir_path(dirname($this->plugin)) . dirname(plugin_basename($this->plugin)) . '/css/backend/settings.css'));
+    wp_enqueue_style($this->plugin_slug . '-admin', plugins_url('/css/backend/admin.css', $this->plugin), array(), filemtime(plugin_dir_path(dirname($this->plugin)) . dirname(plugin_basename($this->plugin)) . '/css/backend/admin.css'));
     // Bootstrap
     wp_enqueue_script('bootstrap', plugins_url('/js/backend/bootstrap.js', $this->plugin), array(), filemtime(plugin_dir_path(dirname($this->plugin)) . dirname(plugin_basename($this->plugin))  . '/js/backend/bootstrap.js'), true);
     wp_enqueue_script('bootstrap-less', plugins_url('/js/backend/bootstrap-less.js', $this->plugin), array(), filemtime(plugin_dir_path(dirname($this->plugin)) . dirname(plugin_basename($this->plugin))  . '/js/backend/bootstrap-less.js'), true);
