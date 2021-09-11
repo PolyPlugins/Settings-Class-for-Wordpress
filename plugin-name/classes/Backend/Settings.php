@@ -123,7 +123,8 @@ class Settings
    * @return void
    */
   public function enqueue() {
-    if($_GET['page'] == $this->plugin_slug) {
+    $page = (isset($_GET['page'])) ? sanitize_text_field($_GET['page']) : '';
+    if($page == $this->plugin_slug) {
       // JS
       wp_enqueue_script($this->plugin_slug . '-settings', plugins_url('/js/backend/settings.js', $this->plugin), array('jquery'), filemtime(plugin_dir_path(dirname($this->plugin)) . dirname(plugin_basename($this->plugin))  . '/js/backend/settings.js'), true);
       // Styles
@@ -405,8 +406,12 @@ class Settings
    * @return mixed $option_value Returns the value of the option
    */
   public function get_option($section, $option) {
-    $option_value = $this->options[$section][$option]['value'];
-
+    if (!empty($this->options[$section][$option]['value'])) {
+      $option_value = $this->options[$section][$option]['value'];
+    } else {
+      $option_value = '';
+    }
+    
     return $option_value;
   }
 
