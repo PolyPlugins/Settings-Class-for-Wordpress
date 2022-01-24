@@ -120,7 +120,8 @@ public function enqueue() {
 ```
 
 **To-Do**
-- Add switch toggle with additional options
+- Add switch toggle with additional options field
+- Add WP Color Picker field
 
 
 **Consider Contributing**  
