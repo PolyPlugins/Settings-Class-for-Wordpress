@@ -4,7 +4,7 @@ Our goal was to create a class that could easily be imported into projects to gi
 
 **Features**
 - Bootstrap Container (Courtesy of [Rush Frisby](https://rushfrisby.com/using-bootstrap-in-wordpress-admin-panel))
-- Font-Awesome Field Info Buttons and Bootstrap Toasts
+- Font-Awesome Field Info Buttons and <s>Bootstrap Toasts</s> Sidebar Info Helper
 - jQuery Dynamic Navigation
 - Settings Grouped Under One Option in Database (Saved as Multi-Dimensional Array)
 - Bootstrap Spinner Preloader (Prevents Layout Shifting on Load)
