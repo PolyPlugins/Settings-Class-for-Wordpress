@@ -29,48 +29,48 @@ The fields method is defined as follows
 public function fields() {
   $fields = array(
     'general' => array(
-      array(
-					'name'    => __('Enabled', $this->plugin_slug),
-					'type'    => 'switch',
-					'default' => false,
-				),
-				array(
-					'name'    => __('Username', $this->plugin_slug),
-					'type'    => 'text',
-					'default' => false,
-					'help'    => __('Enter a username.', $this->plugin_slug),
-				),
-				array(
-					'name'    => __('Password', $this->plugin_slug),
-					'type'    => 'password',
-					'default' => false,
-					'help'    => __('Enter a password. Note: This is stored in the DB as plain text as most other plugins do, we will change this if requested.', $this->plugin_slug),
-				),
-				array(
-					'name'    => __('Number', $this->plugin_slug),
-					'type'    => 'number',
-					'default' => false,
-					'help'    => __('Enter a number.', $this->plugin_slug),
-				),
-				array(
-					'name'    => __('Time', $this->plugin_slug),
-					'type'    => 'time',
-					'default' => false,
-					'help'    => __('Select a time.', $this->plugin_slug),
-				),
-				array(
-					'name'    => __('Date', $this->plugin_slug),
-					'type'    => 'date',
-					'default' => false,
-					'help'    => __('Select a date.', $this->plugin_slug),
-				),
-				array(
-					'name'    => __('Color', $this->plugin_slug),
-					'type'    => 'dropdown',
-					'options' => array('Red', 'Blue'),
-					'default' => false,
-					'help'    => __('Select a date.', $this->plugin_slug),
-				),
+      	array(
+	  'name'    => __('Enabled', $this->plugin_slug),
+	  'type'    => 'switch',
+	  'default' => false,
+	),
+	array(
+	  'name'    => __('Username', $this->plugin_slug),
+	  'type'    => 'text',
+	  'default' => false,
+	  'help'    => __('Enter a username.', $this->plugin_slug),
+	),
+	array(
+	  'name'    => __('Password', $this->plugin_slug),
+	  'type'    => 'password',
+	  'default' => false,
+	  'help'    => __('Enter a password. Note: This is stored in the DB as plain text as most other plugins do, we will change this if requested.', $this->plugin_slug),
+	),
+	array(
+	  'name'    => __('Number', $this->plugin_slug),
+	  'type'    => 'number',
+	  'default' => false,
+	  'help'    => __('Enter a number.', $this->plugin_slug),
+	),
+	array(
+	  'name'    => __('Time', $this->plugin_slug),
+	  'type'    => 'time',
+	  'default' => false,
+	  'help'    => __('Select a time.', $this->plugin_slug),
+	),
+	array(
+	  'name'    => __('Date', $this->plugin_slug),
+	  'type'    => 'date',
+	  'default' => false,
+	  'help'    => __('Select a date.', $this->plugin_slug),
+	),
+	array(
+	  name'    => __('Color', $this->plugin_slug),
+	  'type'    => 'dropdown',
+	  'options' => array('Red', 'Blue'),
+	  'default' => false,
+	  'help'    => __('Select a date.', $this->plugin_slug),
+	),
     ),
     'woocommerce' => array(
       array(
