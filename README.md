@@ -65,7 +65,7 @@ public function fields() {
 	  'help'    => __('Select a date.', $this->plugin_slug),
 	),
 	array(
-	  name'    => __('Color', $this->plugin_slug),
+	  'name'    => __('Color', $this->plugin_slug),
 	  'type'    => 'dropdown',
 	  'options' => array('Red', 'Blue'),
 	  'default' => false,
