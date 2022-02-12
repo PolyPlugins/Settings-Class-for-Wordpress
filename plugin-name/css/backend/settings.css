@@ -1,4 +1,12 @@
 /* Global Begin */
+table.form-table th {
+  display: none;
+}
+
+table.form-table td {
+  padding: 0;
+}
+
 .settings-container h2 {
   color: #333;
   display: block!important;
@@ -177,3 +185,9 @@ label.form-label {
   font-weight: 600;
 }
 /* Form End */
+
+/* Validation Begin */
+.invalid {
+  border-color: #ff0000!important;
+}
+/* Validation End */

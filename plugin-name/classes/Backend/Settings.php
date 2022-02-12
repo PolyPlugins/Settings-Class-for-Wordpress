@@ -17,10 +17,10 @@ class Settings
 	 * Full path and filename of plugin.
 	 *
 	 * @since    1.0.0
-	 * @access   protected
+	 * @access   private
 	 * @var      string    $plugin    Full path and filename of plugin.
 	 */
-	protected $plugin;
+	private $plugin;
 
 	/**
 	 * The ID of this plugin.
@@ -29,59 +29,83 @@ class Settings
 	 * @access   private
 	 * @var      string    $plugin_slug    The ID of this plugin.
 	 */
-	protected $plugin_slug;
+	private $plugin_slug;
 
 	/**
 	 * The slug but with _ instead of -
 	 *
 	 * @since    1.0.0
-	 * @access   protected
+	 * @access   private
 	 * @var      string    $plugin_slug_id    The slug but with _ instead of -
 	 */
-  protected $plugin_slug_id;
+  private $plugin_slug_id;
+
+	/**
+	 * The plugin name
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 * @var      string    $plugin_name    Name of the plugin
+	 */
+  private $plugin_name;
+
+	/**
+	 * The plugin menu name
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 * @var      string    $plugin_name    Name of the menu for the plugin
+	 */
+  private $plugin_menu_name;
 
 	/**
 	 * The unique name for the plugins options.
 	 *
 	 * @since    1.0.0
-	 * @access   protected
+	 * @access   private
 	 * @var      string    $settings_name    The name used to uniquely identify this plugins options.
 	 */
-  protected $settings_name;
+  private $settings_name;
   
 	/**
 	 * The plugin's options array
 	 *
 	 * @since    1.0.0
-	 * @access   protected
+	 * @access   private
 	 * @var      array    $settings    The plugin's options array
 	 */
-  protected $settings;
+  private $settings;
 
   
 	/**
 	 * The plugin's options fields
 	 *
 	 * @since    1.0.0
-	 * @access   protected
+	 * @access   private
 	 * @var      array    $fields    The plugin's options fields
 	 */
-  protected $fields;
+  private $fields;
 
   /**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
-	 * @param    string    $plugin_slug       The name of this plugin.
-	 * @param    string    $version    The version of this plugin.
+	 * @param    string    $plugin         Full path and filename of plugin.
+	 * @param    string    $plugin_slug    The ID of this plugin.
+	 * @param    string    $plugin_slug_id The ID of this plugin with underscores
+	 * @param    string    $settings_name  The unique name for the plugins options.
+	 * @param    string    $settings       The plugin's options array
+	 * @param    string    $fields         The plugin's options fields
 	 */
 	public function __construct( $plugin, $plugin_slug, $plugin_slug_id, $settings_name, $settings, $fields ) {
-		$this->plugin          = $plugin;
-		$this->plugin_slug     = $plugin_slug;
-		$this->plugin_slug_id  = $plugin_slug_id;
-		$this->settings_name   = $settings_name;
-		$this->settings        = $settings;
-    $this->fields          = $fields;
+		$this->plugin           = $plugin;
+		$this->plugin_slug      = $plugin_slug;
+		$this->plugin_slug_id   = $plugin_slug_id;
+    $this->plugin_name      = __(mb_convert_case(str_replace('-', ' ', $this->plugin_slug), MB_CASE_TITLE), $this->plugin_slug);
+    $this->plugin_menu_name = __($this->plugin_name, $this->plugin_slug);
+		$this->settings_name    = $settings_name;
+		$this->settings         = $settings;
+    $this->fields           = $fields;
 	}
   
   /**
@@ -129,9 +153,52 @@ class Settings
       // Bootstrap
       wp_enqueue_script('bootstrap', plugins_url('/js/backend/bootstrap.min.js', $this->plugin), array(), filemtime(plugin_dir_path(dirname($this->plugin)) . dirname(plugin_basename($this->plugin))  . '/js/backend/bootstrap.min.js'), true);
       wp_enqueue_script('bootstrap-less', plugins_url('/js/backend/bootstrap-less.js', $this->plugin), array(), filemtime(plugin_dir_path(dirname($this->plugin)) . dirname(plugin_basename($this->plugin))  . '/js/backend/bootstrap-less.js'), true);
+      // Validator
+      wp_enqueue_script('validator', plugins_url('/js/backend/validator.min.js', $this->plugin), array(), filemtime(plugin_dir_path(dirname($this->plugin)) . dirname(plugin_basename($this->plugin))  . '/js/backend/validator.min.js'), true);
       // Localize
       wp_localize_script('bootstrap-less', 'plugin_properties', array('plugin_url' => plugins_url(), 'plugin_slug' => $this->plugin_slug));
     }
+  }
+
+  /**
+   * Adds a link to manage options in the admin menu
+   *
+   * @return void
+   */
+  public function admin_menu($page) {
+    add_submenu_page(
+      $page, // parent_slug
+      $this->plugin_name . ' Options', // page_title
+      $this->plugin_menu_name, // menu_title
+      'manage_options', // capability
+      $this->plugin_slug, // menu_slug
+      array($this, 'create_admin_page'), // function
+      4 // after categories
+    );
+  }
+
+  /**
+	 * Builds the admin page
+	 *
+	 * @return void
+	 */
+	public function create_admin_page()
+  {
+  ?>
+    <div class="wrap">
+      <h2><?php echo $this->plugin_name . ' Options' ?></h2>
+      <p></p>
+      <?php settings_errors(); ?>
+
+      <form method="post" action="options.php">
+        <?php
+        settings_fields($this->plugin_slug_id . '_option_group');
+        do_settings_sections($this->plugin_slug . '-admin');
+        submit_button();
+        ?>
+      </form>
+    </div>
+  <?php
   }
   
   /**
@@ -141,7 +208,6 @@ class Settings
    */
   public function settings_callback()
   {
-    $settings     = (!empty($this->settings)) ? $this->settings : '';
     $get_fields  = $this->fields;
     $sections    = array_keys($get_fields);
     ?>
@@ -260,6 +326,14 @@ class Settings
       $sanitized_value = sanitize_text_field($value);
     }
 
+    if ($type == 'email') {
+      $sanitized_value = sanitize_email($value);
+    }
+
+    if ($type == 'url') {
+      $sanitized_value = sanitize_url($value);
+    }
+
     if ($type == 'password') {
       $sanitized_value = sanitize_text_field($value);
     }
@@ -307,7 +381,8 @@ class Settings
     $label    = $field['name'];
     $id       = $section . '-' . $name;
     $type     = $field['type'];
-    $checked  = (!empty($settings[$section][$name]['value'])) ? ' checked' : '';
+    $default  = ($field['default']) ? $field['default'] : '';
+    $checked  = (!empty($settings[$section][$name]['value'])) ? ' checked' : $default;
     ?>
     <div class="form-group">
       <div class="custom-control custom-switch">
@@ -331,7 +406,8 @@ class Settings
     $label              = $field['name'];
     $id                 = $section . '-' . $name;
     $type               = $field['type'];
-    $checked            = (!empty($settings[$section][$name]['value'])) ? ' checked' : '';
+    $default            = ($field['default']) ? $field['default'] : '';
+    $checked            = (!empty($settings[$section][$name]['value'])) ? ' checked' : $default;
     $options            = $field['options'];
     $additional_options = (!empty($field['additional_options'])) ? $field['additional_options'] : false;
     ?>
@@ -365,11 +441,67 @@ class Settings
     $label    = $field['name'];
     $id       = $section . '-' . $name;
     $type     = $field['type'];
-    $value    = (!empty($settings[$section][$name]['value'])) ? $settings[$section][$name]['value'] : '';
+    $default  = ($field['default']) ? $field['default'] : '';
+    $required = ($field['required']) ? ' required' : '';
+    $value    = (!empty($settings[$section][$name]['value'])) ? $settings[$section][$name]['value'] : $default;
     ?>
     <label for="<?php echo $id; ?>"><?php echo $label; ?></label>
     <div class="input-group">
-      <input type="text" class="form-control" name="<?php echo $this->settings_name . '[' . $section . '][' . $name . '][' . $type . ']' ; ?>" id="<?php echo $id; ?>" placeholder="<?php echo $label; ?>" value="<?php echo $value; ?>">
+      <input type="text" class="form-control" name="<?php echo $this->settings_name . '[' . $section . '][' . $name . '][' . $type . ']' ; ?>" id="<?php echo $id; ?>" placeholder="<?php echo $label; ?>" value="<?php echo $value; ?>"<?php echo $required; ?>>
+      
+      <!-- Display a info button which displays a toast when clicked -->
+      <?php $this->helper($field['help']); ?>
+    </div>
+    <?php
+  }
+
+  /**
+   * A custom callback built to handle displaying of email fields
+   *
+   * @param  array $field
+   * @return void
+   */
+  public function callback_email($field) {
+    $settings = $this->settings;
+    $section  = $field['section'];
+    $name     = sanitize_title($field['name']);
+    $label    = $field['name'];
+    $id       = $section . '-' . $name;
+    $type     = $field['type'];
+    $default  = ($field['default']) ? $field['default'] : '';
+    $required = ($field['required']) ? ' required' : '';
+    $value    = (!empty($settings[$section][$name]['value'])) ? $settings[$section][$name]['value'] : $default;
+    ?>
+    <label for="<?php echo $id; ?>"><?php echo $label; ?></label>
+    <div class="input-group">
+      <input type="email" class="form-control" name="<?php echo $this->settings_name . '[' . $section . '][' . $name . '][' . $type . ']' ; ?>" id="<?php echo $id; ?>" placeholder="<?php echo $label; ?>" value="<?php echo $value; ?>"<?php echo $required; ?>>
+      
+      <!-- Display a info button which displays a toast when clicked -->
+      <?php $this->helper($field['help']); ?>
+    </div>
+    <?php
+  }
+
+  /**
+   * A custom callback built to handle displaying of url fields
+   *
+   * @param  array $field
+   * @return void
+   */
+  public function callback_url($field) {
+    $settings = $this->settings;
+    $section  = $field['section'];
+    $name     = sanitize_title($field['name']);
+    $label    = $field['name'];
+    $id       = $section . '-' . $name;
+    $type     = $field['type'];
+    $default  = ($field['default']) ? $field['default'] : '';
+    $required = ($field['required']) ? ' required' : '';
+    $value    = (!empty($settings[$section][$name]['value'])) ? $settings[$section][$name]['value'] : $default;
+    ?>
+    <label for="<?php echo $id; ?>"><?php echo $label; ?></label>
+    <div class="input-group">
+      <input type="url" class="form-control" name="<?php echo $this->settings_name . '[' . $section . '][' . $name . '][' . $type . ']' ; ?>" id="<?php echo $id; ?>" placeholder="<?php echo $label; ?>" value="<?php echo $value; ?>"<?php echo $required; ?>>
       
       <!-- Display a info button which displays a toast when clicked -->
       <?php $this->helper($field['help']); ?>
@@ -390,11 +522,13 @@ class Settings
     $label    = $field['name'];
     $id       = $section . '-' . $name;
     $type     = $field['type'];
-    $value    = (!empty($settings[$section][$name]['value'])) ? $settings[$section][$name]['value'] : '';
+    $default  = ($field['default']) ? $field['default'] : '';
+    $required = ($field['required']) ? ' required' : '';
+    $value    = (!empty($settings[$section][$name]['value'])) ? $settings[$section][$name]['value'] : $default;
     ?>
     <label for="<?php echo $id; ?>"><?php echo $label; ?></label>
     <div class="input-group">
-      <input type="password" class="form-control" name="<?php echo $this->settings_name . '[' . $section . '][' . $name . '][' . $type . ']' ; ?>" id="<?php echo $id; ?>" placeholder="<?php echo $label; ?>" value="<?php echo $value; ?>">
+      <input type="password" class="form-control" name="<?php echo $this->settings_name . '[' . $section . '][' . $name . '][' . $type . ']' ; ?>" id="<?php echo $id; ?>" placeholder="<?php echo $label; ?>" value="<?php echo $value; ?>"<?php echo $required; ?>>
       
       <!-- Display a info button which displays a toast when clicked -->
       <?php $this->helper($field['help']); ?>
@@ -415,11 +549,13 @@ class Settings
     $label    = $field['name'];
     $id       = $section . '-' . $name;
     $type     = $field['type'];
-    $value    = (!empty($settings[$section][$name]['value'])) ? $settings[$section][$name]['value'] : '';
+    $default  = ($field['default']) ? $field['default'] : '';
+    $required = ($field['required']) ? ' required' : '';
+    $value    = (!empty($settings[$section][$name]['value'])) ? $settings[$section][$name]['value'] : $default;
     ?>
     <label for="<?php echo $id; ?>"><?php echo $label; ?></label>
     <div class="input-group">
-      <input type="number" class="form-control" name="<?php echo $this->settings_name . '[' . $section . '][' . $name . '][' . $type . ']' ; ?>" id="<?php echo $id; ?>" placeholder="<?php echo $label; ?>" value="<?php echo $value; ?>">
+      <input type="number" class="form-control" name="<?php echo $this->settings_name . '[' . $section . '][' . $name . '][' . $type . ']' ; ?>" id="<?php echo $id; ?>" placeholder="<?php echo $label; ?>" value="<?php echo $value; ?>"<?php echo $required; ?>>
       
       <!-- Display a info button which displays a toast when clicked -->
       <?php $this->helper($field['help']); ?>
@@ -441,11 +577,13 @@ class Settings
     $id       = $section . '-' . $name;
     $type     = $field['type'];
     $options  = $field['options'];
-    $value    = (!empty($settings[$section][$name]['value'])) ? $settings[$section][$name]['value'] : '';
+    $default  = ($field['default']) ? $field['default'] : '';
+    $required = ($field['required']) ? ' required' : '';
+    $value    = (!empty($settings[$section][$name]['value'])) ? $settings[$section][$name]['value'] : $default;
     ?>
     <label for="<?php echo $id; ?>"><?php echo $label; ?></label>
     <div class="input-group">
-      <select class="form-select" name="<?php echo $this->settings_name . '[' . $section . '][' . $name . '][' . $type . ']' ; ?>" id="<?php echo $id; ?>" aria-label="<?php echo $label; ?>">
+      <select class="form-select" name="<?php echo $this->settings_name . '[' . $section . '][' . $name . '][' . $type . ']' ; ?>" id="<?php echo $id; ?>" aria-label="<?php echo $label; ?>"<?php echo $required; ?>>
         <option value="" disabled selected><?php echo $label; ?></option>
         <?php foreach ($options as $option) : ?>
           <option value="<?php echo $option; ?>" <?php echo ($option == $value) ? ' selected' : ''; ?>><?php echo $option; ?></option>
@@ -471,11 +609,13 @@ class Settings
     $label    = $field['name'];
     $id       = $section . '-' . $name;
     $type     = $field['type'];
-    $value    = (!empty($settings[$section][$name]['value'])) ? $settings[$section][$name]['value'] : '';
+    $default  = ($field['default']) ? $field['default'] : '';
+    $required = ($field['required']) ? ' required' : '';
+    $value    = (!empty($settings[$section][$name]['value'])) ? $settings[$section][$name]['value'] : $default;
     ?>
     <label for="<?php echo $id; ?>"><?php echo $label; ?></label>
     <div class="input-group">
-      <input type="date" class="form-control" name="<?php echo $this->settings_name . '[' . $section . '][' . $name . '][' . $type . ']' ; ?>" id="<?php echo $id; ?>" placeholder="<?php echo $label; ?>" value="<?php echo $value; ?>">
+      <input type="date" class="form-control" name="<?php echo $this->settings_name . '[' . $section . '][' . $name . '][' . $type . ']' ; ?>" id="<?php echo $id; ?>" placeholder="<?php echo $label; ?>" value="<?php echo $value; ?>"<?php echo $required; ?>>
       
       <!-- Display a info button which displays a toast when clicked -->
       <?php $this->helper($field['help']); ?>
@@ -496,11 +636,13 @@ class Settings
     $label    = $field['name'];
     $id       = $section . '-' . $name;
     $type     = $field['type'];
-    $value    = (!empty($settings[$section][$name]['value'])) ? $settings[$section][$name]['value'] : '';
+    $default  = ($field['default']) ? $field['default'] : '';
+    $required = ($field['required']) ? ' required' : '';
+    $value    = (!empty($settings[$section][$name]['value'])) ? $settings[$section][$name]['value'] : $default;
     ?>
     <label for="<?php echo $id; ?>"><?php echo $label; ?></label>
     <div class="input-group">
-      <input type="time" class="form-control" name="<?php echo $this->settings_name . '[' . $section . '][' . $name . '][' . $type . ']' ; ?>" id="<?php echo $id; ?>" placeholder="<?php echo $label; ?>" value="<?php echo $value; ?>">
+      <input type="time" class="form-control" name="<?php echo $this->settings_name . '[' . $section . '][' . $name . '][' . $type . ']' ; ?>" id="<?php echo $id; ?>" placeholder="<?php echo $label; ?>" value="<?php echo $value; ?>"<?php echo $required; ?>>
       
       <!-- Display a info button which displays a toast when clicked -->
       <?php $this->helper($field['help']); ?>

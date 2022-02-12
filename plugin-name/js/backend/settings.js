@@ -94,6 +94,51 @@
       $(".helper-sidebar").toggle();
     });
 
+    // Validation
+    $("#submit").click(function(e) {
+      let validated = true;
+
+      // Number
+      $("[type=number]").each(function() {
+        let $number = $(this).val();
+
+        $(this).removeClass('invalid');
+        if($number && !validator.isInt($number)) {
+          $(this).addClass('invalid');
+          $(this).addText('invalid');
+          validated = false;
+        }
+      });
+
+      // Email
+      $("[type=email]").each(function() {
+        let $email = $(this).val();
+
+        $(this).removeClass('invalid');
+        if($email && !validator.isEmail($email)) {
+          $(this).addClass('invalid');
+          $(this).addText('invalid');
+          validated = false;
+        }
+      });
+
+      // URL
+      $("[type=url]").each(function() {
+        let $url = $(this).val();
+
+        $(this).removeClass('invalid');
+        if($url && !validator.isURL($url)) {
+          $(this).addClass('invalid');
+          $(this).addText('invalid');
+          validated = false;
+        }
+      });
+      
+      if (!validated) {
+        e.preventDefault();
+      }
+    });
+
     // Toasts
     $(".helper").click(function() {
       $(".toast").each(function() {
