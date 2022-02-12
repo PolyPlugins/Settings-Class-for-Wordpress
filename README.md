@@ -2,14 +2,17 @@
 ![image](https://www.polyplugins.com/plugins/settings-class/1.gif)
 Our goal was to create a class that could easily be imported into projects to give easy methods to handle adding a clean and dynamic settings panel to the backend of WordPress.
 
-**Features**
+# Update
+You can see this class in action in our [Loginator](https://github.com/PolyPlugins/Loginator) plugin.
+
+# Features
 - Bootstrap Container (Courtesy of [Rush Frisby](https://rushfrisby.com/using-bootstrap-in-wordpress-admin-panel))
 - Font-Awesome Field Info Buttons and <s>Bootstrap Toasts</s> Sidebar Info Helper
 - jQuery Dynamic Navigation
 - Settings Grouped Under One Option in Database (Saved as Multi-Dimensional Array)
 - Bootstrap Spinner Preloader (Prevents Layout Shifting on Load)
 
-**Usage**  
+# Usage  
 We built and used this in our [fork](https://github.com/PolyPlugins/PSR4-WordPress-Plugin-Boilerplate) of Devin Vinson's [WordPress Plugin Boilerplate](https://github.com/DevinVinson/WordPress-Plugin-Boilerplate) however you can adapt this to suit the structure of your plugin. Our PSR4 version of Devin's plugin uses Namespacing and Autoloading, which is perfect for this class. So if you aren't familiar with those, now is a wonderful time to learn, because we'll be referencing our fork moving forward.
 
 In your constructor for your backend loader, you'll want to define the settings property referencing the class.  
@@ -119,10 +122,10 @@ public function enqueue() {
 }
 ```
 
-**To-Do**
+# To-Do
 - Add switch toggle with additional options field
 - Add WP Color Picker field
 
 
-**Consider Contributing**  
+# Consider Contributing
 We know this class will be useful to many in cutting down development times, but we would love help from the community. We are actively using this class for our software and will continue to build off of it, but we know it can become something greater, faster, with the help of the community. Feel free to submit a PR or submit any issues you have as we will be actively maintaining this.
