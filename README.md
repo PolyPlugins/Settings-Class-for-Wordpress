@@ -16,7 +16,9 @@ You can see this class in action in our [Loginator](https://github.com/PolyPlugi
 We built and used this in our [fork](https://github.com/PolyPlugins/PSR4-WordPress-Plugin-Boilerplate) of Devin Vinson's [WordPress Plugin Boilerplate](https://github.com/DevinVinson/WordPress-Plugin-Boilerplate) however you can adapt this to suit the structure of your plugin. Our PSR4 version of Devin's plugin uses Namespacing and Autoloading, which is perfect for this class. So if you aren't familiar with those, now is a wonderful time to learn, because we'll be referencing our fork moving forward.
 
 In your constructor for your backend loader, you'll want to define the settings property referencing the class.  
-`$this->settings = new Settings($this->plugin, $this->plugin_slug, $this->plugin_slug_id, $this->options_name, $this->options, $fields);`
+```
+$this->settings = new Settings($this->plugin, $this->plugin_slug, $this->plugin_slug_id, $this->options_name, $this->options, $fields);
+```
 
 As you can see we are passing a few properties this class requires in order to initialize. Below are how those properties are defined.
 ```
