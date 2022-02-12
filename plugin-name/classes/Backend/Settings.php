@@ -4,6 +4,7 @@
  * Settings class to handle adding an admin page and options.
  * @author Poly Plugins <contact@polyplugins.com>
  * @link   https://github.com/PolyPlugins/wordpress-settings-class
+ * @version 1.1.0
  */
 
 namespace Company\Plugin\Backend;
