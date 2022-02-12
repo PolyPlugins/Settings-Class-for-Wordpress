@@ -9,6 +9,7 @@ You can see this class in action in our [Loginator](https://github.com/PolyPlugi
 - Bootstrap Container (Courtesy of [Rush Frisby](https://rushfrisby.com/using-bootstrap-in-wordpress-admin-panel))
 - Font-Awesome Field Info Buttons and <s>Bootstrap Toasts</s> Sidebar Info Helper
 - jQuery Dynamic Navigation
+- Validation using [validator.js](https://github.com/validatorjs/validator.js)
 - Settings Grouped Under One Option in Database (Saved as Multi-Dimensional Array)
 - Bootstrap Spinner Preloader (Prevents Layout Shifting on Load)
 
