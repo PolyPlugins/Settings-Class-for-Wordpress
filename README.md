@@ -2,8 +2,8 @@
 ![image](https://www.polyplugins.com/plugins/settings-class/1.gif)
 Our goal was to create a class that could easily be imported into projects to give easy methods to handle adding a clean and dynamic settings panel to the backend of WordPress.
 
-# Update
-You can see this class in action in our [Loginator](https://github.com/PolyPlugins/Loginator) plugin.
+# Example
+You can see this class in action in our [Loginator](https://github.com/PolyPlugins/Loginator) plugin. Loginator's implementation does not use autoloading and therefor is not PSR-4 compliant. We did this to make invoking the logger easier.
 
 # Features
 - Bootstrap Container (Courtesy of [Rush Frisby](https://rushfrisby.com/using-bootstrap-in-wordpress-admin-panel))
@@ -16,15 +16,16 @@ You can see this class in action in our [Loginator](https://github.com/PolyPlugi
 We built and used this in our [fork](https://github.com/PolyPlugins/PSR4-WordPress-Plugin-Boilerplate) of Devin Vinson's [WordPress Plugin Boilerplate](https://github.com/DevinVinson/WordPress-Plugin-Boilerplate) however you can adapt this to suit the structure of your plugin. Our PSR4 version of Devin's plugin uses Namespacing and Autoloading, which is perfect for this class. So if you aren't familiar with those, now is a wonderful time to learn, because we'll be referencing our fork moving forward.
 
 In your constructor for your backend loader, you'll want to define the settings property referencing the class.  
-`$this->settings = new Settings($this->plugin, $this->plugin_slug, $this->plugin_slug_id, $this->options_name, $this->options, $this->fields());`
+`$this->settings = new Settings($this->plugin, $this->plugin_slug, $this->plugin_slug_id, $this->options_name, $this->options, $fields);`
 
 As you can see we are passing a few properties this class requires in order to initialize. Below are how those properties are defined.
 ```
-$this->plugin = __FILE__;
-$this->plugin_slug = dirname( plugin_basename( $this->plugin ) );
+$this->plugin           = __FILE__;
+$this->plugin_slug      = dirname( plugin_basename( $this->plugin ) );
 $this->plugin_slug_id   = str_replace( '-', '_', $this->plugin_slug );
-$this->options_name = $this->plugin_slug_id . '_options';
-$this->options = get_option( $this->options_name );
+$this->options_name     = $this->plugin_slug_id . '_options';
+$this->options_page     = 'options-general.php';
+$this->options          = get_option( $this->options_name );
 ```
 
 The fields method is defined as follows
@@ -50,10 +51,11 @@ public function fields() {
 	  'help'    => __('Enter a password. Note: This is stored in the DB as plain text as most other plugins do, we will change this if requested.', $this->plugin_slug),
 	),
 	array(
-	  'name'    => __('Number', $this->plugin_slug),
-	  'type'    => 'number',
-	  'default' => false,
-	  'help'    => __('Enter a number.', $this->plugin_slug),
+	  'name'     => __('Number', $this->plugin_slug),
+	  'type'     => 'number',
+	  'default'  => false,
+	  'help'     => __('Enter a number.', $this->plugin_slug),
+	  'required' => true,
 	),
 	array(
 	  'name'    => __('Time', $this->plugin_slug),
@@ -109,6 +111,7 @@ You'll also have to initialize the settings on admin init and enqueue scripts on
 ```
 $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue' );
 $this->loader->add_action( 'admin_init', $plugin_admin, 'admin_init' );
+$this->loader->add_action( 'admin_menu', $plugin_admin, 'admin_menu' );
 ```
 
 ```
@@ -119,6 +122,10 @@ public function admin_init() {
 
 public function enqueue() {
   $this->settings->enqueue();
+}
+
+public function admin_menu() {
+  $this->settings->admin_menu($this->options_page);
 }
 ```
 
