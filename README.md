@@ -1,3 +1,6 @@
+# UPDATE
+This is now maintained through the [WordPress Directory](https://wordpress.org/plugins/reusable-admin-panel/) and is now reusable without needing to include the code in multiple plugins
+
 # Settings Class for WordPress
 ![image](https://www.polyplugins.com/plugins/settings-class/1.gif)
 Our goal was to create a class that could easily be imported into projects to give easy methods to handle adding a clean and dynamic settings panel to the backend of WordPress.
