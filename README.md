@@ -1,12 +1,12 @@
 # UPDATE
-This is now maintained through the [WordPress Directory](https://wordpress.org/plugins/reusable-admin-panel/) and is now reusable without needing to include the code in multiple plugins
+This is now maintained through the [WordPress Directory](https://wordpress.org/plugins/reusable-admin-panel/) and is now reusable without needing to include the code in multiple plugins. You can submit a PR via the [Reusable Admin Panel Github Repo](https://github.com/PolyPlugins/reusable-admin-panel).
 
 # Settings Class for WordPress
 ![image](https://www.polyplugins.com/plugins/settings-class/1.gif)
 Our goal was to create a class that could easily be imported into projects to give easy methods to handle adding a clean and dynamic settings panel to the backend of WordPress.
 
 # Example
-You can see this class in action in our [Loginator](https://github.com/PolyPlugins/Loginator) plugin. Loginator's implementation does not use autoloading and therefor is not PSR-4 compliant. We did this to make invoking the logger easier.
+You can see this class in action in our [Loginator](https://github.com/PolyPlugins/Loginator-OOP) plugin. Loginator's implementation does not use autoloading and therefor is not PSR-4 compliant. We did this to make invoking the logger easier. Please note this is an example and is not used in the [WordPress Repository Version](https://wordpress.org/plugins/loginator/).
 
 # Features
 - Bootstrap Container (Courtesy of [Rush Frisby](https://rushfrisby.com/using-bootstrap-in-wordpress-admin-panel))
