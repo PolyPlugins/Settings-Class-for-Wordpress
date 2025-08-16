@@ -1,5 +1,7 @@
 # UPDATE
-This is now maintained through the [WordPress Directory](https://wordpress.org/plugins/reusable-admin-panel/) and is now reusable without needing to include the code in multiple plugins. You can submit a PR via the [Reusable Admin Panel Github Repo](https://github.com/PolyPlugins/reusable-admin-panel).
+This project will be actively maintained again as a Composer package.
+
+You can still use [Reusable Admin Panel](https://wordpress.org/plugins/reusable-admin-panel/) if you prefer, but we wanted to make it easier for users of our plugins to install without having to install another plugin on top. We understand if multiple plugins use this that it's extra files that may not be needed, but we've decided against forcing users to install another plugin with our plugins which is why we are going down this route. We do still plan to maintain Reusable Admin Panel.
 
 # Settings Class for WordPress
 ![image](https://www.polyplugins.com/plugins/settings-class/1.gif)
