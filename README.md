@@ -1,7 +1,7 @@
 # UPDATE
 This project will be actively maintained again as a Composer package.
 
-You can still use [Reusable Admin Panel](https://wordpress.org/plugins/reusable-admin-panel/) if you prefer, but we wanted to make it easier for users of our plugins to install without having to install another plugin on top. We understand if multiple plugins use this that it's extra files that may not be needed, but we've decided against forcing users to install another plugin with our plugins which is why we are going down this route. We do still plan to maintain Reusable Admin Panel.
+You can still use [Reusable Admin Panel](https://wordpress.org/plugins/reusable-admin-panel/) if you prefer, but this package makes it easier for plugin developers to include the settings class directly without requiring an additional plugin. While we understand that multiple plugins might include the same files, we decided not to force users to install extra plugins for our plugins, which is why we are offering this Composer-based solution. Reusable Admin Panel will continue to be maintained as well.
 
 # Settings Class for WordPress
 ![image](https://www.polyplugins.com/plugins/settings-class/1.gif)
