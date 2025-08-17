@@ -231,6 +231,9 @@ You can also download our [PSR4 WordPress Plugin Boilerplate](https://github.com
 * Add capability to use templates and have a config option to select templates
 * Add switch toggle with additional options field
 
+## Consider Contributing
+We know this class will be useful to many in cutting down development times, but we would love help from the community. We are actively using this class for our software and will continue to build off of it, but we know it can become something greater, faster, with the help of the community. Feel free to submit a PR or submit any issues you have as we will be actively maintaining this.
+
 ## GDPR
 We are not lawyers and always recommend doing your own compliance research into third party plugins, libraries, ect, as we’ve seen other libraries not be in compliance with these regulations.
 
@@ -238,11 +241,8 @@ This library uses the Bootstrap, BootStrap Icons, and SweetAlert2 3rd party libr
 
 This library collects and stores certain data on your server to ensure proper functionality. This includes:
 
-Storing plugin settings
-Remembering which notices have been dismissed
-
-## Consider Contributing
-We know this class will be useful to many in cutting down development times, but we would love help from the community. We are actively using this class for our software and will continue to build off of it, but we know it can become something greater, faster, with the help of the community. Feel free to submit a PR or submit any issues you have as we will be actively maintaining this.
+* Storing plugin settings
+* Remembering which notices have been dismissed
 
 ## Changelog
 ### 2.0.0
