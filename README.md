@@ -225,9 +225,21 @@ You can learn more about the fields you can use via our [Documentation](https://
 
 You can also download our [PSR4 WordPress Plugin Boilerplate](https://github.com/PolyPlugins/PSR4-WordPress-Plugin-Boilerplate) to give you a better understanding of composer's autoloading.
 
-## To-Do
-- Add switch toggle with additional options field
-- Add WP Color Picker field
+## Roadmap
+* Add support for latest bootstrap
+* Add sub-menus
+* Add capability to use templates and have a config option to select templates
+* Add switch toggle with additional options field
+
+## Changelog
+
+### 2.0.0
+* Added: Composer
+* Added: Ability to use icons in tab navigator
+* Added: Bootstrap Icons
+* Added: All the features from latest Reusable Admin Panel so code base is current
+* Bugfix: Dropdown select preventing load
+* Removed: Font Awesome Icons
 
 
 ## Consider Contributing
