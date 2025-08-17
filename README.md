@@ -2,12 +2,12 @@
 ![image](https://www.polyplugins.com/plugins/settings-class/1.gif)
 Our goal was to create a class that could easily be imported into projects to give easy methods to handle adding a clean and dynamic settings panel to the backend of WordPress.
 
-# UPDATE
+## Update
 This project will be actively maintained again as a Composer package.
 
 You can still use [Reusable Admin Panel](https://wordpress.org/plugins/reusable-admin-panel/) if you prefer, but this package makes it easier for plugin developers to include the settings class directly without requiring an additional plugin. While we understand that multiple plugins might include the same files, we decided not to force users to install extra plugins for our plugins, which is why we are offering this Composer-based solution. Reusable Admin Panel will continue to be maintained as well.
 
-# Features
+## Features
 - Bootstrap Container (Courtesy of [Rush Frisby](https://rushfrisby.com/using-bootstrap-in-wordpress-admin-panel))
 - Font-Awesome Field Info Buttons and <s>Bootstrap Toasts</s> Sidebar Info Helper
 - jQuery Dynamic Navigation
@@ -15,14 +15,14 @@ You can still use [Reusable Admin Panel](https://wordpress.org/plugins/reusable-
 - Settings Grouped Under One Option in Database (Saved as Multi-Dimensional Array)
 - Bootstrap Spinner Preloader (Prevents Layout Shifting on Load)
 
-# Installation
+## Installation
 The easiest way to install Settings Class for WordPress is via [composer](http://getcomposer.org) within your /wp-content/plugins/test-plugin/ directory:
 
 ```composer require polyplugins/settings-class-for-wordpress```
 
 After you run the require you'll see a vendor folder.
 
-# Example Plugin
+## Example Plugin
 Create test-plugin.php within the test-plugin folder and add the below code:
 ```
 <?php
@@ -225,10 +225,10 @@ You can learn more about the fields you can use via our [Documentation](https://
 
 You can also download our [PSR4 WordPress Plugin Boilerplate](https://github.com/PolyPlugins/PSR4-WordPress-Plugin-Boilerplate) to give you a better understanding of composer's autoloading.
 
-# To-Do
+## To-Do
 - Add switch toggle with additional options field
 - Add WP Color Picker field
 
 
-# Consider Contributing
+## Consider Contributing
 We know this class will be useful to many in cutting down development times, but we would love help from the community. We are actively using this class for our software and will continue to build off of it, but we know it can become something greater, faster, with the help of the community. Feel free to submit a PR or submit any issues you have as we will be actively maintaining this.
