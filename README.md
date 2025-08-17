@@ -20,8 +20,10 @@ The easiest way to install Settings Class for WordPress is via [composer](http:/
 
 ```composer require polyplugins/settings-class-for-wordpress```
 
+After you run the require you'll see a vendor folder.
+
 # Example Plugin
-After you run the require you'll see a vendor folder. Create test-plugin.php within the test-plugin folder and add the below code:
+Create test-plugin.php within the test-plugin folder and add the below code:
 ```
 <?php
 
@@ -217,11 +219,11 @@ $test_plugin = new Test_Plugin;
 $test_plugin->init();
 ```
 
-Once activated you will not see Test Plugin under Settings -> Test Plugin in the backend of WordPress.
+Once activated you will now see Test Plugin under Settings -> Test Plugin in the backend of WordPress.
 
 You can learn more about the fields you can use via our [Documentation](https://www.polyplugins.com/docs/reusable-admin-panel/fields/).
 
-You can also download our [PSR4 WordPress Plugin Boilerplate](https://github.com/PolyPlugins/PSR4-WordPress-Plugin-Boilerplate) to give you a better understanding of composers autoloading.
+You can also download our [PSR4 WordPress Plugin Boilerplate](https://github.com/PolyPlugins/PSR4-WordPress-Plugin-Boilerplate) to give you a better understanding of composer's autoloading.
 
 # To-Do
 - Add switch toggle with additional options field
