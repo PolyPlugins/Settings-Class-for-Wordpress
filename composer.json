@@ -1,0 +1,31 @@
+{
+  "name": "polyplugins/settings",
+  "description": "A reusable settings class for WordPress.",
+  "keywords": [
+    "reusable admin panel", "settings class for wordpress", "settings class", "wordpress"
+  ],
+  "homepage": "https://github.com/PolyPlugins/Settings-Class-for-Wordpress",
+  "license": "GPL-3.0-or-later",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Poly Plugins",
+      "email": "contact@polyplugins.com",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=7.4"
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/PolyPlugins/Settings-Class-for-WordPress"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "PolyPlugins\\Settings\\": "src"
+    }
+  }
+}
