@@ -17,6 +17,7 @@ You can still use [Reusable Admin Panel](https://wordpress.org/plugins/reusable-
 
 # Installation
 The easiest way to install Settings Class for WordPress is via [composer](http://getcomposer.org) within your /wp-content/plugins/test-plugin/ directory:
+
 ```composer require polyplugins/settings-class-for-wordpress```
 
 # Example Plugin
