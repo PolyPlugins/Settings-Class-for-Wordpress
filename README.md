@@ -26,7 +26,7 @@ After you run the require you'll see a vendor folder.
 
 ## Example Plugin
 
-You can also download our [test-plugin](https://github.com/PolyPlugins/PSR4-WordPress-Plugin-Boilerplate) boilerplate to get up and running.
+You can download our [test-plugin](https://github.com/PolyPlugins/PSR4-WordPress-Plugin-Boilerplate) boilerplate to get up and running.
 
 If you want barebones you can create a test-plugin.php file within a new /wp-content/plugins/test-plugin/ folder and add the below code:
 ```
