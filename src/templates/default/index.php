@@ -70,7 +70,7 @@ if (!defined('ABSPATH')) exit;
     </div>
 
     <!-- Fields -->
-    <div class="col-lg-10 col-md-12 g-0">
+    <div class="<?php echo isset($this->config['sidebar']) ? 'col-lg-8 col-md-10' : 'col-lg-10 col-md-12'; ?> g-0">
       <?php foreach($get_fields as $section => $section_data) : ?>
         <?php $fields = isset($section_data['fields']) ? $section_data['fields'] : array(); ?>
 
@@ -142,4 +142,27 @@ if (!defined('ABSPATH')) exit;
     <h2>Help<span class="helper-close"><a href="javascript:void(0)"><i class="bi bi-x-circle-fill"></i></a></span></h2>
     <div class="helper-text"></div>
   </div>
+  <?php if (isset($this->config['sidebar'])) : ?>
+    <?php
+    $heading       = isset($this->config['sidebar']['heading']) ? sanitize_text_field($this->config['sidebar']['heading']) : '';
+    $body          = isset($this->config['sidebar']['body']) ? sanitize_text_field($this->config['sidebar']['body']) : '';
+    $button_label  = isset($this->config['sidebar']['button_label']) ? sanitize_text_field($this->config['sidebar']['button_label']) : '';
+    $button_url    = isset($this->config['sidebar']['button_url']) ? sanitize_url($this->config['sidebar']['button_url']) : '';
+    ?>
+    <div class="col-lg-2 col-md-2 sidebar">
+      <div class="sidebar-content">
+        <?php if ($heading) : ?>
+          <h2 class="sidebar-heading"><?php echo esc_html($heading); ?></h2>
+        <?php endif; ?>
+        
+        <?php if ($body) : ?>
+          <p class="sidebar-body"><?php echo esc_html($body); ?></p>
+        <?php endif; ?>
+
+        <?php if ($button_label && $button_url) : ?>
+          <p class="sidebar-button"><a href="<?php echo esc_url($button_url); ?>" class="button button-primary" target="_blank"><?php echo esc_html($button_label); ?></a></p>
+        <?php endif; ?>
+      </div>
+    </div>
+  <?php endif; ?>
 </div>

@@ -385,6 +385,41 @@ input.button.button-small.wp-picker-default {
   box-sizing: content-box!important;
 }
 
+/* Footer */
 #wpfooter {
   display: none;
+}
+
+/* Sidebar */
+.sidebar {
+  text-align: center;
+  color: var(--settings-white, #fff);
+}
+
+.sidebar .sidebar-content {
+  padding: 15px;
+  background-color: var(--settings-primary, #46BEA4);
+}
+
+.sidebar .sidebar-heading {
+  font-size: 1.2rem;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.sidebar .sidebar-body {
+  padding: 10px 0;
+}
+
+.sidebar .button {
+  background-color: var(--settings-white, #fff);
+  color: var(--settings-secondary, #333);
+  border-color: var(--settings-white, #fff);
+}
+
+.sidebar .button:hover {
+  background-color: var(--settings-secondary, #333);
+  color: var(--settings-white, #fff);
+  border-color: var(--settings-secondary, #333);
 }
