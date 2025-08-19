@@ -1,5 +1,7 @@
 # Settings Class for WordPress
-![image](https://www.polyplugins.com/plugins/settings-class/1.gif)
+
+https://github.com/user-attachments/assets/a5e318cc-e7c6-4f1f-a394-f5ac988f074e
+
 Our goal was to create a class that could easily be imported into projects to give easy methods to handle adding a clean and dynamic settings panel to the backend of WordPress.
 
 ## Update
@@ -60,35 +62,71 @@ class Test_Plugin
     $this->namespace   = __NAMESPACE__;
     $this->plugin_slug = dirname(plugin_basename($this->plugin));
     
-    $this->config  = array(
-      'page'       => 'options-general.php', // You can use non php pages such as woocommerce here to display a submenu under Woocommerce
-      'position'   => 1, // Lower number moves the link position up in the submenu
-      'capability' => 'manage_options', // What permission is required to see and edit settings
-      'css'        => '/css/style.css', // Your custom colors and styles. Comment out to use default style.
-      'js'         => '/js/admin.js', // Your custom javascript. Comment out to use default js.
-      'support'    => 'https://www.polyplugins.com/support/', // Your support link. Comment out to have no support link.
+    $config = array(
+      'name'             => __('Test Plugin', 'test-plugin'), // The plugin name. Comment out to have it build the name from plugin slug
+      'menu_name'        => __('Test Plugin', 'test-plugin'), // The name you want to show in the admin menu. Comment out to have it build the name from plugin slug
+      'settings_name'    => Utils::get_settings_name(), // To prevent conflicts you should include your company name as the suffix. This is the setting name you want to use for get_option. 
+      'page'             => 'options-general.php', // You can use non php pages such as woocommerce here to display a submenu under WooCommerce
+      'position'         => 1, // Lower number moves the link position up in the submenu
+      'capability'       => 'manage_options', // What permission is required to see and edit settings
+      'css'              => '/css/style.css', // Your custom colors and styles. Comment out to use only the default style.
+      'js'               => '/js/admin.js', // Your custom javascript. Comment out to only use the default js.
+      'template'         => 'recharge', // Change the theme the settings uses. Comment out to use the default or enter 'default'
+      'support'          => 'https://www.polyplugins.com/support/', // Your support link. Comment out to have no support link.
+      'action_links' => array( // Optional, add action links to the listing on admin plugins page
+        array(
+          'label'    => __('Settings', 'test-plugin'),
+          'style'    => 'color: orange; font-weight: 700;',
+          'external' => false
+        ),
+        array(
+          'url'      => 'https://www.polyplugins.com',
+          'label'    => __('Go Pro', 'test-plugin'),
+          'style'    => 'color: green; font-weight: 700;',
+          'external' => true
+        ),
+      ),
+      'meta_links' => array( // Optional, add meta links to the listing on admin plugins page
+        array(
+          'url'      => 'https://github.com/PolyPlugins/product-redirection-for-woocommerce/projects',
+          'label'    => __('Roadmap', 'test-plugin'),
+          'style'    => 'color: purple; font-weight: 700;',
+          'external' => true
+        ),
+        array(
+          'label'    => __('Support', 'test-plugin'),
+          'style'    => 'font-weight: 700;',
+          'external' => true
+        ),
+      ),
+      'sidebar' => array( // Optional, add a permanent sidebar
+        'heading'      => __('Something Not Working?', 'test-plugin'),
+        'body'         => __('Feel free to reach out!', 'test-plugin'),
+        'button_label' => __('Email Us', 'test-plugin'),
+        'button_url'   => 'https://www.polyplugins.com/contact/'
+      ),
     );
 
-    $this->fields = array(
+    $fields = array(
       'general' => array(
         'icon' => 'gear-fill',
         'fields' => array(
           array(
-            'name'     => __('Enabled', $this->plugin_slug),
+            'name'     => __('Enabled', 'test-plugin'),
             'type'     => 'switch',
             'default'  => false,
           ),
           array(
-            'name'      => __('Button', $this->plugin_slug),
-            'label'     => __('Dual Buttons', $this->plugin_slug),
+            'name'      => __('Button', 'test-plugin'),
+            'label'     => __('Dual Buttons', 'test-plugin'),
             'type'      => 'button',
             'data'      => array(
               array(
-                'title' => 'Action 1', // general-action-1 would be the id you'd target in js
+                'title' => __('Action 1', 'test-plugin'), // general-action-1 would be the id you'd target in js
                 'class' => 'primary',
                 ),
               array(
-                'title'  => 'Action 2',
+                'title'  => __('Action 2', 'test-plugin'),
                 'class'  => 'secondary',
                 'url'    => 'https://www.polyplugins.com', // If no url then javascript:void(0) is used, this is useful for custom js
                 'target' => '_blank',
@@ -96,103 +134,122 @@ class Test_Plugin
             )
           ),
           array(
-            'name'        => __('Username', $this->plugin_slug),
+            'name'        => __('Username', 'test-plugin'),
+            'label'       => __('The Username', 'test-plugin'),
+            'description' => __('Enter a description.', 'test-plugin'),
             'type'        => 'text',
-            'placeholder' => 'Enter your username...',
+            'placeholder' => __('Enter your username...', 'test-plugin'),
             'default'     => false,
-            'help'        => __('Enter a username.', $this->plugin_slug),
+            'help'        => __('Enter a username.', 'test-plugin'),
           ),
           array(
-            'name'     => __('Textarea', $this->plugin_slug),
+            'name'     => __('Textarea', 'test-plugin'),
             'type'     => 'textarea',
-            'default'  => 'Description goes here...',
+            'default'  => __('Description goes here...', 'test-plugin'),
 
-            'help'     => __('Enter a description.', $this->plugin_slug),
+            'help'     => __('Enter a description.', 'test-plugin'),
           ),
           array(
-            'name'     => __('Larger Textarea', $this->plugin_slug),
+            'name'     => __('Larger Textarea', 'test-plugin'),
             'type'     => 'textarea',
             'rows'     => 6,
-            'default'  => 'Description goes here...',
+            'default'  => __('Description goes here...', 'test-plugin'),
 
-            'help'     => __('Enter a description.', $this->plugin_slug),
+            'help'     => __('Enter a description.', 'test-plugin'),
           ),
           array(
-            'name'     => __('Email', $this->plugin_slug),
+            'name'     => __('Email', 'test-plugin'),
             'type'     => 'email',
             'default'  => 'test@example.com',
-            'help'     => __('Enter your email...', $this->plugin_slug),
+            'help'     => __('Enter your email...', 'test-plugin'),
           ),
           array(
-            'name'     => __('URL', $this->plugin_slug),
+            'name'     => __('URL', 'test-plugin'),
             'type'     => 'url',
             'default'  => false,
-            'help'     => __('Enter a URL. Ex: https://www.example.com', $this->plugin_slug),
+            'help'     => __('Enter a URL. Ex: https://www.example.com', 'test-plugin'),
           ),
           array(
-            'name'     => __('Password', $this->plugin_slug),
+            'name'     => __('Password', 'test-plugin'),
             'type'     => 'password',
             'default'  => 'test',
-            'help'     => __('Enter a password. Note: This is stored in the DB as plain text as most other plugins do, we will change this if requested.', $this->plugin_slug),
+            'help'     => __('Enter a password. Note: This is stored in the DB as plain text as most other plugins do, we will change this if requested.', 'test-plugin'),
           ),
           array(
-            'name'     => __('Number', $this->plugin_slug),
+            'name'     => __('Number', 'test-plugin'),
             'type'     => 'number',
             'min'      => 1,
             'max'      => 10,
             'step'     => 2,
             'default'  => false,
-            'help'     => __('Enter a number.', $this->plugin_slug),
+            'help'     => __('Enter a number.', 'test-plugin'),
             'required' => true,
           ),
           array(
-            'name'     => __('Time', $this->plugin_slug),
+            'name'     => __('Time', 'test-plugin'),
             'type'     => 'time',
             'default'  => false,
-            'help'     => __('Select a time.', $this->plugin_slug),
+            'help'     => __('Select a time.', 'test-plugin'),
           ),
           array(
-            'name'     => __('Date', $this->plugin_slug),
+            'name'     => __('Date', 'test-plugin'),
             'type'     => 'date',
             'default'  => false,
-            'help'     => __('Select a date.', $this->plugin_slug),
+            'help'     => __('Select a date.', 'test-plugin'),
           ),
           array(
-            'name'     => __('Color Picker', $this->plugin_slug),
+            'name'     => __('Color Picker', 'test-plugin'),
             'type'     => 'color',
             'default'  => '#00ff00',
-            'help'     => __('Select a color.', $this->plugin_slug),
+            'help'     => __('Select a color.', 'test-plugin'),
           ),
           array(
-            'name'     => __('Dropdown', $this->plugin_slug),
+            'name'     => __('Dropdown', 'test-plugin'),
             'type'     => 'dropdown',
-            'options'  => array('Red', 'Blue'),
+            'options'  => array(__('Red', 'test-plugin'), __('Blue', 'test-plugin')),
             'default'  => false,
-            'help'     => __('Select an option from the dropdown.', $this->plugin_slug),
+            'help'     => __('Select an option from the dropdown.', 'test-plugin'),
           ),
           array(
-            'name'     => __('Disabled Dropdown', $this->plugin_slug),
+            'name'     => __('Disabled Dropdown', 'test-plugin'),
             'type'     => 'dropdown',
-            'options'  => array('Red', 'Blue'),
+            'options'  => array(__('Red', 'test-plugin'), __('Blue', 'test-plugin')),
             'default'  => false,
             'disabled' => true,
-            'help'     => __('Select an option from the dropdown.', $this->plugin_slug),
+            'help'     => __('Select an option from the dropdown.', 'test-plugin'),
           ),
-        )
+        ),
+        'subsections' => array(
+          'debug' => array(
+            'icon'  => 'bug-fill',
+            'label' => __('Debug', 'test-plugin'),
+            'fields' => array(
+              array(
+                'name'    => __('Debug Mode', 'test-plugin'),
+                'type'    => 'switch',
+                'default' => false,
+              ),
+            )
+          ),
+        ),
       ),
       'api' => array(
         'icon' => 'cloud-arrow-up-fill',
+        'note' => array(
+          'message' => __('Use notes to display messages about specific sections', 'test-plugin'),
+          'class'   => 'warning', // Use success, warning, or error
+        ),
         'fields' => array(
           array(
-            'name'     => __('Dropdown Toggle', $this->plugin_slug),
+            'name'     => __('Dropdown Toggle', 'test-plugin'),
             'type'     => 'dropdown_toggle',
             'options'  => array(
               'Production' => array(
-                'name'     => __('API Key', $this->plugin_slug),
+                'name'     => __('API Key', 'test-plugin'),
                 'type'     => 'text',
               ),
               'Development' => array(
-                'name'     => __('API Key', $this->plugin_slug),
+                'name'     => __('API Key', 'test-plugin'),
                 'type'     => 'text',
               )
             ),
@@ -245,6 +302,26 @@ This library collects and stores certain data on your server to ensure proper fu
 * Remembering which notices have been dismissed
 
 ## Changelog
+
+### 3.0.0
+* Added: Subsections
+* Added: Templating
+* Added: Ability to add your own settings_name in config.
+* Added: Additional 'note' attribute to sections to have a note appear at the top of the section
+* Added: Additional 'description' attribute to fields
+* Added: Separators between fields
+* Added: Ability to add action links and meta links with config
+* Added: Sidebar
+* Added: Sidebar config
+* Added: Recharge template
+* Updated: Positioning of save button and credit
+* Updated: Default template to have the fields below the name as having the label next to the fields took up too much space
+* Updated: Bootstrap
+* Bugfix: Settings name generation
+* Removed: Excess properties that were really only required for checking if Reusable Admin Panel was activated, but since this class is just included in all plugins, those properties are no longer needed. This makes instantiating the class shorter with less defining of properties.
+* Removed: Reusable Admin Panel checks
+* Reworked: Auto settings_name generation.
+
 ### 2.0.0
 * Added: Composer
 * Added: Ability to use icons in tab navigator
