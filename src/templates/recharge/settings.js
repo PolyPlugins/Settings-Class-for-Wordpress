@@ -49,27 +49,16 @@ jQuery(document).ready(function ($) {
     if ($hash) {
       let $selected_section = $hash;
 
-      // Add active class and add handling for before and after active element
-      $(".nav-link[selected-section=" + $selected_section + "]").prevAll().removeClass('active');
-      $(".nav-link[selected-section=" + $selected_section + "]").prevAll().addClass('previous');
-      $(".nav-link[selected-section=" + $selected_section + "]").removeClass('previous');
-      $(".nav-link[selected-section=" + $selected_section + "]").addClass('active');
-      $(".nav-link[selected-section=" + $selected_section + "]").nextAll().removeClass('active');
-      $(".nav-link[selected-section=" + $selected_section + "]").nextAll().removeClass('previous');
+      $(".nav-link").removeClass("active previous");
+      $(".nav-link[selected-section=" + $selected_section + "]")
+        .addClass("active")
+        .prevAll().addClass("previous");
 
-      // Update Title Bar
       $(".row.top-bar").text(slug_to_title($selected_section));
 
-      // Handles displaying clicked tab while hiding others
       $(".options").each(function() {
-        let $section_element = $(this);
-        let $section = $(this).attr('section');
-
-        if ($section != $selected_section) {
-          $section_element.hide();
-        } else {
-          $section_element.show();
-        }
+        let $section = $(this).attr("section");
+        $(this).toggle($section === $selected_section);
       });
     }
   }
@@ -77,37 +66,25 @@ jQuery(document).ready(function ($) {
   // Process switching tabs
   function switchTabHandling() {
     $(".nav-link").on("click", function(e) {
-      let $selected_section_element = $(this);
-      let $selected_section = $selected_section_element.attr('selected-section');
+      let $selected_section = $(this).attr('selected-section');
 
-      // Add active class and add handling for before and after active element
-      $(".nav-link[selected-section=" + $selected_section + "]").prevAll().removeClass('active');
-      $(".nav-link[selected-section=" + $selected_section + "]").prevAll().addClass('previous');
-      $(".nav-link[selected-section=" + $selected_section + "]").removeClass('previous');
-      $(".nav-link[selected-section=" + $selected_section + "]").addClass('active');
-      $(".nav-link[selected-section=" + $selected_section + "]").nextAll().removeClass('active');
-      $(".nav-link[selected-section=" + $selected_section + "]").nextAll().removeClass('previous');
+      // Reset active/previous classes
+      $(".nav-link").removeClass("active previous");
+      $(this).addClass("active");
+      $(this).prevAll().addClass("previous");
 
       // Update Title Bar
       $(".row.top-bar").text(slug_to_title($selected_section));
 
-      // Handles displaying clicked tab while hiding others
       $(".options").each(function() {
-        let $section_element = $(this);
-        let $section = $(this).attr('section');
-
-        if ($section != $selected_section) {
-          $section_element.hide();
-        } else {
-          $section_element.show();
-        }
+        let $section = $(this).attr("section");
+        $(this).toggle($section === $selected_section);
       });
 
       // Close helpers
       toggled = false;
-
-      $(this).parent().parent().parent().find(".col-lg-8").toggleClass("col-lg-10").toggleClass("col-lg-8");
-      $(this).parent().parent().parent().find(".col-md-10").toggleClass("col-md-12").toggleClass("col-md-10");
+      $(this).closest(".bootstrap-wrapper").find(".col-lg-8").toggleClass("col-lg-10 col-lg-8");
+      $(this).closest(".bootstrap-wrapper").find(".col-md-10").toggleClass("col-md-12 col-md-10");
       $(".helper-sidebar").hide();
 
       inputGroupEqualWidth($selected_section);
@@ -117,26 +94,41 @@ jQuery(document).ready(function ($) {
   // Helper Sidebar
   function helperHandling() {
     $(".helper-icon").click(function() {
-      var helper = $(this).parents('.input-group').find('.helper-placeholder').text();
+      var helper = $(this).parents('.field-container').find('.helper-placeholder').text();
       
       if (!toggled) {
+        let $sidebar = $(".sidebar");
+
         toggled = true;
 
-        $(".bootstrap-wrapper").find(".col-lg-10").toggleClass("col-lg-10").toggleClass("col-lg-8");
-        $(".bootstrap-wrapper").find(".col-md-12").toggleClass("col-md-12").toggleClass("col-md-10");
-        $(".helper-sidebar").toggle();
+        if ($sidebar.length > 0) {
+          $(".helper-sidebar").toggle();
+          $(".sidebar").toggle();
+        } else {
+          $(".bootstrap-wrapper").find(".col-lg-9").toggleClass("col-lg-9").toggleClass("col-lg-6");
+          $(".bootstrap-wrapper").find(".col-md-12").toggleClass("col-md-12").toggleClass("col-md-10");
+          $(".helper-sidebar").toggle();
+        }
       }
+
       $(".helper-text").text(helper);
       
       $('html,body').animate({ scrollTop: 0 }, 'fast');
     });
 
     $(".helper-close").click(function() {
+      let $sidebar = $(".sidebar");
+
       toggled = false;
 
-      $(".bootstrap-wrapper").find(".col-lg-8").toggleClass("col-lg-10").toggleClass("col-lg-8");
-      $(".bootstrap-wrapper").find(".col-md-10").toggleClass("col-md-12").toggleClass("col-md-10");
-      $(".helper-sidebar").toggle();
+      if ($sidebar.length > 0) {
+        $(".helper-sidebar").toggle();
+        $(".sidebar").toggle();
+      } else {
+        $(".bootstrap-wrapper").find(".col-lg-6").toggleClass("col-lg-9").toggleClass("col-lg-6");
+        $(".bootstrap-wrapper").find(".col-md-10").toggleClass("col-md-12").toggleClass("col-md-10");
+        $(".helper-sidebar").toggle();
+      }
     });
   }
 
@@ -197,10 +189,10 @@ jQuery(document).ready(function ($) {
         return;
       }
 
-      $('.input-group' + '.' + dropdown_value).each(function() {
+      $('.field-container' + '.' + dropdown_value).each(function() {
         $(this).show();
         
-        if($(this)[0] === $('.input-group' + '.' + dropdown_value).last()[0]) {
+        if($(this)[0] === $('.field-container' + '.' + dropdown_value).last()[0]) {
           $(this).css("margin-bottom", 0)
         }
       });
@@ -215,10 +207,10 @@ jQuery(document).ready(function ($) {
         $(this).hide();
       });
 
-      $('.input-group' + '.' + dropdown_value).each(function() {
+      $('.field-container' + '.' + dropdown_value).each(function() {
         $(this).show();
 
-        if($(this)[0] === $('.input-group' + '.' + dropdown_value).last()[0]) {
+        if($(this)[0] === $('.field-container' + '.' + dropdown_value).last()[0]) {
           $(this).css("margin-bottom", 0)
         }
       });
@@ -233,8 +225,8 @@ jQuery(document).ready(function ($) {
     let $active_tab = $(".nav-link.active").attr('selected-section');
   
     let $selected_section_inputs = selected_section
-      ? $("[section='" + selected_section + "']").find('.input-group-text:visible')
-      : $("[section='" + $active_tab + "']").find('.input-group-text:visible');
+      ? $("[section='" + selected_section + "']").find('.field-container-text:visible')
+      : $("[section='" + $active_tab + "']").find('.field-container-text:visible');
   
     $selected_section_inputs.css("width", "auto");
   

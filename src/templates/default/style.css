@@ -1,0 +1,425 @@
+#wpbody-content {
+  padding-top: 10px;
+  padding-bottom: 35px;
+}
+
+/* Global Begin */
+table.form-table {
+  margin-top: 20px;
+}
+
+table.form-table th {
+  display: none;
+}
+
+table.form-table td {
+  padding: 0;
+}
+
+h2 {
+  margin: 0 15px;
+}
+
+.settings-container h2 {
+  color: var(--settings-secondary, #333);
+  display: block!important;
+  text-transform: capitalize;
+  border-bottom: 1px solid var(--settings-border, #e2e2e2);
+  padding-bottom: 20px;
+}
+
+*:focus {
+  outline: none!important;
+  box-shadow: none!important;
+}
+
+.wrap h2 {
+  display: none;
+}
+
+hr:last-child {
+  display: none;
+}
+
+input#submit {
+  background-color: var(--settings-primary, #46BEA4);
+  border-color: var(--settings-primary, #46BEA4);
+  color: var(--settings-white, #fff);
+}
+/* Global End */
+
+/* Bootstrap Begin */
+input[type="checkbox"] {
+  border-radius: 5px!important;
+}
+
+select, input {
+  border-top-right-radius: 5px!important;
+  border-bottom-right-radius: 5px!important;
+}
+
+.wp-core-ui select {
+  max-width: 100%;
+}
+
+input[type=color], input[type=date], input[type=datetime-local], input[type=datetime], input[type=email], input[type=month], input[type=number], input[type=password], input[type=radio], input[type=search], input[type=tel], input[type=text], input[type=time], input[type=url], input[type=week], select, textarea {
+  margin-top: 10px!important;
+  border: 1px solid var(--settings-border, #e2e2e2) !important;
+  width: 100%!important;
+  border-radius: 5px!important;
+  padding: 10px 12px;
+}
+
+input[type=time], input[type=date], input[type=datetime-local], input[type=datetime] {
+  padding: 5px 12px;
+}
+
+.wp-picker-container {
+  margin-top: 10px!important;
+}
+
+.field-container .btn {
+  margin-top: 10px!important;
+}
+
+.form-check.form-switch {
+  margin-top: 10px!important;
+}
+
+input[type=checkbox] {
+  border: 1px solid var(--settings-border, #e2e2e2) !important;
+}
+
+.input-group:not(:last-child) {
+  margin-bottom: 1.2rem;
+}
+
+.form-group:not(:last-child) {
+  margin-bottom: 1.2rem;
+}
+
+input[type=checkbox]:focus, input[type=color]:focus, input[type=date]:focus, input[type=datetime-local]:focus, input[type=datetime]:focus, input[type=email]:focus, input[type=month]:focus, input[type=number]:focus, input[type=password]:focus, input[type=radio]:focus, input[type=search]:focus, input[type=tel]:focus, input[type=text]:focus, input[type=time]:focus, input[type=url]:focus, input[type=week]:focus, select:focus, textarea:focus {
+  border-color: var(--settings-primary, #46BEA4)!important;
+  box-shadow: none!important;
+}
+
+.bootstrap-wrapper {
+  margin: 0 15px 0 15px;
+}
+
+.credit {
+  text-align: right;
+  margin: 0 5px;
+}
+
+.credit a {
+  color: var(--settings-primary, #46BEA4)!important;
+  text-decoration: none!important;
+}
+
+.credit a:hover {
+  text-decoration: underline!important;
+}
+
+input[type=checkbox]:checked {
+  background-color: var(--settings-primary, #46BEA4)!important;
+  border-color: var(--settings-primary, #46BEA4)!important;
+}
+
+a.btn.btn-primary {
+  background-color: var(--settings-primary, #46BEA4)!important;
+  border-color: var(--settings-primary, #46BEA4)!important;
+}
+
+a.btn.btn-secondary {
+  background-color: var(--settings-secondary, #6C757D)!important;
+  border-color: var(--settings-secondary, #6C757D)!important;
+}
+
+a.btn.btn-success {
+  background-color: var(--settings-success, #198754)!important;
+  border-color: var(--settings-success, #198754)!important;
+}
+
+a.btn.btn-danger {
+  background-color: var(--settings-danger, #DC3545)!important;
+  border-color: var(--settings-danger, #DC3545)!important;
+}
+
+a.btn.btn-warning {
+  background-color: var(--settings-warning, #FFC107)!important;
+  border-color: var(--settings-warning, #FFC107)!important;
+  color: var(--settings-warning, #333)!important;
+}
+
+a.btn.btn-info {
+  background-color: var(--settings-info, #46BEA4)!important;
+  border-color: var(--settings-info, #46BEA4)!important;
+  color: var(--settings-info, #333)!important;
+}
+
+a.btn.btn-light {
+  background-color: var(--settings-light, #F8F9FA)!important;
+  border-color: var(--settings-light, #F8F9FA)!important;
+  color: var(--settings-light, #333)!important;
+}
+
+a.btn.btn-dark {
+  background-color: var(--settings-dark, #212529)!important;
+  border-color: var(--settings-dark, #212529)!important;
+}
+
+input[type=checkbox]:checked::before {
+  display: none;
+}
+/* Bootstrap End */
+
+/* Topbar Begin */
+.top-bar {
+  color: var(--settings-white, #fff);
+  background-color: var(--settings-secondary, #333);
+  font-size: 16pt;
+  padding: 5px 0 5px 10px;
+  text-transform: uppercase;
+}
+/* Topbar End */
+
+/* Tabs Begin */
+.tabs {
+  padding: 0px!important;
+}
+
+.tabs a.nav-link {
+  font-size: 12pt;
+  text-transform: uppercase;
+  color: var(--settings-secondary, #333);
+  border-top: 1px solid var(--settings-border, #e2e2e2);
+  padding: 10px;
+}
+
+.nav-logo {
+  height: 100%;
+  width: 100%;
+  display: block;
+  margin: auto;
+  padding: 12px 0;
+}
+
+.tabs a.nav-link.active {
+  color: var(--settings-primary, #46BEA4);
+  background-color: var(--settings-bg, #fff);
+  border-left: 2px solid var(--settings-primary, #46BEA4);
+}
+
+.tabs a.nav-link:hover {
+  color: var(--settings-primary, #46BEA4);
+  background-color: var(--settings-bg, #fff);
+  border-left: 2px solid var(--settings-primary, #46BEA4);
+}
+/* Tabs End */
+
+/* Options Begin */
+.options {
+  background-color: var(--settings-bg, #fff);
+  padding: 0;
+}
+.options .options-padding {
+  padding: 20px;
+}
+/* Options End */
+
+/* Notes Begin */
+.bootstrap-wrapper .note {
+  padding: 20px;
+}
+
+.bootstrap-wrapper .note.success {
+  background-color: var(--settings-success, #198754);
+}
+
+.bootstrap-wrapper .note.warning {
+  background-color: var(--settings-warning, #FFC107);
+}
+
+.bootstrap-wrapper .note.error {
+  background-color: var(--settings-danger, #DC3545);
+}
+/* Notes End */
+
+/* Fields Begin */
+.fields {
+  background-color: var(--settings-fields-bg, #fff);
+  padding: 15px;
+}
+/* Fields End */
+
+/* Bootstrap Icons Begin */
+.tabs .bi {
+  padding-right: 5px;
+}
+
+.info {
+  padding-left: 2px;
+  float: right;
+}
+
+a.info {
+  text-decoration: none!important;
+  outline: none!important;
+}
+
+.info .bi {
+  color: var(--settings-primary, #46BEA4);
+  font-size: 16px;
+}
+
+.info .bi:hover {
+  color: var(--settings-secondary, #333);
+  font-size: 16px;
+}
+/* Bootstrap Icons End */
+
+/* Helper Begin */
+.helper-sidebar {
+  padding-top: 19px;
+}
+
+.helper-close .bi {
+  color: var(--settings-primary, #46BEA4)!important;
+  float: right;
+}
+
+.helper-close .bi:hover {
+  color: var(--settings-secondary, #333)!important;
+}
+/* Helper End */
+
+/* Form Begin */
+.bootstrap-wrapper label {
+  font-size: 16px;
+  display: block!important;
+  width: 100%!important;
+}
+
+.bootstrap-wrapper .field-container {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--settings-border, #e2e2e2);
+}
+
+.bootstrap-wrapper .field-container:first-child {
+  padding-top: 0;
+}
+
+.bootstrap-wrapper .field-container:last-child {
+  border-bottom: none;
+}
+
+label.form-label {
+  display: block!important;
+  color: var(--settings-primary, #46BEA4);
+  border-bottom: 1px solid var(--settings-border, #e2e2e2);
+  padding-bottom: 10px;
+  margin: 40px 0 10px 0;
+  font-weight: 600;
+}
+
+/* Validation Begin */
+.invalid {
+  border-color: var(--settings-validation-bg, #ff0000)!important;
+}
+
+/* Color Picker */
+button.button.wp-color-result.wp-picker-open {
+  width: unset !important;
+  display: block !important;
+  padding-right: 24px !important;
+}
+
+.wp-picker-input-wrap input {
+  margin-left: 0 !important;
+}
+
+span.wp-color-result-text {
+  display: none;
+}
+
+button.button.wp-color-result {
+  padding: 18px!important;
+  margin-bottom: 0!important;
+}
+
+span.wp-picker-input-wrap {
+  margin-top: 5px;
+}
+
+button.button.wp-color-result {
+  width: 100%;
+}
+
+.wp-core-ui .button, .wp-core-ui .button-secondary {
+  color: var(--settings-border, #e2e2e2);
+  border-color: var(--settings-border, #e2e2e2);
+}
+
+.wp-core-ui .button-secondary:hover, .wp-core-ui .button.hover, .wp-core-ui .button:hover {
+  border-color: var(--settings-border, #e2e2e2);
+}
+
+.wp-core-ui .button-secondary:focus, .wp-core-ui .button.focus, .wp-core-ui .button:focus {
+  border-color: var(--settings-border, #e2e2e2);
+}
+
+input#general-color-picker {
+  margin-bottom: 10px!important;
+  margin-left: 15px;
+}
+
+input.button.button-small.wp-picker-default {
+  margin-bottom: 5px!important;
+}
+
+/* Bootstrap Fix */
+.iris-picker, .iris-picker * {
+  -moz-box-sizing: content-box!important;
+  -webkit-box-sizing: content-box!important;
+  box-sizing: content-box!important;
+}
+
+/* Footer */
+#wpfooter {
+  display: none;
+}
+
+/* Sidebar */
+.sidebar {
+  text-align: center;
+  color: var(--settings-white, #fff);
+}
+
+.sidebar .sidebar-content {
+  padding: 15px;
+  background-color: var(--settings-primary, #46BEA4);
+}
+
+.sidebar .sidebar-heading {
+  font-size: 1.2rem;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.sidebar .sidebar-body {
+  padding: 10px 0;
+}
+
+.sidebar .button {
+  background-color: var(--settings-white, #fff);
+  color: var(--settings-secondary, #333);
+  border-color: var(--settings-white, #fff);
+}
+
+.sidebar .button:hover {
+  background-color: var(--settings-secondary, #333);
+  color: var(--settings-white, #fff);
+  border-color: var(--settings-secondary, #333);
+}
