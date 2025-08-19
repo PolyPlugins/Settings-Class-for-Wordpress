@@ -1,3 +1,8 @@
+#wpbody-content {
+  padding-top: 10px;
+  padding-bottom: 35px;
+}
+
 /* Global Begin */
 table.form-table {
   margin-top: 20px;
@@ -103,13 +108,17 @@ input[type=checkbox]:focus, input[type=color]:focus, input[type=date]:focus, inp
 }
 
 .credit {
-  text-align: center;
+  text-align: right;
   margin: 0 5px;
 }
 
 .credit a {
-  color: var(--settings-primary, #46BEA4);
-  text-decoration: none;
+  color: var(--settings-primary, #46BEA4)!important;
+  text-decoration: none!important;
+}
+
+.credit a:hover {
+  text-decoration: underline!important;
 }
 
 input[type=checkbox]:checked {
@@ -212,9 +221,30 @@ input[type=checkbox]:checked::before {
 /* Options Begin */
 .options {
   background-color: var(--settings-bg, #fff);
+  padding: 0;
+}
+.options .options-padding {
   padding: 20px;
 }
 /* Options End */
+
+/* Notes Begin */
+.bootstrap-wrapper .note {
+  padding: 20px;
+}
+
+.bootstrap-wrapper .note.success {
+  background-color: #198754;
+}
+
+.bootstrap-wrapper .note.warning {
+  background-color: #FFC107;
+}
+
+.bootstrap-wrapper .note.error {
+  background-color: #DC3545;
+}
+/* Notes End */
 
 /* Fields Begin */
 .fields {
@@ -268,6 +298,7 @@ a.info {
 .bootstrap-wrapper label {
   font-size: 16px;
   display: block!important;
+  width: 100%!important;
 }
 
 .bootstrap-wrapper .field-container {
@@ -298,6 +329,16 @@ label.form-label {
 }
 
 /* Color Picker */
+button.button.wp-color-result.wp-picker-open {
+  width: unset !important;
+  display: block !important;
+  padding-right: 24px !important;
+}
+
+.wp-picker-input-wrap input {
+  margin-left: 0 !important;
+}
+
 span.wp-color-result-text {
   display: none;
 }
@@ -329,7 +370,12 @@ button.button.wp-color-result {
 }
 
 input#general-color-picker {
-  margin-left: 5px;
+  margin-bottom: 10px!important;
+  margin-left: 15px;
+}
+
+input.button.button-small.wp-picker-default {
+  margin-bottom: 5px!important;
 }
 
 /* Bootstrap Fix */
@@ -337,4 +383,8 @@ input#general-color-picker {
   -moz-box-sizing: content-box!important;
   -webkit-box-sizing: content-box!important;
   box-sizing: content-box!important;
+}
+
+#wpfooter {
+  display: none;
 }
