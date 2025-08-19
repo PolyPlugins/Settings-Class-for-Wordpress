@@ -125,9 +125,6 @@ class Settings
     $this->settings         = get_option($this->settings_name);
     $this->config           = $config;
     $this->fields           = $fields;
-
-    // Admin setup
-    add_action('admin_init', array($this, 'admin_setup'));
 	}
   
   /**
@@ -136,8 +133,11 @@ class Settings
    * @return void
    */
   public function init() {
-    add_action('admin_enqueue_scripts', array($this, 'admin_enqueue'));
+    add_action('admin_init', array($this, 'admin_setup'));
     add_action('admin_menu', array($this, 'admin_menu'));
+    add_action('admin_enqueue_scripts', array($this, 'admin_enqueue'));
+    add_action('plugin_action_links_' . plugin_basename($this->plugin), array($this, 'plugin_action_links'));
+    add_action('plugin_row_meta', array($this, 'plugin_meta_links'), 10, 4);
   }
   
   /**
@@ -226,6 +226,52 @@ class Settings
       wp_enqueue_style('sweetalert2', plugins_url('/css/sweetalert2.min.css', $this->admin_panel), array(), filemtime(plugin_dir_path($this->admin_panel) . '/css/sweetalert2.min.css'));
       wp_enqueue_script('sweetalert2', plugins_url('/js/sweetalert2.min.js', $this->admin_panel), array(), filemtime(plugin_dir_path($this->admin_panel)  . '/js/sweetalert2.min.js'), true);
     }
+  }
+  
+  /**
+   * Plugin action links
+   *
+   * @param  array $links Existing plugin action links
+   * @return array $links Modified plugin action links
+   */
+  public function plugin_action_links($links) {
+    if (isset($this->config['action_links']) && $this->config['action_links']) {
+      $new_links = array();
+
+      foreach ($this->config['action_links'] as $link) {
+        // Auto generate settings URL if 'external' is false and 'url' not set
+        $url = isset($link['url']) && $link['url'] ? sanitize_url($link['url']) : admin_url(sanitize_text_field($this->config['page']) . '?page=' . sanitize_text_field($this->plugin_slug));
+        
+        $new_links[] = '<a href="' . esc_url($url) . '" style="' . esc_attr($link['style']) . '"' . ($link['external'] ? ' target="_blank"' : '') . '>' . esc_html($link['label']) . '</a>';
+      }
+
+      $links = array_merge($new_links, $links);
+    }
+
+    return $links;
+  }
+  
+  /**
+   * Plugin meta links
+   *
+   * @param  array  $links             Existing plugin meta links
+   * @param  string $plugin_base_name  Plugin basename
+   * @return array  $links             Modified plugin meta links
+   * @return void
+   */
+  public function plugin_meta_links($links, $plugin_base_name) {
+    if ($plugin_base_name === plugin_basename($this->plugin)) {
+      if (isset($this->config['meta_links']) && $this->config['meta_links']) {
+        foreach ($this->config['meta_links'] as $link) {
+          // Auto generate support link if 'url' is not set
+          $url = isset($link['url']) && $link['url'] ? sanitize_url($link['url']) : sanitize_url($this->config['support']);
+
+          $links[] = '<a href="' . esc_url($url) . '" style="' . esc_attr($link['style']) . '" target="_blank">' . esc_html($link['label']) . '</a>';
+        }
+      }
+    }
+
+    return $links;
   }
 
   /**
