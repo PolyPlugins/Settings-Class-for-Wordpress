@@ -25,7 +25,10 @@ The easiest way to install Settings Class for WordPress is via [composer](http:/
 After you run the require you'll see a vendor folder.
 
 ## Example Plugin
-Create test-plugin.php within the test-plugin folder and add the below code:
+
+You can also download our [test-plugin](https://github.com/PolyPlugins/PSR4-WordPress-Plugin-Boilerplate) boilerplate to get up and running.
+
+If you want barebones you can create a test-plugin.php file within a new /wp-content/plugins/test-plugin/ folder and add the below code:
 ```
 <?php
 
@@ -281,8 +284,6 @@ $test_plugin->init();
 Once activated you will now see Test Plugin under Settings -> Test Plugin in the backend of WordPress.
 
 You can learn more about the fields you can use via our [Documentation](https://www.polyplugins.com/docs/reusable-admin-panel/fields/).
-
-You can also download our [PSR4 WordPress Plugin Boilerplate](https://github.com/PolyPlugins/PSR4-WordPress-Plugin-Boilerplate) to give you a better understanding of composer's autoloading.
 
 ## Roadmap
 Check out our [Roadmap](https://github.com/users/PolyPlugins/projects/4) to see our upcoming features!
