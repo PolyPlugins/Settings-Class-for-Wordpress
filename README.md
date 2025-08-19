@@ -281,7 +281,7 @@ $test_plugin = new Test_Plugin;
 $test_plugin->init();
 ```
 
-Once activated you will now see Test Plugin under Settings -> Test Plugin in the backend of WordPress.
+You'll need to run ```composer require withing the test-plugin directory. After that you can activate the plugin check out the settings under Settings -> Test Plugin in the backend of WordPress.
 
 You can learn more about the fields you can use via our [Documentation](https://www.polyplugins.com/docs/reusable-admin-panel/fields/).
 
