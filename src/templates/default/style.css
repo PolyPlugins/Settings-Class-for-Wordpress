@@ -176,7 +176,7 @@ input[type=checkbox]:checked::before {
 
 /* Topbar Begin */
 .top-bar {
-  color: #fff;
+  color: var(--settings-white, #fff);
   background-color: var(--settings-secondary, #333);
   font-size: 16pt;
   padding: 5px 0 5px 10px;
@@ -234,15 +234,15 @@ input[type=checkbox]:checked::before {
 }
 
 .bootstrap-wrapper .note.success {
-  background-color: #198754;
+  background-color: var(--settings-success, #198754);
 }
 
 .bootstrap-wrapper .note.warning {
-  background-color: #FFC107;
+  background-color: var(--settings-warning, #FFC107);
 }
 
 .bootstrap-wrapper .note.error {
-  background-color: #DC3545;
+  background-color: var(--settings-danger, #DC3545);
 }
 /* Notes End */
 
