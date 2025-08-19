@@ -7,7 +7,7 @@ Our goal was to create a class that could easily be imported into projects to gi
 ## Update
 This project will be actively maintained again as a Composer package.
 
-You can still use [Reusable Admin Panel](https://wordpress.org/plugins/reusable-admin-panel/) if you prefer, but this package makes it easier for plugin developers to include the settings class directly without requiring an additional plugin. While we understand that multiple plugins might include the same files, we decided not to force users to install extra plugins for our plugins, which is why we are offering this Composer-based solution. Reusable Admin Panel will continue to be maintained as well.
+You can still use [Reusable Admin Panel](https://wordpress.org/plugins/reusable-admin-panel/) if you prefer, but this package makes it easier for plugin developers to include the settings class directly without requiring an additional plugin. While we understand that multiple plugins might include the same files, we decided not to force users to install extra plugins for our plugins, which is why we are offering this Composer based solution. Reusable Admin Panel will continue to be maintained as well.
 
 ## Features
 - Bootstrap Container (Courtesy of [Rush Frisby](https://rushfrisby.com/using-bootstrap-in-wordpress-admin-panel))
@@ -75,6 +75,7 @@ class Test_Plugin
       'support'          => 'https://www.polyplugins.com/support/', // Your support link. Comment out to have no support link.
       'action_links' => array( // Optional, add action links to the listing on admin plugins page
         array(
+          // Generates url for settings automatically
           'label'    => __('Settings', 'test-plugin'),
           'style'    => 'color: orange; font-weight: 700;',
           'external' => false
@@ -88,12 +89,13 @@ class Test_Plugin
       ),
       'meta_links' => array( // Optional, add meta links to the listing on admin plugins page
         array(
-          'url'      => 'https://github.com/PolyPlugins/product-redirection-for-woocommerce/projects',
+          'url'      => 'https://github.com/users/PolyPlugins/projects/4',
           'label'    => __('Roadmap', 'test-plugin'),
           'style'    => 'color: purple; font-weight: 700;',
           'external' => true
         ),
         array(
+          // Generates url for support automatically
           'label'    => __('Support', 'test-plugin'),
           'style'    => 'font-weight: 700;',
           'external' => true
@@ -283,7 +285,7 @@ You can learn more about the fields you can use via our [Documentation](https://
 You can also download our [PSR4 WordPress Plugin Boilerplate](https://github.com/PolyPlugins/PSR4-WordPress-Plugin-Boilerplate) to give you a better understanding of composer's autoloading.
 
 ## Roadmap
-* Add switch toggle with additional options field
+Check out our [Roadmap](https://github.com/users/PolyPlugins/projects/4) to see our upcoming features!
 
 ## Consider Contributing
 We know this class will be useful to many in cutting down development times, but we would love help from the community. We are actively using this class for our software and will continue to build off of it, but we know it can become something greater, faster, with the help of the community. Feel free to submit a PR or submit any issues you have as we will be actively maintaining this.
