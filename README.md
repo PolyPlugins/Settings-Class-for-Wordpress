@@ -283,9 +283,6 @@ You can learn more about the fields you can use via our [Documentation](https://
 You can also download our [PSR4 WordPress Plugin Boilerplate](https://github.com/PolyPlugins/PSR4-WordPress-Plugin-Boilerplate) to give you a better understanding of composer's autoloading.
 
 ## Roadmap
-* Add support for latest bootstrap
-* Add sub-menus
-* Add capability to use templates and have a config option to select templates
 * Add switch toggle with additional options field
 
 ## Consider Contributing
