@@ -65,7 +65,7 @@ class Test_Plugin
     $config = array(
       'name'             => __('Test Plugin', 'test-plugin'), // The plugin name. Comment out to have it build the name from plugin slug
       'menu_name'        => __('Test Plugin', 'test-plugin'), // The name you want to show in the admin menu. Comment out to have it build the name from plugin slug
-      'settings_name'    => Utils::get_settings_name(), // To prevent conflicts you should include your company name as the suffix. This is the setting name you want to use for get_option. 
+      'settings_name'    => 'test_plugin_settings_polyplugins, // To prevent conflicts you should include your company name as the suffix. This is the setting name you want to use for get_option. 
       'page'             => 'options-general.php', // You can use non php pages such as woocommerce here to display a submenu under WooCommerce
       'position'         => 1, // Lower number moves the link position up in the submenu
       'capability'       => 'manage_options', // What permission is required to see and edit settings
