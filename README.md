@@ -24,7 +24,7 @@ The easiest way to install Settings Class for WordPress is via our [Boilerplate 
 2. Copy the folder within the generated zip to your ```/wp-content/plugins/``` directory.
 3. Inside your generated plugin folder ```/wp-content/plugins/your-plugin/``` run ```composer install```
 4. Activate the plugin
-5. Visit Settings -> Test Plugin in the backend of WordPress.
+5. Visit Settings -> Your Plugin in the backend of WordPress.
 
 ## Example Plugin
 
