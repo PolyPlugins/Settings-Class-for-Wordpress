@@ -18,15 +18,15 @@ You can still use [Reusable Admin Panel](https://wordpress.org/plugins/reusable-
 - Bootstrap Spinner Preloader (Prevents Layout Shifting on Load)
 
 ## Installation
-The easiest way to install Settings Class for WordPress is via [composer](http://getcomposer.org) within your /wp-content/plugins/test-plugin/ directory:
+The easiest way to install Settings Class for WordPress is via our [Boilerplate Generator](https://www.polyplugins.com/settings-class-for-wordpress-boilerplate-generator/). Once generated you can follow the below steps:
 
-```composer require polyplugins/settings-class-for-wordpress```
-
-After you run the require you'll see a vendor folder.
+1. Make sure you have [composer](http://getcomposer.org) installed
+2. Copy the folder within the generated zip to your ```/wp-content/plugins/``` directory.
+3. Inside your generated plugin folder ```/wp-content/plugins/your-plugin/``` run ```composer install```
+4. Activate the plugin
+5. Visit Settings -> Test Plugin in the backend of WordPress.
 
 ## Example Plugin
-
-You can download our [test-plugin](https://github.com/PolyPlugins/PSR4-WordPress-Plugin-Boilerplate) boilerplate to get up and running.
 
 If you want barebones you can create a test-plugin.php file within a new /wp-content/plugins/test-plugin/ folder and add the below code:
 ```
