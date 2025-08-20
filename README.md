@@ -11,7 +11,7 @@ You can still use [Reusable Admin Panel](https://wordpress.org/plugins/reusable-
 
 ## Features
 - Bootstrap Container (Courtesy of [Rush Frisby](https://rushfrisby.com/using-bootstrap-in-wordpress-admin-panel))
-- Font-Awesome Field Info Buttons and <s>Bootstrap Toasts</s> Sidebar Info Helper
+- Bootstrap Icons Field Info Buttons and <s>Bootstrap Toasts</s> Sidebar Info Helper
 - jQuery Dynamic Navigation
 - Validation using [validator.js](https://github.com/validatorjs/validator.js)
 - Settings Grouped Under One Option in Database (Saved as Multi-Dimensional Array)
