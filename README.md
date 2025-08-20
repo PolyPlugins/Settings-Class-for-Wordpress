@@ -10,12 +10,40 @@ This project will be actively maintained again as a Composer package.
 You can still use [Reusable Admin Panel](https://wordpress.org/plugins/reusable-admin-panel/) if you prefer, but this package makes it easier for plugin developers to include the settings class directly without requiring an additional plugin. While we understand that multiple plugins might include the same files, we decided not to force users to install extra plugins for our plugins, which is why we are offering this Composer based solution. Reusable Admin Panel will continue to be maintained as well.
 
 ## Features
-- Bootstrap Container (Courtesy of [Rush Frisby](https://rushfrisby.com/using-bootstrap-in-wordpress-admin-panel))
-- Bootstrap Icons Field Info Buttons and <s>Bootstrap Toasts</s> Sidebar Info Helper
-- jQuery Dynamic Navigation
-- Validation using [validator.js](https://github.com/validatorjs/validator.js)
-- Settings Grouped Under One Option in Database (Saved as Multi-Dimensional Array)
-- Bootstrap Spinner Preloader (Prevents Layout Shifting on Load)
+
+- **Developer Friendly**
+  - All settings saved in a single multi-dimensional array for easier access
+  - Built-in sanitization and escaping for safer data handling
+  - Validation powered by [validator.js](https://github.com/validatorjs/validator.js)
+  - Clear placeholders, descriptions, and help text support on fields
+  - Separators for cleaner layouts
+  - Extendable and namespaced for easy integration into your own plugins
+
+- **Built-in Field Types**
+  - Text, textarea (single and multi-row), password, email, URL
+  - Number (with min/max/step), time, date, color picker
+  - Switch toggles
+  - Dropdowns (including disabled options)
+  - Dropdown toggle fields (switches between grouped sets of fields)
+  - Buttons with multiple actions (JS or external links)
+
+- **Section & Navigation Controls**
+  - Dynamic tab navigation with jQuery
+  - Subsections within sections (with icons and labels)
+  - Section "notes" with contextual alerts (success, warning, error)
+  
+- **Modern UI with Bootstrap**
+  - Clean Bootstrap container layout
+  - Built-in Bootstrap Icons for field helpers and navigation
+  - Sidebar info helper
+
+- **Flexible Configuration**
+  - Add plugin action links and meta links directly from config
+  - Permanent sidebar with configurable heading, text, and button
+  - Custom CSS/JS overrides
+
+- **Templating**
+  - Choose from Default and Recharge templates
 
 ## Installation
 The easiest way to install Settings Class for WordPress is via our [Boilerplate Generator](https://www.polyplugins.com/settings-class-for-wordpress-boilerplate-generator/). Once generated you can follow the below steps:
@@ -25,6 +53,8 @@ The easiest way to install Settings Class for WordPress is via our [Boilerplate 
 3. Inside your generated plugin folder ```/wp-content/plugins/your-plugin/``` run ```composer install```
 4. Activate the plugin
 5. Visit Settings -> Your Plugin in the backend of WordPress.
+
+You can learn more about the fields you can use via our [Documentation](https://www.polyplugins.com/docs/reusable-admin-panel/fields/).
 
 ## Example Plugin
 
@@ -283,8 +313,6 @@ $test_plugin->init();
 
 You'll need to run ```composer require polyplugins/settings-class-for-wordpress``` within the test-plugin directory. After that you can activate the plugin and see the settings under Settings -> Test Plugin in the backend of WordPress.
 
-You can learn more about the fields you can use via our [Documentation](https://www.polyplugins.com/docs/reusable-admin-panel/fields/).
-
 ## Roadmap
 Check out our [Roadmap](https://github.com/users/PolyPlugins/projects/4) to see our upcoming features!
 
@@ -300,6 +328,9 @@ This library collects and stores certain data on your server to ensure proper fu
 
 * Storing plugin settings
 * Remembering which notices have been dismissed
+
+## Contributors
+[Rush Frisby](https://github.com/rushfrisby/) - Bootstrap Container
 
 ## Changelog
 
