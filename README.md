@@ -7,7 +7,11 @@ Our goal was to create a class that could easily be imported into projects to gi
 ## Update
 This project will be actively maintained again as a Composer package.
 
-You can still use [Reusable Admin Panel](https://wordpress.org/plugins/reusable-admin-panel/) if you prefer, but this package makes it easier for plugin developers to include the settings class directly without requiring an additional plugin. While we understand that multiple plugins might include the same files, we decided not to force users to install extra plugins for our plugins, which is why we are offering this Composer based solution. Reusable Admin Panel will continue to be maintained as well.
+As a composer package it will make it simpler for plugin developers to include the settings class directly, without extra plugins. Any breaking changes are reserved for major releases, so updates won’t catch you off guard.
+
+If Reusable Admin Panel introduced breaking changes, it would impact any site using it unless we maintained full backwards compatibility, which adds unnecessary complexity. We also wanted to avoid forcing users to install extra plugins just to run ours, which is why this Composer based approach was a better fit for us. Rest assured, Reusable Admin Panel will continue to be maintained as well.
+
+You can still use [Reusable Admin Panel](https://wordpress.org/plugins/reusable-admin-panel/) if you like, but feature development has stopped and only critical fixes will be provided.
 
 ## Features
 
@@ -55,6 +59,17 @@ The easiest way to install Settings Class for WordPress is via our [Boilerplate 
 5. Visit Settings -> Your Plugin in the backend of WordPress.
 
 You can learn more about the fields you can use via our [Documentation](https://www.polyplugins.com/docs/reusable-admin-panel/fields/).
+
+## Updates
+To update minor or patch versions, run:
+
+```composer update```
+
+Within your plugin folder (```/wp-content/plugins/your-plugin/```)
+
+Composer will only update versions that fit the constraints defined in your composer.json, so major releases generally won't be installed automatically.
+
+Major versions may include breaking changes, so review the release notes before updating and follow any migration instructions.
 
 ## Example Plugin
 
