@@ -7,11 +7,9 @@ Our goal was to create a class that could easily be imported into projects to gi
 ## Update
 This project will be actively maintained again as a Composer package.
 
-As a composer package it will make it simpler for plugin developers to include the settings class directly, without extra plugins. Any breaking changes are reserved for major releases, so updates won’t catch you off guard.
+As a composer package it will make it simpler for plugin developers to include the settings class directly, without extra plugins. Any breaking changes are reserved for major releases, so updates won’t catch you off guard. We also wanted to avoid forcing users to install extra plugins just to run ours, which is why this Composer based approach was a better fit for us. 
 
-You can still use [Reusable Admin Panel](https://wordpress.org/plugins/reusable-admin-panel/) if you like, but feature development has stopped and only critical fixes will be provided.
-
-If Reusable Admin Panel introduced breaking changes, it would impact any site using it unless we maintained full backwards compatibility, which adds unnecessary complexity. We also wanted to avoid forcing users to install extra plugins just to run ours, which is why this Composer based approach was a better fit for us. Rest assured, Reusable Admin Panel will continue to be maintained as well.
+You can still use [Reusable Admin Panel](https://wordpress.org/plugins/reusable-admin-panel/) if you like, but feature development has stopped and only critical fixes will be provided. If Reusable Admin Panel introduced breaking changes, it would impact any site using it unless we maintained full backwards compatibility, which adds unnecessary complexity.
 
 ## Features
 
