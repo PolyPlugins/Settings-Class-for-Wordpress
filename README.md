@@ -51,15 +51,16 @@ You can still use [Reusable Admin Panel](https://wordpress.org/plugins/reusable-
 The easiest way to install Settings Class for WordPress is via our [Boilerplate Generator](https://www.polyplugins.com/settings-class-for-wordpress-boilerplate-generator/). Once generated you can follow the below steps:
 
 1. Make sure you have [composer](http://getcomposer.org) installed
-2. Copy the folder within the generated zip to your ```/wp-content/plugins/``` directory.
-3. Inside your generated plugin folder ```/wp-content/plugins/your-plugin/``` run ```composer install```
-4. Activate the plugin
-5. Visit Settings -> Your Plugin in the backend of WordPress.
+2. Backup WordPress
+3. Copy the folder within the generated zip to your ```/wp-content/plugins/``` directory.
+4. Inside your generated plugin folder ```/wp-content/plugins/your-plugin/``` run ```composer install```
+5. Activate the plugin
+6. Visit Settings -> Your Plugin in the backend of WordPress.
 
-You can learn more about the fields you can use via our [Documentation](https://www.polyplugins.com/docs/reusable-admin-panel/fields/).
+You can learn more about the fields and configuration parameters via our [Documentation](https://www.polyplugins.com/docs/settings-class-for-wordpress/).
 
 ## Updates
-To update minor or patch versions, run:
+To update minor or patch versions, run the following after taking a backup of WordPress:
 
 ```composer update```
 
@@ -108,7 +109,7 @@ class Test_Plugin
     $this->namespace   = __NAMESPACE__;
     $this->plugin_slug = dirname(plugin_basename($this->plugin));
     
-    $config = array(
+    $this->config = array(
       'name'             => __('Test Plugin', 'test-plugin'), // The plugin name. Comment out to have it build the name from plugin slug
       'menu_name'        => __('Test Plugin', 'test-plugin'), // The name you want to show in the admin menu. Comment out to have it build the name from plugin slug
       'settings_name'    => 'test_plugin_settings_polyplugins, // To prevent conflicts you should include your company name as the suffix. This is the setting name you want to use for get_option. 
@@ -155,7 +156,7 @@ class Test_Plugin
       ),
     );
 
-    $fields = array(
+    $this->fields = array(
       'general' => array(
         'icon' => 'gear-fill',
         'fields' => array(
