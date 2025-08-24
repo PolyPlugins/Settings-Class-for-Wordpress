@@ -1,6 +1,6 @@
 # Settings Class for WordPress
 
-![Demo](https://polyplugins.com/plugins/settings-class/demo.gif)
+![Demo](https://github.com/user-attachments/assets/f2c2ea9f-da11-43b7-9bd6-cfa8fe3457c0)
 
 Our goal was to create a class that could easily be imported into projects to give easy methods to handle adding a clean and dynamic settings panel to the backend of WordPress.
 
