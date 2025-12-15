@@ -348,6 +348,9 @@ This library collects and stores certain data on your server to ensure proper fu
 
 ## Changelog
 
+### 3.1.0
+Added: Ability to define custom callbacks for tabs to include your own custom content outside of the framework.
+
 ### 3.0.0
 * Added: Subsections
 * Added: Templating

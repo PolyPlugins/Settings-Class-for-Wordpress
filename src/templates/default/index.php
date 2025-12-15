@@ -90,10 +90,16 @@ if (!defined('ABSPATH')) exit;
               <?php echo esc_html(ucfirst($section)) . ' Settings'; ?>
             </h2>
             <div class="fields">
-              <?php foreach($fields as $field) : ?>
-                <?php $field['section'] = $section; ?>
-                <?php $this->add_field($field); ?>
-              <?php endforeach; ?>
+              <?php if (isset($section_data['callback']) && is_callable($section_data['callback'])) : ?>
+                <div class="field-container">
+                  <?php call_user_func($section_data['callback'], $section, $section_data, $this->settings); ?>
+                </div>
+              <?php else :?>
+                <?php foreach($fields as $field) : ?>
+                  <?php $field['section'] = $section; ?>
+                  <?php $this->add_field($field); ?>
+                <?php endforeach; ?>
+              <?php endif; ?>
             </div>
           </div>
         </div>
@@ -117,10 +123,16 @@ if (!defined('ABSPATH')) exit;
                   <?php echo esc_html($subsection['label'] ?? ucfirst($sub_id)) . ' Settings'; ?>
                 </h2>
                 <div class="fields">
-                  <?php foreach($sub_fields as $field) : ?>
-                    <?php $field['section'] = $section . '-' . $sub_id; ?>
-                    <?php $this->add_field($field); ?>
-                  <?php endforeach; ?>
+                  <?php if (isset($section_data['callback']) && is_callable($section_data['callback'])) : ?>
+                    <div class="field-container">
+                      <?php call_user_func($section_data['callback'], $section, $section_data, $this->settings); ?>
+                    </div>
+                  <?php else :?>
+                    <?php foreach($sub_fields as $field) : ?>
+                      <?php $field['section'] = $section . '-' . $sub_id; ?>
+                      <?php $this->add_field($field); ?>
+                    <?php endforeach; ?>
+                  <?php endif; ?>
                 </div>
               </div>
             </div>
