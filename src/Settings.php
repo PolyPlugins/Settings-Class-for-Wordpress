@@ -696,7 +696,7 @@ class Settings
     $id          = $section . '-' . $name;
     $class       = isset($field['class']) ? sanitize_title($field['class']) : '';
     $type        = isset($field['type']) ? sanitize_text_field($field['type']) : '';
-    $options     = isset($field['options']) ? $field['options'] : array();
+    $options     = isset($field['options']) ? $this->sanitize_array($field['options']) : array();
     $default     = isset($field['default']) ? sanitize_text_field($field['default']) : '';
     $disabled    = isset($field['disabled']) ? sanitize_text_field($field['disabled']) : '';
     $required    = (isset($field['required']) && $field['required']) ? ' required' : '';
@@ -734,7 +734,7 @@ class Settings
     $id          = $section . '-' . $name;
     $class       = isset($field['class']) ? sanitize_title($field['class']) : '';
     $type        = isset($field['type']) ? sanitize_text_field($field['type']) : '';
-    $options     = isset($field['options']) ? $field['options'] : array();
+    $options     = isset($field['options']) ? $this->sanitize_array($field['options']) : array();
     $default     = isset($field['default']) ? sanitize_text_field($field['default']) : '';
     $required    = (isset($field['required']) && $field['required']) ? ' required' : '';
     $value       = (!empty($settings[$section][$name]['value'])) ? $settings[$section][$name]['value'] : $default;
@@ -897,6 +897,36 @@ class Settings
       <?php echo wp_kses_post($help); ?>
     </div>
     <?php
+  }
+
+  /**
+   * Recursively sanitize array keys and values.
+   *
+   * @param  mixed $array     The array to sanitize
+   * @return array $sanitized Returns the sanitized array
+   */
+  public function sanitize_array($array) {
+    // Guard against invalid inputs so callers always receive a predictable array.
+    if (!is_array($array)) {
+      return array();
+    }
+
+    $sanitized = array();
+
+    foreach ($array as $key => $value) {
+      // Keep numeric keys intact for indexed arrays; sanitize only string keys.
+      $sanitized_key = is_string($key) ? sanitize_text_field($key) : $key;
+
+      if (is_array($value)) {
+        // Recursively sanitize nested option groups.
+        $sanitized[$sanitized_key] = $this->sanitize_array($value);
+      } else if (is_scalar($value) || is_null($value)) {
+        // Normalize scalars to safe text for consistent storage/output handling.
+        $sanitized[$sanitized_key] = sanitize_text_field($value);
+      }
+    }
+
+    return $sanitized;
   }
 
   /**
