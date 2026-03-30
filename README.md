@@ -348,6 +348,17 @@ This library collects and stores certain data on your server to ensure proper fu
 
 ## Changelog
 
+### 3.1.2
+Added: Custom array sanitization method
+Updated: Boilerplate plugin with AI Agent Skills
+Updated: Boilerplate plugin to only log if debug mode, except for error which will use PHP error_log
+Bugfix: Failure on filemtime for settings.js and settings.css
+Bugfix: Undefined Keys
+
+### 3.1.1
+Bugfix: Activation of new plugin if already using class results in class already in use
+Bugfix: Scripts will fail to enqueue if another plugin uses the class
+
 ### 3.1.0
 Added: Ability to define custom [callbacks](https://www.polyplugins.com/docs/settings-class-for-wordpress/fields/sections/#callbacks) for tabs to include your own custom content outside of the framework.
 
