@@ -433,14 +433,14 @@ class Settings
    */
   public function callback_switch($field) {
     $settings    = $this->settings;
-    $section     = $field['section'];
-    $name        = sanitize_title($field['name']);
-    $label       = isset($field['label']) && $field['label'] ? $field['label'] : $field['name'];
-    $description = isset($field['description']) && $field['description'] ? $field['description'] : '';
+    $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
+    $name        = isset($field['name']) ? sanitize_title($field['name']) : '';
+    $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : $name;
+    $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
     $id          = $section . '-' . $name;
-    $class       = $field['class'] ? sanitize_title($field['class']) : '';
-    $type        = $field['type'];
-    $default     = ($field['default']) ? $field['default'] : '';
+    $class       = isset($field['class']) ? sanitize_title($field['class']) : '';
+    $type        = isset($field['type']) ? sanitize_text_field($field['type']) : '';
+    $default     = isset($field['default']) ? sanitize_text_field($field['default']) : '';
     $checked     = (!empty($settings[$section][$name]['value'])) ? ' checked' : $default;
     ?>
     <div class="field-container">
@@ -463,13 +463,13 @@ class Settings
    * @return void
    */
   public function callback_button($field) {
-    $section     = $field['section'];
-    $name        = sanitize_title($field['name']);
-    $label       = isset($field['label']) && $field['label'] ? $field['label'] : $field['name'];
-    $description = isset($field['description']) && $field['description'] ? $field['description'] : '';
+    $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
+    $name        = isset($field['name']) ? sanitize_title($field['name']) : '';
+    $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : $name;
+    $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
     $id          = $section . '-' . $name;
-    $section     = $field['section'];
-    $class       = $field['class'] ? sanitize_title($field['class']) : '';
+    $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
+    $class       = isset($field['class']) ? sanitize_title($field['class']) : '';
     ?>
     <div class="field-container">
       <label class="field-container-text" for="<?php echo esc_attr($id); ?>"><?php echo esc_html($label); ?></label>
@@ -493,15 +493,15 @@ class Settings
    */
   public function callback_text($field) {
     $settings    = $this->settings;
-    $section     = $field['section'];
-    $name        = sanitize_title($field['name']);
-    $label       = isset($field['label']) && $field['label'] ? $field['label'] : $field['name'];
-    $description = isset($field['description']) && $field['description'] ? $field['description'] : '';
-    $placeholder = isset($field['placeholder']) && $field['placeholder'] ? $field['placeholder'] : $field['label'];
+    $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
+    $name        = isset($field['name']) ? sanitize_title($field['name']) : '';
+    $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : $name;
+    $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
+    $placeholder = isset($field['placeholder']) && $field['placeholder'] ? sanitize_text_field($field['placeholder']) : $label;
     $id          = $section . '-' . $name;
-    $class       = $field['class'] ? sanitize_title($field['class']) : '';
-    $type        = $field['type'];
-    $default     = ($field['default']) ? $field['default'] : '';
+    $class       = isset($field['class']) ? sanitize_title($field['class']) : '';
+    $type        = isset($field['type']) ? sanitize_text_field($field['type']) : '';
+    $default     = isset($field['default']) ? sanitize_text_field($field['default']) : '';
     $required    = (isset($field['required']) && $field['required']) ? ' required' : '';
     $value       = (!empty($settings[$section][$name]['value'])) ? $settings[$section][$name]['value'] : $default;
     ?>
@@ -525,16 +525,16 @@ class Settings
    */
   public function callback_textarea($field) {
     $settings    = $this->settings;
-    $section     = $field['section'];
-    $name        = sanitize_title($field['name']);
-    $rows        = (isset($field['rows']) && is_numeric($field['rows'])) ? $field['rows'] : '';
-    $label       = isset($field['label']) && $field['label'] ? $field['label'] : $field['name'];
-    $description = isset($field['description']) && $field['description'] ? $field['description'] : '';
-    $placeholder = isset($field['placeholder']) && $field['placeholder'] ? $field['placeholder'] : $field['label'];
+    $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
+    $name        = isset($field['name']) ? sanitize_title($field['name']) : '';
+    $rows        = (isset($field['rows']) && is_numeric($field['rows'])) ? sanitize_text_field($field['rows']) : '';
+    $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : $name;
+    $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
+    $placeholder = isset($field['placeholder']) && $field['placeholder'] ? sanitize_text_field($field['placeholder']) : $label;
     $id          = $section . '-' . $name;
-    $class       = $field['class'] ? sanitize_title($field['class']) : '';
-    $type        = $field['type'];
-    $default     = ($field['default']) ? $field['default'] : '';
+    $class       = isset($field['class']) ? sanitize_title($field['class']) : '';
+    $type        = isset($field['type']) ? sanitize_text_field($field['type']) : '';
+    $default     = isset($field['default']) ? sanitize_text_field($field['default']) : '';
     $required    = (isset($field['required']) && $field['required']) ? ' required' : '';
     $value       = (!empty($settings[$section][$name]['value'])) ? $settings[$section][$name]['value'] : $default;
     ?>
@@ -558,15 +558,15 @@ class Settings
    */
   public function callback_email($field) {
     $settings    = $this->settings;
-    $section     = $field['section'];
-    $name        = sanitize_title($field['name']);
-    $label       = isset($field['label']) && $field['label'] ? $field['label'] : $field['name'];
-    $description = isset($field['description']) && $field['description'] ? $field['description'] : '';
-    $placeholder = isset($field['placeholder']) && $field['placeholder'] ? $field['placeholder'] : $field['label'];
+    $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
+    $name        = isset($field['name']) ? sanitize_title($field['name']) : '';
+    $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : $name;
+    $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
+    $placeholder = isset($field['placeholder']) && $field['placeholder'] ? sanitize_text_field($field['placeholder']) : $label;
     $id          = $section . '-' . $name;
-    $class       = $field['class'] ? sanitize_title($field['class']) : '';
-    $type        = $field['type'];
-    $default     = ($field['default']) ? $field['default'] : '';
+    $class       = isset($field['class']) ? sanitize_title($field['class']) : '';
+    $type        = isset($field['type']) ? sanitize_text_field($field['type']) : '';
+    $default     = isset($field['default']) ? sanitize_text_field($field['default']) : '';
     $required    = (isset($field['required']) && $field['required']) ? ' required' : '';
     $value       = (!empty($settings[$section][$name]['value'])) ? $settings[$section][$name]['value'] : $default;
     ?>
@@ -590,15 +590,15 @@ class Settings
    */
   public function callback_url($field) {
     $settings    = $this->settings;
-    $section     = $field['section'];
-    $name        = sanitize_title($field['name']);
-    $label       = isset($field['label']) && $field['label'] ? $field['label'] : $field['name'];
-    $description = isset($field['description']) && $field['description'] ? $field['description'] : '';
-    $placeholder = isset($field['placeholder']) && $field['placeholder'] ? $field['placeholder'] : $field['label'];
+    $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
+    $name        = isset($field['name']) ? sanitize_title($field['name']) : '';
+    $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : $name;
+    $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
+    $placeholder = isset($field['placeholder']) && $field['placeholder'] ? sanitize_text_field($field['placeholder']) : $label;
     $id          = $section . '-' . $name;
-    $class       = $field['class'] ? sanitize_title($field['class']) : '';
-    $type        = $field['type'];
-    $default     = ($field['default']) ? $field['default'] : '';
+    $class       = isset($field['class']) ? sanitize_title($field['class']) : '';
+    $type        = isset($field['type']) ? sanitize_text_field($field['type']) : '';
+    $default     = isset($field['default']) ? sanitize_text_field($field['default']) : '';
     $required    = (isset($field['required']) && $field['required']) ? ' required' : '';
     $value       = (!empty($settings[$section][$name]['value'])) ? $settings[$section][$name]['value'] : $default;
     ?>
@@ -622,15 +622,15 @@ class Settings
    */
   public function callback_password($field) {
     $settings    = $this->settings;
-    $section     = $field['section'];
-    $name        = sanitize_title($field['name']);
-    $label       = isset($field['label']) && $field['label'] ? $field['label'] : $field['name'];
-    $description = isset($field['description']) && $field['description'] ? $field['description'] : '';
-    $placeholder = isset($field['placeholder']) && $field['placeholder'] ? $field['placeholder'] : $field['label'];
+    $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
+    $name        = isset($field['name']) ? sanitize_title($field['name']) : '';
+    $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : $name;
+    $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
+    $placeholder = isset($field['placeholder']) && $field['placeholder'] ? sanitize_text_field($field['placeholder']) : $label;
     $id          = $section . '-' . $name;
     $class       = $field['class'] ? sanitize_title($field['class']) : '';
-    $type        = $field['type'];
-    $default     = ($field['default']) ? $field['default'] : '';
+    $type        = isset($field['type']) ? sanitize_text_field($field['type']) : '';
+    $default     = isset($field['default']) ? sanitize_text_field($field['default']) : '';
     $required    = (isset($field['required']) && $field['required'] ) ? ' required' : '';
     $value       = (!empty($settings[$section][$name]['value'])) ? $settings[$section][$name]['value'] : $default;
     ?>
@@ -654,18 +654,18 @@ class Settings
    */
   public function callback_number($field) {
     $settings    = $this->settings;
-    $section     = $field['section'];
-    $name        = sanitize_title($field['name']);
-    $min         = (isset($field['min']) && is_numeric($field['min'])) ? $field['min'] : '';
-    $max         = (isset($field['max']) && is_numeric($field['max'])) ? $field['max'] : '';
-    $step        = (isset($field['step']) && is_numeric($field['step'])) ? $field['step'] : '';
-    $label       = isset($field['label']) && $field['label'] ? $field['label'] : $field['name'];
-    $description = isset($field['description']) && $field['description'] ? $field['description'] : '';
-    $placeholder = isset($field['placeholder']) && $field['placeholder'] ? $field['placeholder'] : $field['label'];
+    $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
+    $name        = isset($field['name']) ? sanitize_title($field['name']) : '';
+    $min         = isset($field['min']) && is_numeric($field['min']) ? sanitize_text_field($field['min']) : '';
+    $max         = isset($field['max']) && is_numeric($field['max']) ? sanitize_text_field($field['max']) : '';
+    $step        = isset($field['step']) && is_numeric($field['step']) ? sanitize_text_field($field['step']) : '';
+    $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : $name;
+    $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
+    $placeholder = isset($field['placeholder']) && $field['placeholder'] ? sanitize_text_field($field['placeholder']) : $label;
     $id          = $section . '-' . $name;
-    $class       = $field['class'] ? sanitize_title($field['class']) : '';
-    $type        = $field['type'];
-    $default     = ($field['default']) ? $field['default'] : '';
+    $class       = isset($field['class']) ? sanitize_title($field['class']) : '';
+    $type        = isset($field['type']) ? sanitize_text_field($field['type']) : '';
+    $default     = isset($field['default']) ? sanitize_text_field($field['default']) : '';
     $required    = (isset($field['required']) && $field['required']) ? ' required' : '';
     $value       = (!empty($settings[$section][$name]['value'])) ? $settings[$section][$name]['value'] : $default;
     ?>
@@ -689,16 +689,16 @@ class Settings
    */
   public function callback_dropdown($field) {
     $settings    = $this->settings;
-    $section     = $field['section'];
-    $name        = sanitize_title($field['name']);
-    $label       = isset($field['label']) && $field['label'] ? $field['label'] : $field['name'];
-    $description = isset($field['description']) && $field['description'] ? $field['description'] : '';
+    $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
+    $name        = isset($field['name']) ? sanitize_title($field['name']) : '';
+    $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : $name;
+    $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
     $id          = $section . '-' . $name;
-    $class       = $field['class'] ? sanitize_title($field['class']) : '';
-    $type        = $field['type'];
-    $options     = $field['options'];
-    $default     = $field['default'] ? $field['default'] : '';
-    $disabled    = $field['disabled'] ? $field['disabled'] : '';
+    $class       = isset($field['class']) ? sanitize_title($field['class']) : '';
+    $type        = isset($field['type']) ? sanitize_text_field($field['type']) : '';
+    $options     = isset($field['options']) ? $field['options'] : array();
+    $default     = isset($field['default']) ? sanitize_text_field($field['default']) : '';
+    $disabled    = isset($field['disabled']) ? sanitize_text_field($field['disabled']) : '';
     $required    = (isset($field['required']) && $field['required']) ? ' required' : '';
     $value       = (!empty($settings[$section][$name]['value'])) ? $settings[$section][$name]['value'] : $default;
     ?>
@@ -727,15 +727,15 @@ class Settings
    */
   public function callback_dropdown_toggle($field) {
     $settings    = $this->settings;
-    $section     = $field['section'];
-    $name        = sanitize_title($field['name']);
-    $label       = isset($field['label']) && $field['label'] ? $field['label'] : $field['name'];
-    $description = isset($field['description']) && $field['description'] ? $field['description'] : '';
+    $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
+    $name        = isset($field['name']) ? sanitize_title($field['name']) : '';
+    $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : $name;
+    $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
     $id          = $section . '-' . $name;
-    $class       = $field['class'] ? sanitize_title($field['class']) : '';
-    $type        = $field['type'];
-    $options     = $field['options'];
-    $default     = ($field['default']) ? $field['default'] : '';
+    $class       = isset($field['class']) ? sanitize_title($field['class']) : '';
+    $type        = isset($field['type']) ? sanitize_text_field($field['type']) : '';
+    $options     = isset($field['options']) ? $field['options'] : array();
+    $default     = isset($field['default']) ? sanitize_text_field($field['default']) : '';
     $required    = (isset($field['required']) && $field['required']) ? ' required' : '';
     $value       = (!empty($settings[$section][$name]['value'])) ? $settings[$section][$name]['value'] : $default;
     ?>
@@ -773,15 +773,15 @@ class Settings
    */
   public function callback_date($field) {
     $settings    = $this->settings;
-    $section     = $field['section'];
-    $name        = sanitize_title($field['name']);
-    $label       = isset($field['label']) && $field['label'] ? $field['label'] : $field['name'];
-    $description = isset($field['description']) && $field['description'] ? $field['description'] : '';
-    $placeholder = isset($field['placeholder']) && $field['placeholder'] ? $field['placeholder'] : $field['label'];
+    $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
+    $name        = isset($field['name']) ? sanitize_title($field['name']) : '';
+    $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : $name;
+    $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
+    $placeholder = isset($field['placeholder']) && $field['placeholder'] ? sanitize_text_field($field['placeholder']) : $label;
     $id          = $section . '-' . $name;
-    $class       = $field['class'] ? sanitize_title($field['class']) : '';
-    $type        = $field['type'];
-    $default     = ($field['default']) ? $field['default'] : '';
+    $class       = isset($field['class']) ? sanitize_title($field['class']) : '';
+    $type        = isset($field['type']) ? sanitize_text_field($field['type']) : '';
+    $default     = isset($field['default']) ? sanitize_text_field($field['default']) : '';
     $required    = (isset($field['required']) && $field['required']) ? ' required' : '';
     $value       = (!empty($settings[$section][$name]['value'])) ? $settings[$section][$name]['value'] : $default;
     ?>
@@ -805,15 +805,15 @@ class Settings
    */
   public function callback_time($field) {
     $settings    = $this->settings;
-    $section     = $field['section'];
-    $name        = sanitize_title($field['name']);
-    $label       = isset($field['label']) && $field['label'] ? $field['label'] : $field['name'];
-    $description = isset($field['description']) && $field['description'] ? $field['description'] : '';
-    $placeholder = isset($field['placeholder']) && $field['placeholder'] ? $field['placeholder'] : $field['label'];
+    $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
+    $name        = isset($field['name']) ? sanitize_title($field['name']) : '';
+    $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : $name;
+    $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
+    $placeholder = isset($field['placeholder']) && $field['placeholder'] ? sanitize_text_field($field['placeholder']) : $label;
     $id          = $section . '-' . $name;
-    $class       = $field['class'] ? sanitize_title($field['class']) : '';
-    $type        = $field['type'];
-    $default     = ($field['default']) ? $field['default'] : '';
+    $class       = isset($field['class']) ? sanitize_title($field['class']) : '';
+    $type        = isset($field['type']) ? sanitize_text_field($field['type']) : '';
+    $default     = isset($field['default']) ? sanitize_text_field($field['default']) : '';
     $required    = (isset($field['required']) && $field['required']) ? ' required' : '';
     $value       = (!empty($settings[$section][$name]['value'])) ? $settings[$section][$name]['value'] : $default;
     ?>
@@ -837,14 +837,14 @@ class Settings
    */
   public function callback_color($field) {
     $settings    = $this->settings;
-    $section     = $field['section'];
-    $name        = sanitize_title($field['name']);
-    $label       = isset($field['label']) && $field['label'] ? $field['label'] : $field['name'];
-    $description = isset($field['description']) && $field['description'] ? $field['description'] : '';
+    $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
+    $name        = isset($field['name']) ? sanitize_title($field['name']) : '';
+    $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : $name;
+    $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
     $id          = $section . '-' . $name;
-    $class       = $field['class'] ? sanitize_title($field['class']) : '';
-    $type        = $field['type'];
-    $default     = ($field['default']) ? $field['default'] : '';
+    $class       = isset($field['class']) ? sanitize_title($field['class']) : '';
+    $type        = isset($field['type']) ? sanitize_text_field($field['type']) : '';
+    $default     = isset($field['default']) ? sanitize_text_field($field['default']) : '';
     $required    = (isset($field['required']) && $field['required']) ? ' required' : '';
     $value       = (!empty($settings[$section][$name]['value'])) ? $settings[$section][$name]['value'] : $default;
     ?>
@@ -867,9 +867,9 @@ class Settings
    * @return void
    */
   public function callback_error($field) {
-    $message = $field['message'] ? sanitize_text_field($field['message']) : '';
-    $color   = $field['color'] ? sanitize_text_field($field['color']) : '';
-    $class   = $field['class'] ? sanitize_title($field['class']) : '';
+    $message = isset($field['message']) ? sanitize_text_field($field['message']) : '';
+    $color   = isset($field['color']) ? sanitize_text_field($field['color']) : '';
+    $class   = isset($field['class']) ? sanitize_title($field['class']) : '';
     ?>
     <div class="field-container">
       <p class="<?php echo esc_attr($class); ?>" style="color: <?php echo esc_attr($color); ?>;"><?php echo esc_attr($message); ?></p>
