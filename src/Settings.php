@@ -196,11 +196,11 @@ class Settings
 
       // JS
       wp_enqueue_style('wp-color-picker');
-      wp_enqueue_script('settings-' . $this->plugin_slug, plugins_url('/templates/' . $template . '/settings.js', $this->admin_panel), array('jquery', 'wp-color-picker'), filemtime(plugin_dir_path($this->admin_panel) . '/js/settings.js'), true);
+      wp_enqueue_script('settings-' . $this->plugin_slug, plugins_url('/templates/' . $template . '/settings.js', $this->admin_panel), array('jquery', 'wp-color-picker'), filemtime(plugin_dir_path($this->admin_panel) . '/templates/' . $template . '/settings.js'), true);
       
       // Styles
       wp_enqueue_style('bootstrap-icons-' . $this->plugin_slug, plugins_url('/css/bootstrap-icons.min.css', $this->admin_panel), array(), filemtime(plugin_dir_path($this->admin_panel) . '/css/bootstrap-icons.min.css'));
-      wp_enqueue_style('settings-' . $this->plugin_slug, plugins_url('/templates/' . $template . '/style.css', $this->admin_panel), array(), filemtime(plugin_dir_path($this->admin_panel) . '/css/settings.css'));
+      wp_enqueue_style('settings-' . $this->plugin_slug, plugins_url('/templates/' . $template . '/style.css', $this->admin_panel), array(), filemtime(plugin_dir_path($this->admin_panel) . '/templates/' . $template . '/style.css'));
       
       // Color variables or custom CSS/Colors
       if (!isset($this->config['css'])) {
