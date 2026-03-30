@@ -2,6 +2,7 @@
 
 namespace PolyPlugins\Settings;
 
+if (!class_exists(__NAMESPACE__ . '\\Settings', false)) {
 class Settings
 {
 
@@ -195,36 +196,36 @@ class Settings
 
       // JS
       wp_enqueue_style('wp-color-picker');
-      wp_enqueue_script($this->plugin_slug . '-settings', plugins_url('/templates/' . $template . '/settings.js', $this->admin_panel), array('jquery', 'wp-color-picker'), filemtime(plugin_dir_path($this->admin_panel) . '/js/settings.js'), true);
+      wp_enqueue_script('settings-' . $this->plugin_slug, plugins_url('/templates/' . $template . '/settings.js', $this->admin_panel), array('jquery', 'wp-color-picker'), filemtime(plugin_dir_path($this->admin_panel) . '/js/settings.js'), true);
       
       // Styles
-      wp_enqueue_style('bootstrap-icons', plugins_url('/css/bootstrap-icons.min.css', $this->admin_panel), array(), filemtime(plugin_dir_path($this->admin_panel) . '/css/bootstrap-icons.min.css'));
-      wp_enqueue_style($this->plugin_slug . '-settings', plugins_url('/templates/' . $template . '/style.css', $this->admin_panel), array(), filemtime(plugin_dir_path($this->admin_panel) . '/css/settings.css'));
+      wp_enqueue_style('bootstrap-icons-' . $this->plugin_slug, plugins_url('/css/bootstrap-icons.min.css', $this->admin_panel), array(), filemtime(plugin_dir_path($this->admin_panel) . '/css/bootstrap-icons.min.css'));
+      wp_enqueue_style('settings-' . $this->plugin_slug, plugins_url('/templates/' . $template . '/style.css', $this->admin_panel), array(), filemtime(plugin_dir_path($this->admin_panel) . '/css/settings.css'));
       
       // Color variables or custom CSS/Colors
       if (!isset($this->config['css'])) {
-        wp_enqueue_style($this->plugin_slug . '-settings-colors', plugins_url('/css/colors.css', $this->admin_panel), array(), filemtime(plugin_dir_path($this->admin_panel) . '/css/colors.css'));
+        wp_enqueue_style('settings-colors-' . $this->plugin_slug, plugins_url('/css/colors.css', $this->admin_panel), array(), filemtime(plugin_dir_path($this->admin_panel) . '/css/colors.css'));
       } else {
-        wp_enqueue_style($this->plugin_slug . '-settings-custom', plugins_url($this->config['css'], $this->plugin), array(), filemtime(plugin_dir_path(dirname($this->plugin)) . dirname(plugin_basename($this->plugin)) . $this->config['css']));
+        wp_enqueue_style('settings-custom-' . $this->plugin_slug, plugins_url($this->config['css'], $this->plugin), array(), filemtime(plugin_dir_path(dirname($this->plugin)) . dirname(plugin_basename($this->plugin)) . $this->config['css']));
       }
 
       // Custom JS
       if (isset($this->config['js'])) {
-        wp_enqueue_script($this->plugin_slug . '-settings-custom', plugins_url($this->config['js'], $this->plugin), array('jquery'), filemtime(plugin_dir_path(dirname($this->plugin)) . dirname(plugin_basename($this->plugin))  . $this->config['js']), true);
+        wp_enqueue_script('settings-custom-' . $this->plugin_slug, plugins_url($this->config['js'], $this->plugin), array('jquery'), filemtime(plugin_dir_path(dirname($this->plugin)) . dirname(plugin_basename($this->plugin))  . $this->config['js']), true);
       }
       
       // Bootstrap
-      wp_enqueue_style('bootstrap', plugins_url('/css/bootstrap-wrapper.min.css', $this->admin_panel), array(), filemtime(plugin_dir_path($this->admin_panel) . '/css/bootstrap-wrapper.min.css'));
-      wp_enqueue_script('bootstrap', plugins_url('/js/bootstrap.min.js', $this->admin_panel), array(), filemtime(plugin_dir_path($this->admin_panel)  . '/js/bootstrap.min.js'), true);
+      wp_enqueue_style('bootstrap-' . $this->plugin_slug, plugins_url('/css/bootstrap-wrapper.min.css', $this->admin_panel), array(), filemtime(plugin_dir_path($this->admin_panel) . '/css/bootstrap-wrapper.min.css'));
+      wp_enqueue_script('bootstrap-' . $this->plugin_slug, plugins_url('/js/bootstrap.min.js', $this->admin_panel), array(), filemtime(plugin_dir_path($this->admin_panel)  . '/js/bootstrap.min.js'), true);
       
       // Validator
-      wp_enqueue_script('validator', plugins_url('/js/validator.min.js', $this->admin_panel), array(), filemtime(plugin_dir_path($this->admin_panel)  . '/js/validator.min.js'), true);
+      wp_enqueue_script('validator-' . $this->plugin_slug, plugins_url('/js/validator.min.js', $this->admin_panel), array(), filemtime(plugin_dir_path($this->admin_panel)  . '/js/validator.min.js'), true);
     }
 
     if ($pagenow === 'plugins.php' || $page == $this->plugin_slug) {
       // Sweet Alert to give a nice alert for the admin
-      wp_enqueue_style('sweetalert2', plugins_url('/css/sweetalert2.min.css', $this->admin_panel), array(), filemtime(plugin_dir_path($this->admin_panel) . '/css/sweetalert2.min.css'));
-      wp_enqueue_script('sweetalert2', plugins_url('/js/sweetalert2.min.js', $this->admin_panel), array(), filemtime(plugin_dir_path($this->admin_panel)  . '/js/sweetalert2.min.js'), true);
+      wp_enqueue_style('sweetalert2-' . $this->plugin_slug, plugins_url('/css/sweetalert2.min.css', $this->admin_panel), array(), filemtime(plugin_dir_path($this->admin_panel) . '/css/sweetalert2.min.css'));
+      wp_enqueue_script('sweetalert2-' . $this->plugin_slug, plugins_url('/js/sweetalert2.min.js', $this->admin_panel), array(), filemtime(plugin_dir_path($this->admin_panel)  . '/js/sweetalert2.min.js'), true);
     }
   }
   
@@ -915,4 +916,5 @@ class Settings
     return $option_value;
   }
 
+}
 }
