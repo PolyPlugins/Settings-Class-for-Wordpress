@@ -435,7 +435,7 @@ class Settings
     $settings    = $this->settings;
     $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
     $name        = isset($field['name']) ? sanitize_title($field['name']) : '';
-    $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : $name;
+    $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : sanitize_text_field($field['name']);
     $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
     $id          = $section . '-' . $name;
     $class       = isset($field['class']) ? sanitize_title($field['class']) : '';
@@ -465,7 +465,7 @@ class Settings
   public function callback_button($field) {
     $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
     $name        = isset($field['name']) ? sanitize_title($field['name']) : '';
-    $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : $name;
+    $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : sanitize_text_field($field['name']);
     $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
     $id          = $section . '-' . $name;
     $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
@@ -495,7 +495,7 @@ class Settings
     $settings    = $this->settings;
     $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
     $name        = isset($field['name']) ? sanitize_title($field['name']) : '';
-    $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : $name;
+    $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : sanitize_text_field($field['name']);
     $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
     $placeholder = isset($field['placeholder']) && $field['placeholder'] ? sanitize_text_field($field['placeholder']) : $label;
     $id          = $section . '-' . $name;
@@ -528,7 +528,7 @@ class Settings
     $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
     $name        = isset($field['name']) ? sanitize_title($field['name']) : '';
     $rows        = (isset($field['rows']) && is_numeric($field['rows'])) ? sanitize_text_field($field['rows']) : '';
-    $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : $name;
+    $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : sanitize_text_field($field['name']);
     $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
     $placeholder = isset($field['placeholder']) && $field['placeholder'] ? sanitize_text_field($field['placeholder']) : $label;
     $id          = $section . '-' . $name;
@@ -560,7 +560,7 @@ class Settings
     $settings    = $this->settings;
     $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
     $name        = isset($field['name']) ? sanitize_title($field['name']) : '';
-    $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : $name;
+    $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : sanitize_text_field($field['name']);
     $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
     $placeholder = isset($field['placeholder']) && $field['placeholder'] ? sanitize_text_field($field['placeholder']) : $label;
     $id          = $section . '-' . $name;
@@ -592,7 +592,7 @@ class Settings
     $settings    = $this->settings;
     $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
     $name        = isset($field['name']) ? sanitize_title($field['name']) : '';
-    $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : $name;
+    $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : sanitize_text_field($field['name']);
     $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
     $placeholder = isset($field['placeholder']) && $field['placeholder'] ? sanitize_text_field($field['placeholder']) : $label;
     $id          = $section . '-' . $name;
@@ -624,7 +624,7 @@ class Settings
     $settings    = $this->settings;
     $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
     $name        = isset($field['name']) ? sanitize_title($field['name']) : '';
-    $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : $name;
+    $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : sanitize_text_field($field['name']);
     $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
     $placeholder = isset($field['placeholder']) && $field['placeholder'] ? sanitize_text_field($field['placeholder']) : $label;
     $id          = $section . '-' . $name;
@@ -659,7 +659,7 @@ class Settings
     $min         = isset($field['min']) && is_numeric($field['min']) ? sanitize_text_field($field['min']) : '';
     $max         = isset($field['max']) && is_numeric($field['max']) ? sanitize_text_field($field['max']) : '';
     $step        = isset($field['step']) && is_numeric($field['step']) ? sanitize_text_field($field['step']) : '';
-    $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : $name;
+    $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : sanitize_text_field($field['name']);
     $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
     $placeholder = isset($field['placeholder']) && $field['placeholder'] ? sanitize_text_field($field['placeholder']) : $label;
     $id          = $section . '-' . $name;
@@ -691,7 +691,7 @@ class Settings
     $settings    = $this->settings;
     $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
     $name        = isset($field['name']) ? sanitize_title($field['name']) : '';
-    $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : $name;
+    $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : sanitize_text_field($field['name']);
     $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
     $id          = $section . '-' . $name;
     $class       = isset($field['class']) ? sanitize_title($field['class']) : '';
@@ -729,7 +729,7 @@ class Settings
     $settings    = $this->settings;
     $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
     $name        = isset($field['name']) ? sanitize_title($field['name']) : '';
-    $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : $name;
+    $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : sanitize_text_field($field['name']);
     $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
     $id          = $section . '-' . $name;
     $class       = isset($field['class']) ? sanitize_title($field['class']) : '';
@@ -775,7 +775,7 @@ class Settings
     $settings    = $this->settings;
     $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
     $name        = isset($field['name']) ? sanitize_title($field['name']) : '';
-    $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : $name;
+    $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : sanitize_text_field($field['name']);
     $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
     $placeholder = isset($field['placeholder']) && $field['placeholder'] ? sanitize_text_field($field['placeholder']) : $label;
     $id          = $section . '-' . $name;
@@ -807,7 +807,7 @@ class Settings
     $settings    = $this->settings;
     $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
     $name        = isset($field['name']) ? sanitize_title($field['name']) : '';
-    $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : $name;
+    $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : sanitize_text_field($field['name']);
     $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
     $placeholder = isset($field['placeholder']) && $field['placeholder'] ? sanitize_text_field($field['placeholder']) : $label;
     $id          = $section . '-' . $name;
@@ -839,7 +839,7 @@ class Settings
     $settings    = $this->settings;
     $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
     $name        = isset($field['name']) ? sanitize_title($field['name']) : '';
-    $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : $name;
+    $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : sanitize_text_field($field['name']);
     $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
     $id          = $section . '-' . $name;
     $class       = isset($field['class']) ? sanitize_title($field['class']) : '';
