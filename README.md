@@ -348,6 +348,9 @@ This library collects and stores certain data on your server to ensure proper fu
 
 ## Changelog
 
+### 3.1.3
+* Bugfix: Labels if not set will set will display the name as a slug
+
 ### 3.1.2
 * Added: Custom array sanitization method
 * Updated: Boilerplate plugin with AI Agent Skills
