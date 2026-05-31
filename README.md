@@ -66,6 +66,8 @@ To update minor or patch versions, run the following after taking a backup of Wo
 
 Within your plugin folder (```/wp-content/plugins/your-plugin/```)
 
+If you have other plugins using Settings Class for WordPress you will also need to update those as whichever class loads first will take priority, if it loads an old version then you won't have the new features. We are going to address this issue in v4 with a post install script to customize the namespacing based on your plugin. v4 will include a few breaking changes so be prepared for that.
+
 Composer will only update versions that fit the constraints defined in your composer.json, so major releases generally won't be installed automatically.
 
 Major versions may include breaking changes, so review the release notes before updating and follow any migration instructions.
@@ -347,6 +349,9 @@ This library collects and stores certain data on your server to ensure proper fu
 [Rush Frisby](https://github.com/rushfrisby/) - Bootstrap Container
 
 ## Changelog
+
+### 3.2.0
+* Added: Callback capabilities to subsections
 
 ### 3.1.3
 * Bugfix: Labels if not set will set will display the name as a slug

@@ -123,7 +123,11 @@ if (!defined('ABSPATH')) exit;
                   <?php echo esc_html($subsection['label'] ?? ucfirst($sub_id)) . ' Settings'; ?>
                 </h2>
                 <div class="fields">
-                  <?php if (isset($section_data['callback']) && is_callable($section_data['callback'])) : ?>
+                  <?php if (isset($subsection['callback']) && is_callable($subsection['callback'])) : ?>
+                    <div class="field-container">
+                      <?php call_user_func($subsection['callback'], $section . '-' . $sub_id, $subsection, $this->settings); ?>
+                    </div>
+                  <?php elseif (isset($section_data['callback']) && is_callable($section_data['callback'])) : ?>
                     <div class="field-container">
                       <?php call_user_func($section_data['callback'], $section, $section_data, $this->settings); ?>
                     </div>
