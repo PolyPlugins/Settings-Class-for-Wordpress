@@ -25,7 +25,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "Poly_Plugins\\V4_0_0\\": "src"
+      "Poly_Plugins\\V4_0_1\\": "src"
     }
   }
 }
