@@ -113,7 +113,7 @@ function migrate_settings_keys_to_underscores($settings_name) {
 migrate_settings_keys_to_underscores('your_settings_name');
 ```
 
-We also moved the css, js, and img folders to assets folder so you will need to update any references for it as well.
+We also moved the css, js, and img folders to assets folder so you will need to update any references for that as well.
 
 ## Example Plugin
 
