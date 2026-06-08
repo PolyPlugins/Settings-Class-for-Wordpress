@@ -391,6 +391,10 @@ This library collects and stores certain data on your server to ensure proper fu
 
 ## Changelog
 
+### 4.0.2
+* Bugfix: Loading text sometimes showing
+* Bugfix: WordPress 7 style conflict
+
 ### 4.0.1
 * Refactored: Class to use versioning to prevent conflicts.
 * Updated: CSS, JS, and images to be under assets
