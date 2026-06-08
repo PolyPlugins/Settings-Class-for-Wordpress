@@ -130,7 +130,7 @@ namespace PolyPlugins\Test_Plugin;
 
 require plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
 
-use PolyPlugins\Settings\Settings;
+use PolyPlugins\V4_0_0\Settings;
 
 if (!defined('ABSPATH')) exit;
 
