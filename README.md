@@ -393,7 +393,7 @@ This library collects and stores certain data on your server to ensure proper fu
 
 ## Changelog
 
-### 4.0.3
+### 4.0.4
 * Refactored: Class to use versioning to prevent conflicts.
 * Updated: CSS, JS, and images to be under assets
 * Updated: Field and section key sanitization to use underscores instead of hyphens.
@@ -401,6 +401,7 @@ This library collects and stores certain data on your server to ensure proper fu
 * Updated: get_option() to normalize section and option names with sanitize_title_with_underscores().
 * Updated: css config example to /assets/css/style.css
 * Updated: js config example to /assets/js/admin.js
+* Updated: Handling for subsections
 * Bugfix: Loading text sometimes showing
 * Bugfix: WordPress 7 style conflict
 
