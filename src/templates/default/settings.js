@@ -249,7 +249,7 @@ jQuery(document).ready(function ($) {
   }
 
   function slug_to_title(str) {
-    var split_str = str.split('-');
+    var split_str = str.split(/[-_]/);
     
     for (var i = 0; i < split_str.length; i++) {
       split_str[i] = split_str[i].toUpperCase();     

@@ -66,7 +66,7 @@ To update minor or patch versions, run the following after taking a backup of Wo
 
 Within your plugin folder (```/wp-content/plugins/your-plugin/```)
 
-Starting with v4, the class is namespaced by version (e.g. `Poly_Plugins\V4_0_3\Settings`). Multiple plugins on the same site can each bundle their own version without conflicts so the old issue where whichever class loaded first would take priority is resolved. When you update, make sure your `use` statement matches the version in your `composer.json`.
+Starting with v4, the class is namespaced by version (e.g. `Poly_Plugins\V4_0_4\Settings`). Multiple plugins on the same site can each bundle their own version without conflicts so the old issue where whichever class loaded first would take priority is resolved. When you update, make sure your `use` statement matches the version in your `composer.json`.
 
 Composer will only update versions that fit the constraints defined in your composer.json, so major releases generally won't be installed automatically.
 
@@ -74,14 +74,14 @@ Major versions may include breaking changes, so review the release notes before 
 
 ### Upgrading to v4
 
-Field names are now stored with underscores instead of hyphens. Previously, field names were sanitized with `sanitize_title()`, which produces URL-style slugs with hyphens. That works for slugs, but hyphens are awkward as PHP array keys and they don't match the underscore convention WordPress uses elsewhere for options and meta. Underscores also keep `get_option()` predictable as whatever you pass in (a label, a slug, or a name with spaces) is normalized to the same key every time.
+Field and section keys are now stored with underscores instead of hyphens. Previously, keys were sanitized with `sanitize_title()`, which produces URL-style slugs with hyphens. That works for slugs, but hyphens are awkward as PHP array keys and they don't match the underscore convention WordPress uses elsewhere for options and meta. Underscores also keep `get_option()` predictable as whatever you pass in (a label, a slug, or a name with spaces) is normalized to the same key every time.
 
 If you are upgrading from v3, add something similar to your updater logic that only runs once to migrate existing settings in the database. Replace `your_settings_name` with the value from your `settings_name` config. Be sure to test it on your staging environment first before pushing live.
 
 This migration is not built into the class. Running it automatically would require storing a version flag per plugin in the database so we know the migration has already run. We may add that in the future, but for now we want to keep the database footprint as small as possible.
 
 ```php
-function migrate_settings_field_keys_to_underscores($settings_name) {
+function migrate_settings_keys_to_underscores($settings_name) {
   $settings = get_option($settings_name);
 
   if (!is_array($settings) || empty($settings)) {
@@ -91,16 +91,18 @@ function migrate_settings_field_keys_to_underscores($settings_name) {
   $migrated = array();
 
   foreach ($settings as $section => $fields) {
+    $new_section = str_replace('-', '_', $section);
+
     if (!is_array($fields)) {
-      $migrated[$section] = $fields;
+      $migrated[$new_section] = $fields;
       continue;
     }
 
-    $migrated[$section] = array();
+    $migrated[$new_section] = array();
 
     foreach ($fields as $name => $option) {
       $new_name = str_replace('-', '_', $name);
-      $migrated[$section][$new_name] = $option;
+      $migrated[$new_section][$new_name] = $option;
     }
   }
 
@@ -108,7 +110,7 @@ function migrate_settings_field_keys_to_underscores($settings_name) {
 }
 
 // Run once on upgrade
-migrate_settings_field_keys_to_underscores('your_settings_name');
+migrate_settings_keys_to_underscores('your_settings_name');
 ```
 
 We also moved the css, js, and img folders to assets folder so you will need to update any references for it as well.
@@ -132,7 +134,7 @@ namespace Poly_Plugins\Test_Plugin;
 
 require plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
 
-use Poly_Plugins\V4_0_3\Settings;
+use Poly_Plugins\V4_0_4\Settings;
 
 if (!defined('ABSPATH')) exit;
 
@@ -394,8 +396,9 @@ This library collects and stores certain data on your server to ensure proper fu
 ### 4.0.3
 * Refactored: Class to use versioning to prevent conflicts.
 * Updated: CSS, JS, and images to be under assets
-* Updated: Field name sanitization to use underscores instead of hyphens.
-* Updated: get_option() to normalize option names with sanitize_title_with_underscores().
+* Updated: Field and section key sanitization to use underscores instead of hyphens.
+* Updated: Field IDs to use underscores instead of hyphens.
+* Updated: get_option() to normalize section and option names with sanitize_title_with_underscores().
 * Updated: css config example to /assets/css/style.css
 * Updated: js config example to /assets/js/admin.js
 * Bugfix: Loading text sometimes showing
