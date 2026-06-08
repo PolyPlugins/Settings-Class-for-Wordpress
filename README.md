@@ -111,6 +111,8 @@ function migrate_settings_field_keys_to_underscores($settings_name) {
 migrate_settings_field_keys_to_underscores('your_settings_name');
 ```
 
+We also moved the css, js, and img folders to assets folder so you will need to update any references for it as well.
+
 ## Example Plugin
 
 If you want barebones you can create a test-plugin.php file within a new /wp-content/plugins/test-plugin/ folder and add the below code:
