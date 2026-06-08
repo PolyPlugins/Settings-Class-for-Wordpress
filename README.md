@@ -66,7 +66,7 @@ To update minor or patch versions, run the following after taking a backup of Wo
 
 Within your plugin folder (```/wp-content/plugins/your-plugin/```)
 
-Starting with v4, the class is namespaced by version (e.g. `PolyPlugins\V_4_0_0\Settings`). Multiple plugins on the same site can each bundle their own version without conflicts so the old issue where whichever class loaded first would take priority is resolved. When you update, make sure your `use` statement matches the version in your `composer.json`.
+Starting with v4, the class is namespaced by version (e.g. `Poly_Plugins\V_4_0_0\Settings`). Multiple plugins on the same site can each bundle their own version without conflicts so the old issue where whichever class loaded first would take priority is resolved. When you update, make sure your `use` statement matches the version in your `composer.json`.
 
 Composer will only update versions that fit the constraints defined in your composer.json, so major releases generally won't be installed automatically.
 
@@ -128,11 +128,11 @@ If you want barebones you can create a test-plugin.php file within a new /wp-con
  * Plugin URI: https://www.polyplugins.com
  */
 
-namespace PolyPlugins\Test_Plugin;
+namespace Poly_Plugins\Test_Plugin;
 
 require plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
 
-use PolyPlugins\V4_0_0\Settings;
+use Poly_Plugins\V4_0_0\Settings;
 
 if (!defined('ABSPATH')) exit;
 
