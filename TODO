@@ -1,4 +1,0 @@
-# 4.0.0 (Breaking Changes)
-[] Look into adding post install script to automatically rename class based on the class the plugin is in. This way each plugin has their own version that loads. Otherwise the version that loads first is what's loaded so updated versions could be missed.
-[] Adjust settings to use _ instead of -
-[] Move to assets folder

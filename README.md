@@ -74,9 +74,9 @@ Major versions may include breaking changes, so review the release notes before 
 
 ### Upgrading to 4.0.0
 
-Field names are now stored with underscores instead of hyphens. Previously, field names were sanitized with `sanitize_title()`, which produces URL-style slugs with hyphens. That works for slugs, but hyphens are awkward as PHP array keys — you always need bracket notation, and they don't match the underscore convention WordPress uses elsewhere for options and meta. Underscores also keep `get_option()` predictable: whatever you pass in (a label, a slug, or a name with spaces) is normalized to the same key every time.
+Field names are now stored with underscores instead of hyphens. Previously, field names were sanitized with `sanitize_title()`, which produces URL-style slugs with hyphens. That works for slugs, but hyphens are awkward as PHP array keys and they don't match the underscore convention WordPress uses elsewhere for options and meta. Underscores also keep `get_option()` predictable: whatever you pass in (a label, a slug, or a name with spaces) is normalized to the same key every time.
 
-If you are upgrading from v3, run the following once to migrate existing settings in the database. Replace `your_settings_name` with the value from your `settings_name` config.
+If you are upgrading from v3, add the following to your updater logic to only run once to migrate existing settings in the database. Replace `your_settings_name` with the value from your `settings_name` config.
 
 ```php
 function migrate_settings_field_keys_to_underscores($settings_name) {
