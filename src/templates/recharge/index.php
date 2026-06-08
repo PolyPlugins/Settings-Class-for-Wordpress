@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) exit;
   <!-- Display a loader as a placeholder until page is loaded -->
   <div class="load-settings d-flex justify-content-center m-3">
     <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
-      <span class="sr-only">Loading...</span>
+      <span class="visually-hidden">Loading...</span>
     </div>
   </div>
 

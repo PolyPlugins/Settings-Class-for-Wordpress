@@ -49,7 +49,7 @@ input#submit {
 /* Global End */
 
 /* Bootstrap Begin */
-input[type="checkbox"] {
+input[type="checkbox"]:not(.form-check-input) {
   border-radius: 5px!important;
 }
 
@@ -86,7 +86,7 @@ input[type=time], input[type=date], input[type=datetime-local], input[type=datet
   margin-top: 10px!important;
 }
 
-input[type=checkbox] {
+input[type=checkbox]:not(.form-check-input) {
   border: 1px solid var(--settings-border, #e2e2e2) !important;
 }
 
@@ -121,7 +121,7 @@ input[type=checkbox]:focus, input[type=color]:focus, input[type=date]:focus, inp
   text-decoration: underline!important;
 }
 
-input[type=checkbox]:checked {
+input[type=checkbox]:not(.form-check-input):checked {
   background-color: var(--settings-primary, #46BEA4)!important;
   border-color: var(--settings-primary, #46BEA4)!important;
 }
@@ -171,6 +171,46 @@ a.btn.btn-dark {
 
 input[type=checkbox]:checked::before {
   display: none;
+}
+
+.bootstrap-wrapper .form-switch .form-check-input {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  background-image: none !important;
+  width: 2em;
+  height: 1em;
+  border-radius: 2em !important;
+  border: 1px solid var(--settings-border, #e2e2e2) !important;
+  background-color: #ccc !important;
+  position: relative;
+  margin-top: 2px !important;
+  vertical-align: middle;
+}
+
+.bootstrap-wrapper .form-switch .form-check-input::before {
+  content: none !important;
+}
+
+.bootstrap-wrapper .form-switch .form-check-input::after {
+  content: '' !important;
+  position: absolute;
+  top: 50%;
+  left: 1px;
+  width: calc(1em - 2px);
+  height: calc(1em - 2px);
+  border-radius: 50%;
+  background-color: #fff;
+  transform: translateY(-50%);
+  transition: transform .15s ease-in-out;
+}
+
+.bootstrap-wrapper .form-switch .form-check-input:checked {
+  background-color: var(--settings-primary, #46BEA4) !important;
+  border-color: var(--settings-primary, #46BEA4) !important;
+}
+
+.bootstrap-wrapper .form-switch .form-check-input:checked::after {
+  transform: translate(1em, -50%);
 }
 /* Bootstrap End */
 
