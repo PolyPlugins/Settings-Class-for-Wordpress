@@ -107,7 +107,7 @@ function migrate_settings_field_keys_to_underscores($settings_name) {
   update_option($settings_name, $migrated);
 }
 
-// Run once on upgrade, e.g. in your activation hook or plugins_loaded callback.
+// Run once on upgrade
 migrate_settings_field_keys_to_underscores('your_settings_name');
 ```
 
