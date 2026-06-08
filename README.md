@@ -66,7 +66,7 @@ To update minor or patch versions, run the following after taking a backup of Wo
 
 Within your plugin folder (```/wp-content/plugins/your-plugin/```)
 
-Starting with v4, the class is namespaced by version (e.g. `Poly_Plugins\V4_0_4\Settings`). Multiple plugins on the same site can each bundle their own version without conflicts so the old issue where whichever class loaded first would take priority is resolved. When you update, make sure your `use` statement matches the version in your `composer.json`.
+Starting with v4, the class is namespaced by version (e.g. `Poly_Plugins\V4_0_5\Settings`). Multiple plugins on the same site can each bundle their own version without conflicts so the old issue where whichever class loaded first would take priority is resolved. When you update, make sure your `use` statement matches the version in your `composer.json`.
 
 Composer will only update versions that fit the constraints defined in your composer.json, so major releases generally won't be installed automatically.
 
@@ -134,7 +134,7 @@ namespace Poly_Plugins\Test_Plugin;
 
 require plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
 
-use Poly_Plugins\V4_0_4\Settings;
+use Poly_Plugins\V4_0_5\Settings;
 
 if (!defined('ABSPATH')) exit;
 
@@ -393,7 +393,7 @@ This library collects and stores certain data on your server to ensure proper fu
 
 ## Changelog
 
-### 4.0.4
+### 4.0.5
 * Refactored: Class to use versioning to prevent conflicts.
 * Updated: CSS, JS, and images to be under assets
 * Updated: Field and section key sanitization to use underscores instead of hyphens.

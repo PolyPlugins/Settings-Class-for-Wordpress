@@ -1,6 +1,6 @@
 <?php
 
-namespace Poly_Plugins\V4_0_4;
+namespace Poly_Plugins\V4_0_5;
 
 if (!class_exists(__NAMESPACE__ . '\\Settings', false))
 {
