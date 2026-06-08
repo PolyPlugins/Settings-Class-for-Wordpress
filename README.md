@@ -66,7 +66,7 @@ To update minor or patch versions, run the following after taking a backup of Wo
 
 Within your plugin folder (```/wp-content/plugins/your-plugin/```)
 
-Starting with v4, the class is namespaced by version (e.g. `PolyPlugins\V_4_0_0\Settings`). Multiple plugins on the same site can each bundle their own version without conflicts — the old issue where whichever class loaded first would take priority is resolved. When you update, make sure your `use` statement matches the version in your `composer.json`.
+Starting with v4, the class is namespaced by version (e.g. `PolyPlugins\V_4_0_0\Settings`). Multiple plugins on the same site can each bundle their own version without conflicts so the old issue where whichever class loaded first would take priority is resolved. When you update, make sure your `use` statement matches the version in your `composer.json`.
 
 Composer will only update versions that fit the constraints defined in your composer.json, so major releases generally won't be installed automatically.
 
@@ -74,9 +74,11 @@ Major versions may include breaking changes, so review the release notes before 
 
 ### Upgrading to 4.0.0
 
-Field names are now stored with underscores instead of hyphens. Previously, field names were sanitized with `sanitize_title()`, which produces URL-style slugs with hyphens. That works for slugs, but hyphens are awkward as PHP array keys and they don't match the underscore convention WordPress uses elsewhere for options and meta. Underscores also keep `get_option()` predictable: whatever you pass in (a label, a slug, or a name with spaces) is normalized to the same key every time.
+Field names are now stored with underscores instead of hyphens. Previously, field names were sanitized with `sanitize_title()`, which produces URL-style slugs with hyphens. That works for slugs, but hyphens are awkward as PHP array keys and they don't match the underscore convention WordPress uses elsewhere for options and meta. Underscores also keep `get_option()` predictable as whatever you pass in (a label, a slug, or a name with spaces) is normalized to the same key every time.
 
-If you are upgrading from v3, add the following to your updater logic to only run once to migrate existing settings in the database. Replace `your_settings_name` with the value from your `settings_name` config.
+If you are upgrading from v3, add something similar to your updater logic that only runs once to migrate existing settings in the database. Replace `your_settings_name` with the value from your `settings_name` config. Be sure to test it on your staging environment first before pushing live.
+
+This migration is not built into the class. Running it automatically would require storing a version flag per plugin in the database so we know the migration has already run. We may add that in the future, but for now we want to keep the database footprint as small as possible.
 
 ```php
 function migrate_settings_field_keys_to_underscores($settings_name) {
@@ -112,7 +114,7 @@ migrate_settings_field_keys_to_underscores('your_settings_name');
 ## Example Plugin
 
 If you want barebones you can create a test-plugin.php file within a new /wp-content/plugins/test-plugin/ folder and add the below code:
-```
+```php
 <?php
 
 /**
