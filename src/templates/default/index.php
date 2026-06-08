@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) exit;
     <!-- Navigation -->
     <div class="col-lg-2 col-md-12 tabs">
       <nav class="nav flex-column">
-        <img src="<?php echo isset($this->config['logo']) ? esc_url(plugins_url($this->config['logo'], $this->plugin)) : esc_url(plugins_url('/img/logo.png', $this->admin_panel)); ?>" class="nav-logo" />
+        <img src="<?php echo isset($this->config['logo']) ? esc_url(plugins_url($this->config['logo'], $this->plugin)) : esc_url(plugins_url('/assets/img/logo.png', $this->admin_panel)); ?>" class="nav-logo" />
       </nav>
 
       <nav class="nav flex-column">

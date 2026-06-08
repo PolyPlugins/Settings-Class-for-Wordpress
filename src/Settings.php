@@ -1,9 +1,9 @@
 <?php
 
-namespace PolyPlugins\Settings;
+namespace PolyPlugins\Settings\V_4_0_0;
 
-if (!class_exists(__NAMESPACE__ . '\\Settings', false)) {
-class Settings
+if (!class_exists(__NAMESPACE__ . '\\Init', false)) {
+class Init
 {
 
   /**
@@ -123,9 +123,9 @@ class Settings
     $this->plugin_name      = isset($config['name']) ? sanitize_text_field($config['name']) : mb_convert_case(str_replace('-', ' ', $this->plugin_slug), MB_CASE_TITLE);
     $this->plugin_menu_name = isset($config['menu_name']) ? sanitize_text_field($config['menu_name']) : $this->plugin_name;
     $this->settings_name    = isset($config['settings_name']) ? sanitize_text_field($config['settings_name']) : strtolower(str_replace(' ', '_', $this->plugin_name) . '_settings');
-    $this->settings         = get_option($this->settings_name);
     $this->config           = $config;
     $this->fields           = $fields;
+    $this->settings         = get_option($this->settings_name);
 	}
   
   /**
@@ -199,12 +199,12 @@ class Settings
       wp_enqueue_script('settings-' . $this->plugin_slug, plugins_url('/templates/' . $template . '/settings.js', $this->admin_panel), array('jquery', 'wp-color-picker'), filemtime(plugin_dir_path($this->admin_panel) . '/templates/' . $template . '/settings.js'), true);
       
       // Styles
-      wp_enqueue_style('bootstrap-icons-' . $this->plugin_slug, plugins_url('/css/bootstrap-icons.min.css', $this->admin_panel), array(), filemtime(plugin_dir_path($this->admin_panel) . '/css/bootstrap-icons.min.css'));
+      wp_enqueue_style('bootstrap-icons-' . $this->plugin_slug, plugins_url('/assets/css/bootstrap-icons.min.css', $this->admin_panel), array(), filemtime(plugin_dir_path($this->admin_panel) . '/assets/css/bootstrap-icons.min.css'));
       wp_enqueue_style('settings-' . $this->plugin_slug, plugins_url('/templates/' . $template . '/style.css', $this->admin_panel), array(), filemtime(plugin_dir_path($this->admin_panel) . '/templates/' . $template . '/style.css'));
       
       // Color variables or custom CSS/Colors
       if (!isset($this->config['css'])) {
-        wp_enqueue_style('settings-colors-' . $this->plugin_slug, plugins_url('/css/colors.css', $this->admin_panel), array(), filemtime(plugin_dir_path($this->admin_panel) . '/css/colors.css'));
+        wp_enqueue_style('settings-colors-' . $this->plugin_slug, plugins_url('/assets/css/colors.css', $this->admin_panel), array(), filemtime(plugin_dir_path($this->admin_panel) . '/assets/css/colors.css'));
       } else {
         wp_enqueue_style('settings-custom-' . $this->plugin_slug, plugins_url($this->config['css'], $this->plugin), array(), filemtime(plugin_dir_path(dirname($this->plugin)) . dirname(plugin_basename($this->plugin)) . $this->config['css']));
       }
@@ -215,17 +215,17 @@ class Settings
       }
       
       // Bootstrap
-      wp_enqueue_style('bootstrap-' . $this->plugin_slug, plugins_url('/css/bootstrap-wrapper.min.css', $this->admin_panel), array(), filemtime(plugin_dir_path($this->admin_panel) . '/css/bootstrap-wrapper.min.css'));
-      wp_enqueue_script('bootstrap-' . $this->plugin_slug, plugins_url('/js/bootstrap.min.js', $this->admin_panel), array(), filemtime(plugin_dir_path($this->admin_panel)  . '/js/bootstrap.min.js'), true);
+      wp_enqueue_style('bootstrap-' . $this->plugin_slug, plugins_url('/assets/css/bootstrap-wrapper.min.css', $this->admin_panel), array(), filemtime(plugin_dir_path($this->admin_panel) . '/assets/css/bootstrap-wrapper.min.css'));
+      wp_enqueue_script('bootstrap-' . $this->plugin_slug, plugins_url('/assets/js/bootstrap.min.js', $this->admin_panel), array(), filemtime(plugin_dir_path($this->admin_panel)  . '/assets/js/bootstrap.min.js'), true);
       
       // Validator
-      wp_enqueue_script('validator-' . $this->plugin_slug, plugins_url('/js/validator.min.js', $this->admin_panel), array(), filemtime(plugin_dir_path($this->admin_panel)  . '/js/validator.min.js'), true);
+      wp_enqueue_script('validator-' . $this->plugin_slug, plugins_url('/assets/js/validator.min.js', $this->admin_panel), array(), filemtime(plugin_dir_path($this->admin_panel)  . '/assets/js/validator.min.js'), true);
     }
 
     if ($pagenow === 'plugins.php' || $page == $this->plugin_slug) {
       // Sweet Alert to give a nice alert for the admin
-      wp_enqueue_style('sweetalert2-' . $this->plugin_slug, plugins_url('/css/sweetalert2.min.css', $this->admin_panel), array(), filemtime(plugin_dir_path($this->admin_panel) . '/css/sweetalert2.min.css'));
-      wp_enqueue_script('sweetalert2-' . $this->plugin_slug, plugins_url('/js/sweetalert2.min.js', $this->admin_panel), array(), filemtime(plugin_dir_path($this->admin_panel)  . '/js/sweetalert2.min.js'), true);
+      wp_enqueue_style('sweetalert2-' . $this->plugin_slug, plugins_url('/assets/css/sweetalert2.min.css', $this->admin_panel), array(), filemtime(plugin_dir_path($this->admin_panel) . '/assets/css/sweetalert2.min.css'));
+      wp_enqueue_script('sweetalert2-' . $this->plugin_slug, plugins_url('/assets/js/sweetalert2.min.js', $this->admin_panel), array(), filemtime(plugin_dir_path($this->admin_panel)  . '/assets/js/sweetalert2.min.js'), true);
     }
   }
   
@@ -434,7 +434,7 @@ class Settings
   public function callback_switch($field) {
     $settings    = $this->settings;
     $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
-    $name        = isset($field['name']) ? sanitize_title($field['name']) : '';
+    $name        = isset($field['name']) ? $this->sanitize_title_with_underscores($field['name']) : '';
     $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : sanitize_text_field($field['name']);
     $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
     $id          = $section . '-' . $name;
@@ -464,7 +464,7 @@ class Settings
    */
   public function callback_button($field) {
     $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
-    $name        = isset($field['name']) ? sanitize_title($field['name']) : '';
+    $name        = isset($field['name']) ? $this->sanitize_title_with_underscores($field['name']) : '';
     $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : sanitize_text_field($field['name']);
     $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
     $id          = $section . '-' . $name;
@@ -494,7 +494,7 @@ class Settings
   public function callback_text($field) {
     $settings    = $this->settings;
     $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
-    $name        = isset($field['name']) ? sanitize_title($field['name']) : '';
+    $name        = isset($field['name']) ? $this->sanitize_title_with_underscores($field['name']) : '';
     $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : sanitize_text_field($field['name']);
     $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
     $placeholder = isset($field['placeholder']) && $field['placeholder'] ? sanitize_text_field($field['placeholder']) : $label;
@@ -526,7 +526,7 @@ class Settings
   public function callback_textarea($field) {
     $settings    = $this->settings;
     $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
-    $name        = isset($field['name']) ? sanitize_title($field['name']) : '';
+    $name        = isset($field['name']) ? $this->sanitize_title_with_underscores($field['name']) : '';
     $rows        = (isset($field['rows']) && is_numeric($field['rows'])) ? sanitize_text_field($field['rows']) : '';
     $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : sanitize_text_field($field['name']);
     $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
@@ -559,7 +559,7 @@ class Settings
   public function callback_email($field) {
     $settings    = $this->settings;
     $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
-    $name        = isset($field['name']) ? sanitize_title($field['name']) : '';
+    $name        = isset($field['name']) ? $this->sanitize_title_with_underscores($field['name']) : '';
     $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : sanitize_text_field($field['name']);
     $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
     $placeholder = isset($field['placeholder']) && $field['placeholder'] ? sanitize_text_field($field['placeholder']) : $label;
@@ -591,7 +591,7 @@ class Settings
   public function callback_url($field) {
     $settings    = $this->settings;
     $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
-    $name        = isset($field['name']) ? sanitize_title($field['name']) : '';
+    $name        = isset($field['name']) ? $this->sanitize_title_with_underscores($field['name']) : '';
     $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : sanitize_text_field($field['name']);
     $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
     $placeholder = isset($field['placeholder']) && $field['placeholder'] ? sanitize_text_field($field['placeholder']) : $label;
@@ -623,7 +623,7 @@ class Settings
   public function callback_password($field) {
     $settings    = $this->settings;
     $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
-    $name        = isset($field['name']) ? sanitize_title($field['name']) : '';
+    $name        = isset($field['name']) ? $this->sanitize_title_with_underscores($field['name']) : '';
     $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : sanitize_text_field($field['name']);
     $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
     $placeholder = isset($field['placeholder']) && $field['placeholder'] ? sanitize_text_field($field['placeholder']) : $label;
@@ -655,7 +655,7 @@ class Settings
   public function callback_number($field) {
     $settings    = $this->settings;
     $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
-    $name        = isset($field['name']) ? sanitize_title($field['name']) : '';
+    $name        = isset($field['name']) ? $this->sanitize_title_with_underscores($field['name']) : '';
     $min         = isset($field['min']) && is_numeric($field['min']) ? sanitize_text_field($field['min']) : '';
     $max         = isset($field['max']) && is_numeric($field['max']) ? sanitize_text_field($field['max']) : '';
     $step        = isset($field['step']) && is_numeric($field['step']) ? sanitize_text_field($field['step']) : '';
@@ -690,7 +690,7 @@ class Settings
   public function callback_dropdown($field) {
     $settings    = $this->settings;
     $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
-    $name        = isset($field['name']) ? sanitize_title($field['name']) : '';
+    $name        = isset($field['name']) ? $this->sanitize_title_with_underscores($field['name']) : '';
     $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : sanitize_text_field($field['name']);
     $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
     $id          = $section . '-' . $name;
@@ -728,7 +728,7 @@ class Settings
   public function callback_dropdown_toggle($field) {
     $settings    = $this->settings;
     $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
-    $name        = isset($field['name']) ? sanitize_title($field['name']) : '';
+    $name        = isset($field['name']) ? $this->sanitize_title_with_underscores($field['name']) : '';
     $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : sanitize_text_field($field['name']);
     $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
     $id          = $section . '-' . $name;
@@ -774,7 +774,7 @@ class Settings
   public function callback_date($field) {
     $settings    = $this->settings;
     $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
-    $name        = isset($field['name']) ? sanitize_title($field['name']) : '';
+    $name        = isset($field['name']) ? $this->sanitize_title_with_underscores($field['name']) : '';
     $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : sanitize_text_field($field['name']);
     $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
     $placeholder = isset($field['placeholder']) && $field['placeholder'] ? sanitize_text_field($field['placeholder']) : $label;
@@ -806,7 +806,7 @@ class Settings
   public function callback_time($field) {
     $settings    = $this->settings;
     $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
-    $name        = isset($field['name']) ? sanitize_title($field['name']) : '';
+    $name        = isset($field['name']) ? $this->sanitize_title_with_underscores($field['name']) : '';
     $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : sanitize_text_field($field['name']);
     $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
     $placeholder = isset($field['placeholder']) && $field['placeholder'] ? sanitize_text_field($field['placeholder']) : $label;
@@ -838,7 +838,7 @@ class Settings
   public function callback_color($field) {
     $settings    = $this->settings;
     $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
-    $name        = isset($field['name']) ? sanitize_title($field['name']) : '';
+    $name        = isset($field['name']) ? $this->sanitize_title_with_underscores($field['name']) : '';
     $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : sanitize_text_field($field['name']);
     $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
     $id          = $section . '-' . $name;
@@ -930,6 +930,18 @@ class Settings
   }
 
   /**
+   * Sanitize a title using underscores instead of hyphens.
+   *
+   * @param  string $title Title to sanitize
+   * @return string
+   */
+  private function sanitize_title_with_underscores($title) {
+    $sanitized = sanitize_title($title);
+
+    return str_replace('-', '_', $sanitized);
+  }
+
+  /**
    * Get option from settings array
    *
    * @param  mixed $section      Section of setting
@@ -937,6 +949,8 @@ class Settings
    * @return mixed $option_value Returns the value of the option
    */
   public function get_option($section, $option) {
+    $option = $this->sanitize_title_with_underscores($option);
+
     if (!empty($this->settings[$section][$option]['value'])) {
       $option_value = $this->settings[$section][$option]['value'];
     } else {

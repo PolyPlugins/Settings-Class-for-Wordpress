@@ -118,8 +118,8 @@ class Test_Plugin
       'page'             => 'options-general.php', // You can use non php pages such as woocommerce here to display a submenu under WooCommerce
       'position'         => 1, // Lower number moves the link position up in the submenu
       'capability'       => 'manage_options', // What permission is required to see and edit settings
-      'css'              => '/css/style.css', // Your custom colors and styles. Comment out to use only the default style.
-      'js'               => '/js/admin.js', // Your custom javascript. Comment out to only use the default js.
+      'css'              => '/assets/css/style.css', // Your custom colors and styles. Comment out to use only the default style.
+      'js'               => '/assets/js/admin.js', // Your custom javascript. Comment out to only use the default js.
       'template'         => 'recharge', // Change the theme the settings uses. Comment out to use the default or enter 'default'
       'support'          => 'https://www.polyplugins.com/support/', // Your support link. Comment out to have no support link.
       'action_links' => array( // Optional, add action links to the listing on admin plugins page
