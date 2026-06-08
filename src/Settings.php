@@ -1,6 +1,6 @@
 <?php
 
-namespace Poly_Plugins\V4_0_3;
+namespace Poly_Plugins\V4_0_4;
 
 if (!class_exists(__NAMESPACE__ . '\\Settings', false))
 {
@@ -348,7 +348,10 @@ if (!class_exists(__NAMESPACE__ . '\\Settings', false))
       if (empty($input)) return $old_settings;
 
       foreach($input as $section => $settings) {
+        $section = $this->sanitize_title_with_underscores($section);
+
         foreach($settings as $name => $option) {
+          $name = $this->sanitize_title_with_underscores($name);
           $type = key($option);
           $value = $this->sanitize($type, $option[$type]);
 
@@ -435,11 +438,11 @@ if (!class_exists(__NAMESPACE__ . '\\Settings', false))
      */
     public function callback_switch($field) {
       $settings    = $this->settings;
-      $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
+      $section     = isset($field['section']) ? $this->sanitize_title_with_underscores($field['section']) : '';
       $name        = isset($field['name']) ? $this->sanitize_title_with_underscores($field['name']) : '';
       $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : sanitize_text_field($field['name']);
       $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
-      $id          = $section . '-' . $name;
+      $id          = $section . '_' . $name;
       $class       = isset($field['class']) ? sanitize_title($field['class']) : '';
       $type        = isset($field['type']) ? sanitize_text_field($field['type']) : '';
       $default     = isset($field['default']) ? sanitize_text_field($field['default']) : '';
@@ -465,12 +468,12 @@ if (!class_exists(__NAMESPACE__ . '\\Settings', false))
      * @return void
      */
     public function callback_button($field) {
-      $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
+      $section     = isset($field['section']) ? $this->sanitize_title_with_underscores($field['section']) : '';
       $name        = isset($field['name']) ? $this->sanitize_title_with_underscores($field['name']) : '';
       $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : sanitize_text_field($field['name']);
       $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
-      $id          = $section . '-' . $name;
-      $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
+      $id          = $section . '_' . $name;
+      $section     = isset($field['section']) ? $this->sanitize_title_with_underscores($field['section']) : '';
       $class       = isset($field['class']) ? sanitize_title($field['class']) : '';
       ?>
       <div class="field-container">
@@ -481,7 +484,7 @@ if (!class_exists(__NAMESPACE__ . '\\Settings', false))
         <?php endif; ?>
 
         <?php foreach ($field['data'] as $button) : ?>
-          <a href="<?php echo $button['url'] ? esc_url($button['url']) : 'javascript:void(0);' ?>" class="btn btn-<?php echo $button['class'] ? esc_attr($button['class']) : 'primary'; ?> <?php echo esc_attr($class); ?>" <?php echo $section && $button['title'] ? 'id="' . esc_attr($section) . '-' . esc_attr(sanitize_title($button['title'])) . '"' : '' ?> target="<?php echo $button['target'] ? esc_attr($button['target']) : ''; ?>"><?php echo $button['title'] ? esc_attr($button['title']) : ''; ?></a>
+          <a href="<?php echo $button['url'] ? esc_url($button['url']) : 'javascript:void(0);' ?>" class="btn btn-<?php echo $button['class'] ? esc_attr($button['class']) : 'primary'; ?> <?php echo esc_attr($class); ?>" <?php echo $section && $button['title'] ? 'id="' . esc_attr($section) . '_' . esc_attr($this->sanitize_title_with_underscores($button['title'])) . '"' : '' ?> target="<?php echo $button['target'] ? esc_attr($button['target']) : ''; ?>"><?php echo $button['title'] ? esc_attr($button['title']) : ''; ?></a>
         <?php endforeach; ?>
       </div>
       <?php
@@ -495,12 +498,12 @@ if (!class_exists(__NAMESPACE__ . '\\Settings', false))
      */
     public function callback_text($field) {
       $settings    = $this->settings;
-      $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
+      $section     = isset($field['section']) ? $this->sanitize_title_with_underscores($field['section']) : '';
       $name        = isset($field['name']) ? $this->sanitize_title_with_underscores($field['name']) : '';
       $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : sanitize_text_field($field['name']);
       $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
       $placeholder = isset($field['placeholder']) && $field['placeholder'] ? sanitize_text_field($field['placeholder']) : $label;
-      $id          = $section . '-' . $name;
+      $id          = $section . '_' . $name;
       $class       = isset($field['class']) ? sanitize_title($field['class']) : '';
       $type        = isset($field['type']) ? sanitize_text_field($field['type']) : '';
       $default     = isset($field['default']) ? sanitize_text_field($field['default']) : '';
@@ -527,13 +530,13 @@ if (!class_exists(__NAMESPACE__ . '\\Settings', false))
      */
     public function callback_textarea($field) {
       $settings    = $this->settings;
-      $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
+      $section     = isset($field['section']) ? $this->sanitize_title_with_underscores($field['section']) : '';
       $name        = isset($field['name']) ? $this->sanitize_title_with_underscores($field['name']) : '';
       $rows        = (isset($field['rows']) && is_numeric($field['rows'])) ? sanitize_text_field($field['rows']) : '';
       $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : sanitize_text_field($field['name']);
       $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
       $placeholder = isset($field['placeholder']) && $field['placeholder'] ? sanitize_text_field($field['placeholder']) : $label;
-      $id          = $section . '-' . $name;
+      $id          = $section . '_' . $name;
       $class       = isset($field['class']) ? sanitize_title($field['class']) : '';
       $type        = isset($field['type']) ? sanitize_text_field($field['type']) : '';
       $default     = isset($field['default']) ? sanitize_text_field($field['default']) : '';
@@ -560,12 +563,12 @@ if (!class_exists(__NAMESPACE__ . '\\Settings', false))
      */
     public function callback_email($field) {
       $settings    = $this->settings;
-      $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
+      $section     = isset($field['section']) ? $this->sanitize_title_with_underscores($field['section']) : '';
       $name        = isset($field['name']) ? $this->sanitize_title_with_underscores($field['name']) : '';
       $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : sanitize_text_field($field['name']);
       $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
       $placeholder = isset($field['placeholder']) && $field['placeholder'] ? sanitize_text_field($field['placeholder']) : $label;
-      $id          = $section . '-' . $name;
+      $id          = $section . '_' . $name;
       $class       = isset($field['class']) ? sanitize_title($field['class']) : '';
       $type        = isset($field['type']) ? sanitize_text_field($field['type']) : '';
       $default     = isset($field['default']) ? sanitize_text_field($field['default']) : '';
@@ -592,12 +595,12 @@ if (!class_exists(__NAMESPACE__ . '\\Settings', false))
      */
     public function callback_url($field) {
       $settings    = $this->settings;
-      $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
+      $section     = isset($field['section']) ? $this->sanitize_title_with_underscores($field['section']) : '';
       $name        = isset($field['name']) ? $this->sanitize_title_with_underscores($field['name']) : '';
       $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : sanitize_text_field($field['name']);
       $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
       $placeholder = isset($field['placeholder']) && $field['placeholder'] ? sanitize_text_field($field['placeholder']) : $label;
-      $id          = $section . '-' . $name;
+      $id          = $section . '_' . $name;
       $class       = isset($field['class']) ? sanitize_title($field['class']) : '';
       $type        = isset($field['type']) ? sanitize_text_field($field['type']) : '';
       $default     = isset($field['default']) ? sanitize_text_field($field['default']) : '';
@@ -624,12 +627,12 @@ if (!class_exists(__NAMESPACE__ . '\\Settings', false))
      */
     public function callback_password($field) {
       $settings    = $this->settings;
-      $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
+      $section     = isset($field['section']) ? $this->sanitize_title_with_underscores($field['section']) : '';
       $name        = isset($field['name']) ? $this->sanitize_title_with_underscores($field['name']) : '';
       $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : sanitize_text_field($field['name']);
       $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
       $placeholder = isset($field['placeholder']) && $field['placeholder'] ? sanitize_text_field($field['placeholder']) : $label;
-      $id          = $section . '-' . $name;
+      $id          = $section . '_' . $name;
       $class       = $field['class'] ? sanitize_title($field['class']) : '';
       $type        = isset($field['type']) ? sanitize_text_field($field['type']) : '';
       $default     = isset($field['default']) ? sanitize_text_field($field['default']) : '';
@@ -656,7 +659,7 @@ if (!class_exists(__NAMESPACE__ . '\\Settings', false))
      */
     public function callback_number($field) {
       $settings    = $this->settings;
-      $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
+      $section     = isset($field['section']) ? $this->sanitize_title_with_underscores($field['section']) : '';
       $name        = isset($field['name']) ? $this->sanitize_title_with_underscores($field['name']) : '';
       $min         = isset($field['min']) && is_numeric($field['min']) ? sanitize_text_field($field['min']) : '';
       $max         = isset($field['max']) && is_numeric($field['max']) ? sanitize_text_field($field['max']) : '';
@@ -664,7 +667,7 @@ if (!class_exists(__NAMESPACE__ . '\\Settings', false))
       $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : sanitize_text_field($field['name']);
       $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
       $placeholder = isset($field['placeholder']) && $field['placeholder'] ? sanitize_text_field($field['placeholder']) : $label;
-      $id          = $section . '-' . $name;
+      $id          = $section . '_' . $name;
       $class       = isset($field['class']) ? sanitize_title($field['class']) : '';
       $type        = isset($field['type']) ? sanitize_text_field($field['type']) : '';
       $default     = isset($field['default']) ? sanitize_text_field($field['default']) : '';
@@ -691,11 +694,11 @@ if (!class_exists(__NAMESPACE__ . '\\Settings', false))
      */
     public function callback_dropdown($field) {
       $settings    = $this->settings;
-      $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
+      $section     = isset($field['section']) ? $this->sanitize_title_with_underscores($field['section']) : '';
       $name        = isset($field['name']) ? $this->sanitize_title_with_underscores($field['name']) : '';
       $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : sanitize_text_field($field['name']);
       $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
-      $id          = $section . '-' . $name;
+      $id          = $section . '_' . $name;
       $class       = isset($field['class']) ? sanitize_title($field['class']) : '';
       $type        = isset($field['type']) ? sanitize_text_field($field['type']) : '';
       $options     = isset($field['options']) ? $this->sanitize_array($field['options']) : array();
@@ -729,11 +732,11 @@ if (!class_exists(__NAMESPACE__ . '\\Settings', false))
      */
     public function callback_dropdown_toggle($field) {
       $settings    = $this->settings;
-      $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
+      $section     = isset($field['section']) ? $this->sanitize_title_with_underscores($field['section']) : '';
       $name        = isset($field['name']) ? $this->sanitize_title_with_underscores($field['name']) : '';
       $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : sanitize_text_field($field['name']);
       $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
-      $id          = $section . '-' . $name;
+      $id          = $section . '_' . $name;
       $class       = isset($field['class']) ? sanitize_title($field['class']) : '';
       $type        = isset($field['type']) ? sanitize_text_field($field['type']) : '';
       $options     = isset($field['options']) ? $this->sanitize_array($field['options']) : array();
@@ -757,7 +760,7 @@ if (!class_exists(__NAMESPACE__ . '\\Settings', false))
           </select>
         </div>
         <?php foreach ($options as $option => $option_field) : ?>
-          <?php $option_class = isset($option_field['section']) ? sanitize_text_field($option_field['section']) : ''; ?>
+          <?php $option_class = isset($option_field['section']) ? $this->sanitize_title_with_underscores($option_field['section']) : ''; ?>
           <?php $option_type = isset($option_field['type']) ? sanitize_text_field($option_field['type']) : ''; ?>
           <div class="field-container togglable <?php echo esc_attr(strtolower($option)); ?> <?php echo esc_attr($option_class); ?> ">
             <?php call_user_func( array( $this, 'callback_' . $option_type ), $option_field ); ?>
@@ -775,12 +778,12 @@ if (!class_exists(__NAMESPACE__ . '\\Settings', false))
      */
     public function callback_date($field) {
       $settings    = $this->settings;
-      $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
+      $section     = isset($field['section']) ? $this->sanitize_title_with_underscores($field['section']) : '';
       $name        = isset($field['name']) ? $this->sanitize_title_with_underscores($field['name']) : '';
       $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : sanitize_text_field($field['name']);
       $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
       $placeholder = isset($field['placeholder']) && $field['placeholder'] ? sanitize_text_field($field['placeholder']) : $label;
-      $id          = $section . '-' . $name;
+      $id          = $section . '_' . $name;
       $class       = isset($field['class']) ? sanitize_title($field['class']) : '';
       $type        = isset($field['type']) ? sanitize_text_field($field['type']) : '';
       $default     = isset($field['default']) ? sanitize_text_field($field['default']) : '';
@@ -807,12 +810,12 @@ if (!class_exists(__NAMESPACE__ . '\\Settings', false))
      */
     public function callback_time($field) {
       $settings    = $this->settings;
-      $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
+      $section     = isset($field['section']) ? $this->sanitize_title_with_underscores($field['section']) : '';
       $name        = isset($field['name']) ? $this->sanitize_title_with_underscores($field['name']) : '';
       $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : sanitize_text_field($field['name']);
       $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
       $placeholder = isset($field['placeholder']) && $field['placeholder'] ? sanitize_text_field($field['placeholder']) : $label;
-      $id          = $section . '-' . $name;
+      $id          = $section . '_' . $name;
       $class       = isset($field['class']) ? sanitize_title($field['class']) : '';
       $type        = isset($field['type']) ? sanitize_text_field($field['type']) : '';
       $default     = isset($field['default']) ? sanitize_text_field($field['default']) : '';
@@ -839,11 +842,11 @@ if (!class_exists(__NAMESPACE__ . '\\Settings', false))
      */
     public function callback_color($field) {
       $settings    = $this->settings;
-      $section     = isset($field['section']) ? sanitize_text_field($field['section']) : '';
+      $section     = isset($field['section']) ? $this->sanitize_title_with_underscores($field['section']) : '';
       $name        = isset($field['name']) ? $this->sanitize_title_with_underscores($field['name']) : '';
       $label       = isset($field['label']) && $field['label'] ? sanitize_text_field($field['label']) : sanitize_text_field($field['name']);
       $description = isset($field['description']) && $field['description'] ? sanitize_text_field($field['description']) : '';
-      $id          = $section . '-' . $name;
+      $id          = $section . '_' . $name;
       $class       = isset($field['class']) ? sanitize_title($field['class']) : '';
       $type        = isset($field['type']) ? sanitize_text_field($field['type']) : '';
       $default     = isset($field['default']) ? sanitize_text_field($field['default']) : '';
@@ -951,6 +954,7 @@ if (!class_exists(__NAMESPACE__ . '\\Settings', false))
      * @return mixed $option_value Returns the value of the option
      */
     public function get_option($section, $option) {
+      $section = $this->sanitize_title_with_underscores($section);
       $option = $this->sanitize_title_with_underscores($option);
 
       if (!empty($this->settings[$section][$option]['value'])) {

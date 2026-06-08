@@ -27,13 +27,14 @@ if (!defined('ABSPATH')) exit;
         <nav class="nav flex-column">
           <?php foreach ($sections as $section) : ?>
             <?php 
+              $section_key = $this->sanitize_title_with_underscores($section);
               $icon      = isset($get_fields[$section]['icon']) ? $get_fields[$section]['icon'] : '';
-              $label     = isset($get_fields[$section]['label']) ? $get_fields[$section]['label'] : ucfirst(str_replace('-', ' ', $section));
+              $label     = isset($get_fields[$section]['label']) ? $get_fields[$section]['label'] : ucfirst(str_replace(array('-', '_'), ' ', $section));
               $has_icons = false;
             ?>
             <a class="nav-link<?php echo ($sections[0] == $section) ? ' active' : ''; ?>" 
-              href="#<?php echo esc_attr($section); ?>" 
-              selected-section="<?php echo esc_attr($section); ?>">
+              href="#<?php echo esc_attr($section_key); ?>" 
+              selected-section="<?php echo esc_attr($section_key); ?>">
               <?php if ($icon) : ?>
                 <?php $has_icons = true; ?>
                 <i class="bi bi-<?php echo esc_attr($icon); ?>"></i>
@@ -44,12 +45,13 @@ if (!defined('ABSPATH')) exit;
             <?php if (!empty($get_fields[$section]['subsections'])) : ?>
               <?php foreach ($get_fields[$section]['subsections'] as $sub_id => $subsection) : ?>
                 <?php 
+                  $subsection_key = $this->sanitize_title_with_underscores($section . '-' . $sub_id);
                   $sub_icon  = isset($subsection['icon']) ? $subsection['icon'] : '';
-                  $sub_label = isset($subsection['label']) ? $subsection['label'] : ucfirst(str_replace('-', ' ', $sub_id));
+                  $sub_label = isset($subsection['label']) ? $subsection['label'] : ucfirst(str_replace(array('-', '_'), ' ', $sub_id));
                 ?>
                 <a class="nav-link subsection-link ms-3" 
-                  href="#<?php echo esc_attr($section . '-' . $sub_id); ?>" 
-                  selected-section="<?php echo esc_attr($section . '-' . $sub_id); ?>">
+                  href="#<?php echo esc_attr($subsection_key); ?>" 
+                  selected-section="<?php echo esc_attr($subsection_key); ?>">
                   <?php if ($sub_icon) : ?>
                     <i class="bi bi-<?php echo esc_attr($sub_icon); ?>"></i>
                   <?php endif; ?>
@@ -74,10 +76,13 @@ if (!defined('ABSPATH')) exit;
     <!-- Fields -->
     <div class="<?php echo isset($this->config['sidebar']) ? 'col-lg-6 col-md-10' : 'col-lg-9 col-md-12'; ?>">
       <?php foreach($get_fields as $section => $section_data) : ?>
-        <?php $fields = isset($section_data['fields']) ? $section_data['fields'] : array(); ?>
+        <?php
+          $section_key = $this->sanitize_title_with_underscores($section);
+          $fields = isset($section_data['fields']) ? $section_data['fields'] : array();
+        ?>
 
         <!-- Parent Section -->
-        <div class="options"<?php echo ($sections[0] != $section) ? ' style="display: none;"' : ''; ?> section="<?php echo esc_attr($section) ?>">
+        <div class="options"<?php echo ($sections[0] != $section) ? ' style="display: none;"' : ''; ?> section="<?php echo esc_attr($section_key) ?>">
           <!-- Notes -->
           <?php if (isset($section_data['note']['message']) && $section_data['note']['message']) : ?>
             <div class="note<?php echo isset($section_data['note']['class']) && $section_data['note']['class'] ? " " . esc_html($section_data['note']['class']) :  " warning"; ?>">
@@ -88,11 +93,11 @@ if (!defined('ABSPATH')) exit;
             <div class="fields">
               <?php if (isset($section_data['callback']) && is_callable($section_data['callback'])) : ?>
                 <div class="field-container">
-                  <?php call_user_func($section_data['callback'], $section, $section_data, $this->settings); ?>
+                  <?php call_user_func($section_data['callback'], $section_key, $section_data, $this->settings); ?>
                 </div>
               <?php else :?>
                 <?php foreach($fields as $field) : ?>
-                  <?php $field['section'] = $section; ?>
+                  <?php $field['section'] = $section_key; ?>
                   <?php $this->add_field($field); ?>
                 <?php endforeach; ?>
               <?php endif; ?>
@@ -103,8 +108,11 @@ if (!defined('ABSPATH')) exit;
         <!-- Subsections as independent tabs -->
         <?php if (!empty($section_data['subsections'])) : ?>
           <?php foreach($section_data['subsections'] as $sub_id => $subsection) : ?>
-            <?php $sub_fields = isset($subsection['fields']) ? $subsection['fields'] : array(); ?>
-            <div class="options" style="display:none;" section="<?php echo esc_attr($section . '-' . $sub_id); ?>">
+            <?php
+              $subsection_key = $this->sanitize_title_with_underscores($section . '-' . $sub_id);
+              $sub_fields = isset($subsection['fields']) ? $subsection['fields'] : array();
+            ?>
+            <div class="options" style="display:none;" section="<?php echo esc_attr($subsection_key); ?>">
               <!-- Notes -->
               <?php if (isset($section_data['note']['message']) && $section_data['note']['message']) : ?>
                 <div class="note<?php echo isset($section_data['note']['class']) && $section_data['note']['class'] ? " " . esc_html($section_data['note']['class']) :  " warning"; ?>">
@@ -115,15 +123,15 @@ if (!defined('ABSPATH')) exit;
                 <div class="fields">
                   <?php if (isset($subsection['callback']) && is_callable($subsection['callback'])) : ?>
                     <div class="field-container">
-                      <?php call_user_func($subsection['callback'], $section . '-' . $sub_id, $subsection, $this->settings); ?>
+                      <?php call_user_func($subsection['callback'], $subsection_key, $subsection, $this->settings); ?>
                     </div>
                   <?php elseif (isset($section_data['callback']) && is_callable($section_data['callback'])) : ?>
                     <div class="field-container">
-                      <?php call_user_func($section_data['callback'], $section, $section_data, $this->settings); ?>
+                      <?php call_user_func($section_data['callback'], $section_key, $section_data, $this->settings); ?>
                     </div>
                   <?php else :?>
                     <?php foreach($sub_fields as $field) : ?>
-                      <?php $field['section'] = $section . '-' . $sub_id; ?>
+                      <?php $field['section'] = $subsection_key; ?>
                       <?php $this->add_field($field); ?>
                     <?php endforeach; ?>
                   <?php endif; ?>

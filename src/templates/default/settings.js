@@ -49,37 +49,35 @@ jQuery(document).ready(function ($) {
     if ($hash) {
       let $selected_section = $hash;
 
-      $(".nav-link").removeClass("active previous");
-      $(".nav-link[selected-section=" + $selected_section + "]")
+      $(".nav-link[selected-section]").removeClass("active previous");
+      $(".nav-link[selected-section='" + $selected_section + "']")
         .addClass("active")
-        .prevAll().addClass("previous");
+        .prevAll(".nav-link[selected-section]").addClass("previous");
 
       $(".row.top-bar").text(slug_to_title($selected_section));
+      toggleSections($selected_section);
+    } else {
+      let $selected_section = $(".nav-link[selected-section].active").attr("selected-section");
 
-      $(".options").each(function() {
-        let $section = $(this).attr("section");
-        $(this).toggle($section === $selected_section);
-      });
+      if ($selected_section) {
+        toggleSections($selected_section);
+      }
     }
   }
 
   // Process switching tabs
   function switchTabHandling() {
-    $(".nav-link").on("click", function(e) {
-      let $selected_section = $(this).attr('selected-section');
+    $(".nav-link[selected-section]").on("click", function(e) {
+      let $selected_section = $(this).attr("selected-section");
 
       // Reset active/previous classes
-      $(".nav-link").removeClass("active previous");
+      $(".nav-link[selected-section]").removeClass("active previous");
       $(this).addClass("active");
-      $(this).prevAll().addClass("previous");
+      $(this).prevAll(".nav-link[selected-section]").addClass("previous");
 
       // Update Title Bar
       $(".row.top-bar").text(slug_to_title($selected_section));
-
-      $(".options").each(function() {
-        let $section = $(this).attr("section");
-        $(this).toggle($section === $selected_section);
-      });
+      toggleSections($selected_section);
 
       // Close helpers
       toggled = false;
@@ -88,6 +86,27 @@ jQuery(document).ready(function ($) {
       $(".helper-sidebar").hide();
 
       inputGroupEqualWidth($selected_section);
+    });
+  }
+
+  function toggleSections($selected_section) {
+    $(".options").each(function() {
+      let $section = $(this).attr("section");
+      let is_visible = $section === $selected_section;
+
+      $(this).toggle(is_visible);
+
+      // Hidden required fields block form submission, so disable required on hidden tabs.
+      $(this).find(":input").each(function() {
+        if (is_visible) {
+          if ($(this).data("settings-required")) {
+            $(this).prop("required", true);
+          }
+        } else if ($(this).prop("required")) {
+          $(this).data("settings-required", true);
+          $(this).prop("required", false);
+        }
+      });
     });
   }
   
@@ -249,7 +268,11 @@ jQuery(document).ready(function ($) {
   }
 
   function slug_to_title(str) {
-    var split_str = str.split('-');
+    if (!str) {
+      return "";
+    }
+
+    var split_str = str.split(/[-_]/);
     
     for (var i = 0; i < split_str.length; i++) {
       split_str[i] = split_str[i].toUpperCase();     
