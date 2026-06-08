@@ -1,11 +1,11 @@
 <?php
 
-namespace PolyPlugins\Settings\V_4_0_0;
+namespace PolyPlugins\V_4_0_0;
 
-if (!class_exists(__NAMESPACE__ . '\\Init', false))
+if (!class_exists(__NAMESPACE__ . '\\Settings', false))
 {
 
-  class Init
+  class Settings
   {
 
     /**
