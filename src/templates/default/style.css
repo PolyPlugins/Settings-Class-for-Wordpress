@@ -245,6 +245,22 @@ input[type=checkbox]:checked::before {
   padding: 12px 0;
 }
 
+.settings-container .config-heading {
+  color: var(--settings-secondary, #333);
+  font-size: 14pt;
+  font-weight: 500;
+  margin: 0;
+  padding: 0 10px 12px;
+  text-align: center;
+  text-transform: uppercase;
+  border-bottom: none;
+  display: block!important;
+}
+
+.settings-container .config-heading-above-nav {
+  padding: 0 0 15px;
+}
+
 .tabs a.nav-link.active {
   color: var(--settings-primary, #46BEA4);
   background-color: var(--settings-bg, #fff);

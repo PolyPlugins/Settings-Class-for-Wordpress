@@ -4,6 +4,9 @@
  */
 
 if (!defined('ABSPATH')) exit;
+
+$config_heading          = isset($this->config['heading']) ? sanitize_text_field($this->config['heading']) : '';
+$config_heading_position = isset($this->config['heading_position']) ? sanitize_key($this->config['heading_position']) : '';
 ?>
 
 <div class="bootstrap-wrapper">
@@ -21,9 +24,15 @@ if (!defined('ABSPATH')) exit;
     <div class="col-lg-2 col-md-12 tabs">
       <nav class="nav flex-column">
         <img src="<?php echo isset($this->config['logo']) ? esc_url(plugins_url($this->config['logo'], $this->plugin)) : esc_url(plugins_url('/assets/img/logo.png', $this->admin_panel)); ?>" class="nav-logo" />
+        <?php if ($config_heading && $config_heading_position === 'below_logo') : ?>
+          <h2 class="config-heading config-heading-below-logo"><?php echo esc_html($config_heading); ?></h2>
+        <?php endif; ?>
       </nav>
 
       <nav class="nav flex-column">
+        <?php if ($config_heading && $config_heading_position === 'above_nav') : ?>
+          <h2 class="config-heading config-heading-above-nav"><?php echo esc_html($config_heading); ?></h2>
+        <?php endif; ?>
         <?php foreach ($sections as $section) : ?>
           <?php 
             $section_key = $this->sanitize_title_with_underscores($section);

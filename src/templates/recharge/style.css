@@ -257,6 +257,25 @@ input[type=checkbox]:checked::before {
   padding-bottom: 30px;
 }
 
+.settings-container .config-heading {
+  color: var(--settings-secondary, #333);
+  font-size: 14pt;
+  font-weight: 500;
+  margin: 0;
+  text-align: center;
+  text-transform: uppercase;
+  border-bottom: none;
+  display: block!important;
+}
+
+.settings-container .config-heading-below-logo {
+  padding-top: 15px;
+}
+
+.settings-container .config-heading-above-nav {
+  padding: 0 0 15px;
+}
+
 .nav-logo {
   height: 100%;
   width: 300px;
